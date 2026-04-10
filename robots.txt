@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Replace open-storey.example with the live production domain before deployment.
+Sitemap: https://open-storey.example/sitemap.xml

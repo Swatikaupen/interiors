@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Portfolio — Open Storey</title>
+<meta name="description" content="Invitation-only access to Open Storey projects shared under client confidentiality and NDA.">
+<meta name="theme-color" content="#FAF8F4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Karla:wght@300;400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="page-confidential" data-home-href="../index.html">
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="mainNav">
+  <a href="../index.html" class="nav-logo">
+    Open Storey
+    <span class="nav-sub">Swatika Upendran</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#portfolio">Portfolio</a></li>
+    <li><a href="../curated-finds/">Curated Finds</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+    <li class="nav-private"><a href="./" aria-current="page">Private &#128274;</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="conf-lock" id="confLock">
+    <div class="conf-inner">
+      <div class="lock-icon">&#128274;</div>
+      <p class="conf-eyebrow">Private Portfolio</p>
+      <h1 class="conf-title">Confidential<br><em>Projects</em></h1>
+      <p class="conf-desc">This section contains projects under NDA or at client request for privacy. Access is by invitation. Enter your password below.</p>
+      <form data-confidential-form>
+        <div class="conf-pw-wrap">
+          <label class="conf-pw-label" for="pwInput">Access Password</label>
+          <input class="conf-pw-input" type="password" id="pwInput" placeholder="· · · · · · · ·" autocomplete="current-password">
+        </div>
+        <p class="conf-err" id="pwErr" aria-live="polite">&nbsp;</p>
+        <button class="conf-btn" type="submit">Unlock Portfolio</button>
+      </form>
+      <p class="conf-req">Don't have access? <a href="../index.html#contact">Request it here</a></p>
+    </div>
+  </div>
+
+  <div class="conf-projects" id="confContent">
+    <div class="conf-header">
+      <div>
+        <div class="conf-badge">&#128274; Private &amp; Confidential</div>
+        <h2 style="margin-top:1.5rem;">Confidential <em>Work</em></h2>
+        <p style="font-size:.82rem;color:var(--stone);margin-top:1rem;">Shared in confidence. Please do not screenshot or distribute.</p>
+      </div>
+      <a class="conf-logout" href="../index.html" data-conf-lock>Lock &amp; Exit</a>
+    </div>
+
+    <div class="conf-pg">
+      <div class="conf-card reveal">
+        <img class="conf-card-img" src="../assets/images/conf-atherton-private-residence.jpg" alt="Private residence" loading="lazy" decoding="async">
+        <div class="conf-card-body">
+          <div class="conf-card-tag">Residential · NDA · 2024</div>
+          <div class="conf-card-title">Atherton Private Residence</div>
+          <div class="conf-card-loc">Atherton, San Francisco Bay Area</div>
+          <p class="conf-card-desc">Full interior design for a 6,000 sq ft private family home — South Asian cultural identity balanced with California modernism through teak, stone, and hand-sourced Indian textiles.</p>
+          <div class="conf-card-scope"><span class="scope-tag">Full Interior</span><span class="scope-tag">Material Sourcing</span><span class="scope-tag">Custom Furniture</span><span class="scope-tag">Lighting</span></div>
+        </div>
+      </div>
+
+      <div class="conf-card reveal rd1">
+        <img class="conf-card-img" src="../assets/images/conf-tech-campus-executive-floors.jpg" alt="Tech campus" loading="lazy" decoding="async">
+        <div class="conf-card-body">
+          <div class="conf-card-tag">Commercial · NDA · 2023</div>
+          <div class="conf-card-title">Tech Campus Executive Floors</div>
+          <div class="conf-card-loc">South Bay, California</div>
+          <p class="conf-card-desc">Executive and hospitality floors for a Fortune 500 tech campus — warm natural stone and curated craft objects within the company's design language.</p>
+          <div class="conf-card-scope"><span class="scope-tag">Space Planning</span><span class="scope-tag">Material Design</span><span class="scope-tag">Art Curation</span><span class="scope-tag">FF&amp;E</span></div>
+        </div>
+      </div>
+
+      <div class="conf-card reveal rd2">
+        <img class="conf-card-img" src="../assets/images/conf-fashion-flagship.jpg" alt="Fashion flagship" loading="lazy" decoding="async">
+        <div class="conf-card-body">
+          <div class="conf-card-tag">Luxury Retail · NDA · 2022</div>
+          <div class="conf-card-title">Fashion Flagship — Undisclosed Brand</div>
+          <div class="conf-card-loc">New Delhi, India</div>
+          <p class="conf-card-desc">A luxury fashion flagship built around the narrative of a private residence — intimate, material-rich, and deeply considered in its spatial sequence from street to fitting room.</p>
+          <div class="conf-card-scope"><span class="scope-tag">Retail Strategy</span><span class="scope-tag">Spatial Narrative</span><span class="scope-tag">Joinery</span><span class="scope-tag">Lighting</span></div>
+        </div>
+      </div>
+
+      <div class="conf-card reveal rd3">
+        <img class="conf-card-img" src="../assets/images/conf-heritage-hotel.jpg" alt="Heritage hotel" loading="lazy" decoding="async">
+        <div class="conf-card-body">
+          <div class="conf-card-tag">Hospitality · NDA · 2021</div>
+          <div class="conf-card-title">Boutique Hotel — Heritage Property</div>
+          <div class="conf-card-loc">Rajasthan, India</div>
+          <p class="conf-card-desc">Sensitive renovation of a historic haveli into a boutique hotel — preserving carved stone screens, colonnaded courtyards, and traditional frescoes while meeting contemporary hospitality standards.</p>
+          <div class="conf-card-scope"><span class="scope-tag">Heritage Restoration</span><span class="scope-tag">Hospitality Design</span><span class="scope-tag">Craft Integration</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="confFooter" style="display:none;">
+  <span class="footer-logo">Open Storey</span>
+  <span class="footer-copy">© 2025 Open Storey · Swatika Upendran. All rights reserved.</span>
+  <div class="footer-social">
+    <a href="../index.html" data-conf-lock>Lock &amp; Exit</a>
+  </div>
+</footer>
+
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

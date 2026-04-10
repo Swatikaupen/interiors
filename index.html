@@ -3,1000 +3,301 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interior Design Studio — San Francisco Bay Area</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --ivory: #F5F0EB;
-    --warm-white: #FAF8F5;
-    --charcoal: #2A2522;
-    --clay: #B8A08A;
-    --terracotta: #C4856A;
-    --deep-earth: #6B5B4F;
-    --gold-mist: #D4C5A9;
-    --sage: #A3AA98;
-    --ink: #1A1715;
-    --silk: rgba(184,160,138,0.12);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-    background: var(--warm-white);
-    color: var(--charcoal);
-    overflow-x: hidden;
-  }
-
-  body {
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    letter-spacing: 0.02em;
-  }
-
-  /* ─── Grain Overlay ─── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    pointer-events: none;
-    opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 200px;
-  }
-
-  /* ─── Navigation ─── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.8rem 4vw;
-    transition: background 0.5s, backdrop-filter 0.5s;
-  }
-  nav.scrolled {
-    background: rgba(245,240,235,0.85);
-    backdrop-filter: blur(20px);
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    font-weight: 300;
-    letter-spacing: 0.15em;
-    color: var(--charcoal);
-    text-decoration: none;
-  }
-  .nav-logo span {
-    font-weight: 500;
-  }
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-  .nav-links a {
-    font-size: 0.75rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--deep-earth);
-    text-decoration: none;
-    position: relative;
-    padding-bottom: 2px;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 0; height: 1px;
-    background: var(--terracotta);
-    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .nav-links a:hover::after { width: 100%; }
-
-  /* ─── Sections ─── */
-  section { position: relative; }
-
-  /* ─── Hero ─── */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    overflow: hidden;
-  }
-  .hero-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem 6vw 4rem;
-    position: relative;
-  }
-  .hero-text::before {
-    content: '';
-    position: absolute;
-    top: 15%; right: -2rem;
-    width: 1px; height: 70%;
-    background: linear-gradient(to bottom, transparent, var(--clay), transparent);
-  }
-  .hero-eyebrow {
-    font-size: 0.7rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--terracotta);
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeUp 1s 0.3s forwards;
-  }
-  .hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.8rem, 5.5vw, 5rem);
-    font-weight: 300;
-    line-height: 1.1;
-    color: var(--charcoal);
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeUp 1s 0.5s forwards;
-  }
-  .hero h1 em {
-    font-style: italic;
-    color: var(--terracotta);
-    font-weight: 300;
-  }
-  .hero-desc {
-    max-width: 420px;
-    font-size: 0.95rem;
-    color: var(--deep-earth);
-    opacity: 0;
-    animation: fadeUp 1s 0.7s forwards;
-  }
-  .hero-cta {
-    margin-top: 3rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--charcoal);
-    text-decoration: none;
-    opacity: 0;
-    animation: fadeUp 1s 0.9s forwards;
-    transition: gap 0.3s;
-  }
-  .hero-cta:hover { gap: 1.5rem; }
-  .hero-cta .line {
-    width: 48px; height: 1px;
-    background: var(--terracotta);
-    transition: width 0.3s;
-  }
-  .hero-cta:hover .line { width: 64px; }
-
-  .hero-visual {
-    position: relative;
-    overflow: hidden;
-    background: var(--ivory);
-  }
-  .hero-img-wrapper {
-    position: absolute;
-    inset: 2rem;
-    overflow: hidden;
-    opacity: 0;
-    animation: fadeScale 1.4s 0.2s forwards;
-  }
-  .hero-img-wrapper img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: brightness(0.95) contrast(1.02) saturate(0.9);
-    transition: transform 6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .hero-img-wrapper:hover img {
-    transform: scale(1.04);
-  }
-  .hero-stamp {
-    position: absolute;
-    bottom: 3.5rem; left: 3.5rem;
-    width: 90px; height: 90px;
-    border: 1px solid var(--clay);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--deep-earth);
-    background: rgba(245,240,235,0.9);
-    backdrop-filter: blur(8px);
-    z-index: 2;
-    animation: fadeUp 1s 1.1s forwards;
-    opacity: 0;
-  }
-
-  /* ─── Marquee ─── */
-  .marquee-section {
-    padding: 2.5rem 0;
-    border-top: 1px solid var(--silk);
-    border-bottom: 1px solid var(--silk);
-    overflow: hidden;
-  }
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    animation: marquee 30s linear infinite;
-  }
-  .marquee-item {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    font-weight: 300;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--clay);
-    white-space: nowrap;
-    padding: 0 2.5rem;
-  }
-  .marquee-item::after {
-    content: '✦';
-    margin-left: 2.5rem;
-    font-size: 0.5rem;
-    vertical-align: middle;
-    color: var(--terracotta);
-  }
-
-  /* ─── Philosophy ─── */
-  .philosophy {
-    padding: 10rem 4vw;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-  }
-  .phil-left {
-    position: relative;
-  }
-  .phil-left .deco-line {
-    width: 60px; height: 1px;
-    background: var(--terracotta);
-    margin-bottom: 2rem;
-  }
-  .phil-left h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
-    font-weight: 300;
-    line-height: 1.2;
-    margin-bottom: 2rem;
-  }
-  .phil-left h2 em {
-    font-style: italic;
-    color: var(--terracotta);
-  }
-  .phil-left p {
-    font-size: 0.92rem;
-    color: var(--deep-earth);
-    max-width: 480px;
-    margin-bottom: 1.2rem;
-  }
-  .phil-right {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-  .phil-card {
-    background: var(--ivory);
-    padding: 2.5rem 2rem;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.4s;
-  }
-  .phil-card:hover { transform: translateY(-4px); }
-  .phil-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 2px;
-    background: linear-gradient(90deg, var(--terracotta), var(--gold-mist));
-  }
-  .phil-card .num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: var(--gold-mist);
-    line-height: 1;
-    margin-bottom: 1rem;
-  }
-  .phil-card h3 {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--charcoal);
-    font-weight: 400;
-    margin-bottom: 0.8rem;
-  }
-  .phil-card p {
-    font-size: 0.85rem;
-    color: var(--deep-earth);
-    line-height: 1.6;
-  }
-
-  /* ─── Heritage ─── */
-  .heritage {
-    padding: 8rem 0;
-    background: var(--charcoal);
-    color: var(--ivory);
-    position: relative;
-    overflow: hidden;
-  }
-  .heritage::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 50%; transform: translateX(-50%);
-    width: 60vw; height: 100%;
-    background: radial-gradient(ellipse at center, rgba(196,133,106,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .heritage-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 4vw;
-    text-align: center;
-  }
-  .heritage-eyebrow {
-    font-size: 0.7rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--terracotta);
-    margin-bottom: 2rem;
-  }
-  .heritage h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 300;
-    line-height: 1.25;
-    margin-bottom: 3rem;
-  }
-  .heritage h2 em {
-    font-style: italic;
-    color: var(--terracotta);
-  }
-  .heritage-body {
-    display: grid;
-    grid-template-columns: 1fr 1px 1fr;
-    gap: 3rem;
-    text-align: left;
-    margin-top: 4rem;
-  }
-  .heritage-col p {
-    font-size: 0.92rem;
-    line-height: 1.8;
-    color: var(--gold-mist);
-    margin-bottom: 1.2rem;
-  }
-  .heritage-divider {
-    background: linear-gradient(to bottom, transparent, var(--deep-earth), transparent);
-  }
-  .heritage-motifs {
-    display: flex;
-    justify-content: center;
-    gap: 4rem;
-    margin-top: 4rem;
-    padding-top: 4rem;
-    border-top: 1px solid rgba(107,91,79,0.3);
-  }
-  .motif {
-    text-align: center;
-  }
-  .motif-symbol {
-    font-size: 2rem;
-    margin-bottom: 0.8rem;
-    display: block;
-    filter: grayscale(0.2);
-  }
-  .motif span {
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--clay);
-  }
-
-  /* ─── Portfolio ─── */
-  .portfolio {
-    padding: 10rem 4vw;
-  }
-  .portfolio-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 5rem;
-  }
-  .portfolio-header h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
-    font-weight: 300;
-  }
-  .portfolio-header h2 em { font-style: italic; color: var(--terracotta); }
-  .portfolio-header a {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--deep-earth);
-    text-decoration: none;
-    border-bottom: 1px solid var(--clay);
-    padding-bottom: 2px;
-  }
-  .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-  .project {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    aspect-ratio: 3/4;
-    background: var(--ivory);
-  }
-  .project:first-child {
-    grid-column: span 2;
-    aspect-ratio: 3/2;
-  }
-  .project-img {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-  }
-  .project-img img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: brightness(0.9) saturate(0.85);
-    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s;
-  }
-  .project:hover .project-img img {
-    transform: scale(1.06);
-    filter: brightness(0.75) saturate(0.85);
-  }
-  .project-info {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 2.5rem;
-    background: linear-gradient(to top, rgba(26,23,21,0.7) 0%, transparent 100%);
-    transform: translateY(20px);
-    opacity: 0;
-    transition: transform 0.5s, opacity 0.5s;
-  }
-  .project:hover .project-info {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  .project-info h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: var(--ivory);
-    margin-bottom: 0.3rem;
-  }
-  .project-info span {
-    font-size: 0.68rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold-mist);
-  }
-
-  /* ─── Services ─── */
-  .services {
-    padding: 8rem 4vw;
-    background: var(--ivory);
-  }
-  .services-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .services-header {
-    text-align: center;
-    margin-bottom: 5rem;
-  }
-  .services-header h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 300;
-  }
-  .services-header h2 em { font-style: italic; color: var(--terracotta); }
-  .service-list {
-    display: flex;
-    flex-direction: column;
-  }
-  .service-item {
-    display: grid;
-    grid-template-columns: 60px 1fr 1fr;
-    gap: 2rem;
-    padding: 2.5rem 0;
-    border-top: 1px solid rgba(184,160,138,0.25);
-    align-items: start;
-    transition: background 0.3s;
-  }
-  .service-item:last-child { border-bottom: 1px solid rgba(184,160,138,0.25); }
-  .service-item:hover { background: rgba(184,160,138,0.05); }
-  .service-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    color: var(--clay);
-  }
-  .service-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    font-weight: 400;
-    color: var(--charcoal);
-  }
-  .service-desc {
-    font-size: 0.88rem;
-    color: var(--deep-earth);
-    max-width: 360px;
-  }
-
-  /* ─── Testimonial ─── */
-  .testimonial {
-    padding: 8rem 4vw;
-    text-align: center;
-    position: relative;
-  }
-  .testimonial-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
-    font-weight: 300;
-    font-style: italic;
-    max-width: 750px;
-    margin: 0 auto 2rem;
-    line-height: 1.5;
-    color: var(--charcoal);
-  }
-  .testimonial-quote::before {
-    content: '\201C';
-    display: block;
-    font-size: 4rem;
-    color: var(--terracotta);
-    line-height: 1;
-    margin-bottom: 1rem;
-  }
-  .testimonial-author {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--clay);
-  }
-
-  /* ─── Contact ─── */
-  .contact {
-    padding: 10rem 4vw;
-    background: var(--charcoal);
-    color: var(--ivory);
-    text-align: center;
-  }
-  .contact h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    font-weight: 300;
-    line-height: 1.15;
-    margin-bottom: 2rem;
-  }
-  .contact h2 em { font-style: italic; color: var(--terracotta); }
-  .contact p {
-    font-size: 0.92rem;
-    color: var(--gold-mist);
-    max-width: 480px;
-    margin: 0 auto 3rem;
-  }
-  .contact-email {
-    display: inline-block;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    color: var(--ivory);
-    text-decoration: none;
-    border-bottom: 1px solid var(--terracotta);
-    padding-bottom: 4px;
-    transition: color 0.3s;
-  }
-  .contact-email:hover { color: var(--terracotta); }
-  .contact-details {
-    display: flex;
-    justify-content: center;
-    gap: 4rem;
-    margin-top: 4rem;
-  }
-  .contact-detail {
-    text-align: center;
-  }
-  .contact-detail .label {
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--clay);
-    margin-bottom: 0.5rem;
-  }
-  .contact-detail .value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    color: var(--ivory);
-  }
-
-  /* ─── Footer ─── */
-  footer {
-    padding: 2.5rem 4vw;
-    background: var(--ink);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--deep-earth);
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-  }
-  footer a {
-    color: var(--clay);
-    text-decoration: none;
-  }
-
-  /* ─── Animations ─── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeScale {
-    from { opacity: 0; transform: scale(1.05); }
-    to { opacity: 1; transform: scale(1); }
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ─── Mobile ─── */
-  @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-text::before { display: none; }
-    .hero-visual { min-height: 50vh; }
-    .hero-text { padding: 7rem 6vw 3rem; }
-    .philosophy { grid-template-columns: 1fr; gap: 4rem; padding: 6rem 4vw; }
-    .phil-right { grid-template-columns: 1fr; }
-    .heritage-body { grid-template-columns: 1fr; gap: 2rem; }
-    .heritage-divider { display: none; }
-    .portfolio-grid { grid-template-columns: 1fr; }
-    .project:first-child { grid-column: span 1; aspect-ratio: 3/4; }
-    .service-item { grid-template-columns: 1fr; gap: 0.8rem; }
-    .service-num { display: none; }
-    .contact-details { flex-direction: column; gap: 2rem; }
-    .nav-links { display: none; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; }
-  }
-</style>
+<title>Open Storey — Swatika Upendran</title>
+<meta name="description" content="Open Storey is a Bay Area interior design studio by Swatika Upendran, blending South Indian material richness with contemporary California design.">
+<meta name="theme-color" content="#FAF8F4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Karla:wght@300;400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body>
+<body class="page-home" data-home-href="index.html">
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-<!-- Navigation -->
-<nav id="nav">
-  <a href="#" class="nav-logo"><span>Ā</span>lay</a>
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">
+    Open Storey
+    <span class="nav-sub">Swatika Upendran</span>
+  </a>
   <ul class="nav-links">
-    <li><a href="#philosophy">Philosophy</a></li>
-    <li><a href="#heritage">Heritage</a></li>
+    <li><a href="index.html" aria-current="page">Home</a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#services">Services</a></li>
+    <li><a href="curated-finds/">Curated Finds</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li class="nav-private"><a href="confidential/">Private &#128274;</a></li>
   </ul>
 </nav>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-text">
-    <p class="hero-eyebrow">Interior Design · San Francisco Bay Area</p>
-    <h1>Spaces rooted in<br><em>heritage</em>, shaped<br>by light</h1>
-    <p class="hero-desc">
-      Creating interiors that weave Indian craft traditions with California minimalism. 
-      Each project honors ancestral techniques while embracing contemporary simplicity.
-    </p>
-    <a href="#portfolio" class="hero-cta">
-      View our work <span class="line"></span>
-    </a>
-  </div>
-  <div class="hero-visual">
-    <div class="hero-img-wrapper">
-      <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=900&q=80" 
-           alt="Elegant living room interior with warm tones" />
+<main>
+  <section class="hero">
+    <img class="hero-img" src="assets/images/home-hero.jpg" alt="Open Storey interior — living room" fetchpriority="high" loading="eager" decoding="async">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Interior Design Studio · San Francisco Bay Area</p>
+      <h1 class="hero-title">Spaces that hold<br><em>story</em> &amp; intention</h1>
+      <div class="hero-row">
+        <p class="hero-sub">Where the sensory richness of South India meets the quiet precision of contemporary California design — every project a translation between two worlds.</p>
+        <div class="hero-cta">
+          <a href="#portfolio" class="btn-primary">View Portfolio</a>
+          <a href="#contact" class="btn-text" style="color:rgba(250,248,244,.7);border-bottom-color:rgba(250,248,244,.3);">Begin a project</a>
+        </div>
+      </div>
     </div>
-    <div class="hero-stamp">Est.<br>2026</div>
-  </div>
-</section>
+    <div class="scroll-hint"><span class="scroll-dot"></span><span>Scroll to explore</span></div>
+  </section>
 
-<!-- Marquee -->
-<div class="marquee-section">
-  <div class="marquee-track">
-    <span class="marquee-item">Residential Design</span>
-    <span class="marquee-item">Space Planning</span>
-    <span class="marquee-item">Material Curation</span>
-    <span class="marquee-item">Vastu Consultation</span>
-    <span class="marquee-item">Custom Furniture</span>
-    <span class="marquee-item">Art Direction</span>
-    <span class="marquee-item">Residential Design</span>
-    <span class="marquee-item">Space Planning</span>
-    <span class="marquee-item">Material Curation</span>
-    <span class="marquee-item">Vastu Consultation</span>
-    <span class="marquee-item">Custom Furniture</span>
-    <span class="marquee-item">Art Direction</span>
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span class="marquee-item">Residential Design</span>
+      <span class="marquee-item">Space Planning</span>
+      <span class="marquee-item">Material Curation</span>
+      <span class="marquee-item">Vastu Consultation</span>
+      <span class="marquee-item">Custom Furniture</span>
+      <span class="marquee-item">Art Direction</span>
+      <span class="marquee-item">Retail Interiors</span>
+      <span class="marquee-item">Heritage Objects</span>
+      <span class="marquee-item">Residential Design</span>
+      <span class="marquee-item">Space Planning</span>
+      <span class="marquee-item">Material Curation</span>
+      <span class="marquee-item">Vastu Consultation</span>
+      <span class="marquee-item">Custom Furniture</span>
+      <span class="marquee-item">Art Direction</span>
+      <span class="marquee-item">Retail Interiors</span>
+      <span class="marquee-item">Heritage Objects</span>
+    </div>
   </div>
-</div>
 
-<!-- Philosophy -->
-<section class="philosophy" id="philosophy">
-  <div class="phil-left reveal">
-    <div class="deco-line"></div>
-    <h2>Design with <em>intention</em><br>and restraint</h2>
-    <p>
-      My approach begins with listening. Every space has a purpose, every person has a story. 
-      We design interiors that feel both grounded in tradition and effortlessly contemporary.
-    </p>
-    <p>
-      Years working across India taught me that the most beautiful spaces whisper rather 
-      than shout. We source hand-loomed textiles, carved stone, and local artisan pieces — 
-      integrating them with clean lines and natural light for modern Bay Area living.
-    </p>
+  <div class="stats-band">
+    <div><div class="sb-num">10+</div><div class="sb-label">Years of Practice</div></div>
+    <div class="sb-div"></div>
+    <div><div class="sb-num">20+</div><div class="sb-label">Projects Executed</div></div>
+    <div class="sb-div"></div>
+    <div><div class="sb-num">3</div><div class="sb-label">Countries of Work</div></div>
+    <div class="sb-div"></div>
+    <div><div class="sb-num">95%</div><div class="sb-label">Client Satisfaction</div></div>
   </div>
-  <div class="phil-right">
-    <div class="phil-card reveal">
-      <div class="num">01</div>
-      <h3>Listen</h3>
-      <p>We begin with deep inquiry — understanding how you live, what you value, and the stories your space should hold.</p>
-    </div>
-    <div class="phil-card reveal">
-      <div class="num">02</div>
-      <h3>Curate</h3>
-      <p>Each material, finish, and object is chosen with intention — sourced globally, rooted in meaning.</p>
-    </div>
-    <div class="phil-card reveal">
-      <div class="num">03</div>
-      <h3>Compose</h3>
-      <p>We orchestrate elements like a raga — building rhythm, contrast, and harmony across every room.</p>
-    </div>
-    <div class="phil-card reveal">
-      <div class="num">04</div>
-      <h3>Refine</h3>
-      <p>Perfection is in the details. We adjust until every sightline, texture, and transition is right.</p>
-    </div>
-  </div>
-</section>
 
-<!-- Heritage -->
-<section class="heritage" id="heritage">
-  <div class="heritage-inner">
-    <p class="heritage-eyebrow reveal">Rooted in Tradition</p>
-    <h2 class="reveal">A design languagDesign Philosophy</p>
-    <h2 class="reveal">India to California:<br>One <em>continuous practice</em></h2>
-    <div class="heritage-body">
-      <div class="heritage-col reveal">
-        <p>
-          My design practice took root in India, where I learned that beautiful spaces 
-          are built on layered knowledge — the geometry of a jali screen, the proportions 
-          of a Kerala courtyard, the warmth of hand-rubbed wood. These aren't mere aesthetics; 
-          they're the accumulated wisdom of generations.
-        </p>
-        <p>
-          Every project taught me that true luxury is restraint. That every material choice 
-          has weight. That light itself is a design element, and the hand of the maker 
-          should always be visible.
-        </p>
+  <section class="philosophy" id="philosophy">
+    <div class="phil-left reveal">
+      <div class="deco-line"></div>
+      <h2>Design is a quiet<br>act of <em>devotion</em></h2>
+      <p>Every room tells a story. We believe interiors should feel both deeply personal and effortlessly at ease — spaces where heritage and modernity exist in graceful dialogue.</p>
+      <p>Our approach draws from the rich material traditions of India — hand-loomed textiles, carved stone, inlaid woodwork — and translates them into contemporary settings with restraint and reverence.</p>
+    </div>
+    <div class="phil-right">
+      <div class="phil-card reveal">
+        <div class="num">01</div>
+        <h3>Listen</h3>
+        <p>We begin with deep inquiry — understanding how you live, what you value, and the stories your space should hold.</p>
       </div>
-      <div class="heritage-divider"></div>
-      <div class="heritage-col reveal">
-        <p>
-          Moving to the Bay Area, I discovered a parallel language: the same reverence for 
-          materials, the same belief that spaces should enhance how we live. Here, minimalism 
-          isn't about emptiness — it's about clarity. It's about letting what matters breathe.
-        </p>
-        <p>
-          My work lives between these worlds. Indian warmth and California light. Ancestral 
-          craft and contemporary clarity. In every home, we're creating a sanctuary where 
-          heritage feels at home
+      <div class="phil-card reveal rd1">
+        <div class="num">02</div>
+        <h3>Curate</h3>
+        <p>Each material, finish, and object is chosen with intention — sourced globally, rooted in meaning.</p>
+      </div>
+      <div class="phil-card reveal rd2">
+        <div class="num">03</div>
+        <h3>Compose</h3>
+        <p>We orchestrate elements like a raga — building rhythm, contrast, and harmony across every room.</p>
+      </div>
+      <div class="phil-card reveal rd3">
+        <div class="num">04</div>
+        <h3>Refine</h3>
+        <p>Perfection is in the details. We adjust until every sightline, texture, and transition feels right.</p>
       </div>
     </div>
-    <div class="heritage-motifs reveal">
-      <div class="motif">
-        <span class="motif-symbol">◇</span>
-        <span>Jali Patterns</span>
-      </div>
-      <div class="motif">
-        <span class="motif-symbol">◎</span>
-        <span>Mandala Geometry</span>
-      </div>
-      <div class="motif">
-        <span class="motif-symbol">▽</span>
-        <span>Sacred Proportion</span>
-      </div>
-      <div class="motif">
-        <span class="motif-symbol">≋</span>
-        <span>Woven Textures</span>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- Portfolio -->
-<section class="portfolio" id="portfolio">
-  <div class="portfolio-header reveal">
-    <h2>Selected <em>works</em></h2>
-    <a hRecent <em>projects</em></h2>
-    <a href="#">Explore all work
-  <div class="portfolio-grid">
-    <div class="project reveal">
-      <div class="project-img">
-        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=80" 
-             alt="Minimalist family home with Indian textiles" />
+  <section class="about" id="about">
+    <div class="about-visual reveal">
+      <div class="about-img-frame">
+        <svg class="jaali-svg" viewBox="0 0 400 500" fill="none">
+          <defs>
+            <pattern id="jaali" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+              <circle cx="25" cy="25" r="8" stroke="#6B3A1A" stroke-width="1" fill="none"></circle>
+              <circle cx="25" cy="25" r="15" stroke="#6B3A1A" stroke-width=".5" fill="none"></circle>
+              <line x1="0" y1="25" x2="50" y2="25" stroke="#6B3A1A" stroke-width=".5"></line>
+              <line x1="25" y1="0" x2="25" y2="50" stroke="#6B3A1A" stroke-width=".5"></line>
+              <line x1="0" y1="0" x2="50" y2="50" stroke="#6B3A1A" stroke-width=".3"></line>
+              <line x1="50" y1="0" x2="0" y2="50" stroke="#6B3A1A" stroke-width=".3"></line>
+            </pattern>
+          </defs>
+          <rect width="400" height="500" fill="url(#jaali)"></rect>
+        </svg>
+        <img src="assets/images/about-material-detail.jpg" alt="Material detail" loading="lazy" decoding="async">
       </div>
-      <div class="project-info">
-        <h3>Minimalist Family Home</h3>
-        <span>San Francisco · 2025</span>
-      </div>
-    </div>
-    <div class="project reveal">
-      <div class="project-img">
-        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=900&q=80" 
-             alt="Contemporary residence with heritage elements" />
-      </div>
-      <div class="project-info">
-        <h3>Contemporary Residence</h3>
-        <span>Marin County · 2024</span>
+      <div class="about-accent-box">
+        <p>"Design is not decoration — it is the art of making space feel inhabited before you arrive."</p>
+        <cite>— Swatika Upendran, Founder</cite>
       </div>
     </div>
-    <div class="project reveal">
-      <div class="project-img">
-        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80" 
-             alt="Traditional home renovation in India" />
-      </div>
-      <div class="project-info">
-        <h3>Heritage Home Restoration</h3>
-        <span>Goa, India · 2023</span>
-      </div>
-    </div>
-    <div class="project reveal">
-      <div class="project-img">
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80" 
-             alt="Open-concept living with natural materials" />
-      </div>
-      <div class="project-info">
-        <h3>Open-Concept Living</h3>
-        <span>Oakland · 2023</span>
-      </div>
-    </div>
-    <div class="project reveal">
-      <div class="project-img">
-        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&q=80" 
-             alt="Artisan-focused interior design in Rajasthan" />
-      </div>
-      <div class="project-info">
-        <h3>Artisan Collaboration</h3>
-        <span>Rajasthan, India · 2022</span>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- Services -->
-<section class="services" id="services">
-  <div class="services-inner">
-    <div class="services-header reveal">
-      <h2>Services & <em>approach</em></h2>
-    </div>
-    <div class="service-list">
-      <div class="service-item reveal">
-        <span class="service-num">01</span>
-        <span class="service-name">Full Interior Design</span>
-        <span class="service-desc">Complete residential design from concept through installation — every surface, fixture, and furnishing considered.</span>
-      </div>
-      <div class="service-item reveal">
-        <span class="service-num">02</span>
-        <span class="service-name">Space & Vastu Planning</span>
-        <span class="service-desc">Spatial layouts guided by both modern functionality and Vastu Shastra principles for balanced, harmonious living.</span>
-      </div>
-      <div class="service-item reveal">
-        <span class="service-num">03</span>
-        <span class="service-name">Material Sourcing</span>
-        <span class="service-desc">Curated selections from Indian artisan workshops, California stone yards, and global suppliers — each piece with provenance.</span>
-      </div>
-      <div class="service-item reveal">
-        <span class="service-num">04</span>
-        <span class="service-name">Custom Furniture & Textile</span>
-        <span class="service-desc">Bespoke pieces crafted in collaboration with woodworkers, weavers, and metalworkers across India and the Bay Area.</span>
-      </div>
-      <div class="service-item reveal">
-        <span class="service-num">05</span>
-        <span class="service-name">Design Consultation</span>
-        <span class="service-desc">Focused advisory sessions for homeowners seeking clarity on direction, palette, or how to integrate heritage pieces.</span>
+    <div class="about-text">
+      <p class="section-label reveal">About the Designer</p>
+      <h2 class="reveal rd1">A designer between<br><em>two worlds</em></h2>
+      <p class="reveal rd2" style="margin-top:2rem;"><strong>Swatika Upendran</strong> is the founder of <strong>Open Storey</strong>, a Bay Area interior design studio shaped by a multidisciplinary background spanning interior design, retail space, and interaction design. Trained at the <strong>Institute of Design, Chennai</strong>, the <strong>Elisava School of Design, Barcelona</strong>, and the <strong>California College of the Arts, San Francisco</strong>, she brings a rare cross-cultural lens to every project.</p>
+      <p class="reveal rd2">Her work has ranged from landmark corporate spaces for <strong>Cisco, Target, and Embassy</strong> to luxury retail in Mumbai and New Delhi. A design proposal for a concept store in Barcelona was selected from 15 entries for execution with <strong>Nike</strong>.</p>
+      <p class="reveal rd3">She designs interiors that are material-honest, culturally aware, and quietly alive — spaces that feel considered long after you have stopped looking.</p>
+      <div class="about-stats reveal rd3">
+        <div><div class="stat-num">10+</div><div class="stat-label">Years of Practice</div></div>
+        <div><div class="stat-num">20+</div><div class="stat-label">Projects Completed</div></div>
+        <div><div class="stat-num">3</div><div class="stat-label">Cities of Practice</div></div>
+        <div><div class="stat-num">4</div><div class="stat-label">Design Disciplines</div></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Testimonial -->
-<section class="testimonial">
-  <div class="reveal">
-    <p class="testimonial-quote">
-      She brought something rare to our project — a deep understanding of both worlds. 
-      The way she integrated my family's Indian textiles with clean, modern lines made 
-      our home feel like an extension of who we are.
-    </p>
-    <p class="testimonial-author">A. M. · Bay Area, California</p>
-  </div>
-</section>
+  <section class="portfolio" id="portfolio">
+    <div class="portfolio-header">
+      <div>
+        <p class="section-label reveal">Selected Work</p>
+        <h2 class="reveal rd1">Featured <em>projects</em></h2>
+      </div>
+      <a href="#contact" class="btn-text reveal rd2">Enquire →</a>
+    </div>
+    <div class="portfolio-grid">
+      <div class="project-card reveal">
+        <img src="assets/images/portfolio-cupertino-family-residence.jpg" alt="Moody dining room — dark botanical wallpaper" loading="lazy" decoding="async">
+        <div class="card-overlay"></div>
+        <div class="card-info">
+          <div class="card-tag">Residential · 2024</div>
+          <div class="card-title">Cupertino Family Residence</div>
+          <div class="card-loc">San Francisco Bay Area, CA</div>
+        </div>
+      </div>
+      <div class="project-card reveal rd1">
+        <img src="assets/images/portfolio-keha-casa-showroom.jpg" alt="Botanical mural dining room — terracotta wall" loading="lazy" decoding="async">
+        <div class="card-overlay"></div>
+        <div class="card-info">
+          <div class="card-tag">Luxury Retail · 2023</div>
+          <div class="card-title">Keha Casa Showroom</div>
+          <div class="card-loc">Bengaluru, India</div>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <img src="assets/images/portfolio-cisco-landmark-spaces.jpg" alt="Woven wood panel detail" loading="lazy" decoding="async">
+        <div class="card-overlay"></div>
+        <div class="card-info">
+          <div class="card-tag">Corporate · 2022</div>
+          <div class="card-title">Cisco Landmark Spaces</div>
+          <div class="card-loc">Bengaluru, India</div>
+        </div>
+      </div>
+      <div class="project-card reveal rd1">
+        <img src="assets/images/portfolio-kohler-experience-center.jpg" alt="Chevron marble flooring schedule" loading="lazy" decoding="async">
+        <div class="card-overlay"></div>
+        <div class="card-info">
+          <div class="card-tag">Retail Experience · 2022</div>
+          <div class="card-title">Kohler Experience Center</div>
+          <div class="card-loc">New Delhi, India</div>
+        </div>
+      </div>
+      <div class="project-card reveal rd2">
+        <img src="assets/images/portfolio-boutique-hotel-renovation.jpg" alt="Lotus arabesque tile" loading="lazy" decoding="async">
+        <div class="card-overlay"></div>
+        <div class="card-info">
+          <div class="card-tag">Hospitality · 2021</div>
+          <div class="card-title">Boutique Hotel Renovation</div>
+          <div class="card-loc">Rajasthan, India</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- Contact -->
-<section class="contact" id="contact">
-  <h2 class="reveal">Let's build your<br><em>sanctuary</em></h2>
-  <p class="reveal">
-    Every great project starts with a conversation. Share your vision, your challenges, 
-    and the feeling you want when you walk through your front door.
-  </p>
-  <a href="mailto:hello@interiordesign.studio" class="contact-email reveal">hello@interiordesign.studio</a>
-  <div class="contact-details reveal">
-    <div class="contact-detail">
-      <p class="label">Location</p>
-      <p class="value">San Francisco Bay Area</p>
+  <section class="process" id="process">
+    <div class="process-inner">
+      <p class="section-label reveal">How We Work</p>
+      <h2 class="reveal rd1">A considered <em>process</em><br>for every project</h2>
+      <div class="process-steps">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <div class="step-title">Discovery</div>
+          <p class="step-text">A deep listening session to understand how you live, what you value, and what each space needs to accomplish — practically and emotionally.</p>
+        </div>
+        <div class="step reveal rd1">
+          <div class="step-num">02</div>
+          <div class="step-title">Concept</div>
+          <p class="step-text">A single, cohesive design narrative — a spatial mood board with material samples, colour studies, structural specifications, and reference imagery.</p>
+        </div>
+        <div class="step reveal rd2">
+          <div class="step-num">03</div>
+          <div class="step-title">Sourcing</div>
+          <p class="step-text">Materials and furnishings curated from Bay Area makers, Indian artisan workshops, and a trusted global network of vendors built across a decade of practice.</p>
+        </div>
+        <div class="step reveal rd3">
+          <div class="step-num">04</div>
+          <div class="step-title">Realisation</div>
+          <p class="step-text">Careful project management through installation, with your involvement at every meaningful decision point and a final walk-through that is never rushed.</p>
+        </div>
+      </div>
     </div>
-    <div class="contact-detail">
-      <p class="label">Phone</p>
-      <p class="value">+1 (415) 555-0123</p>
-    </div>
-    <div class="contact-detail">
-      <p class="label">Available For</p>
-      <p class="value">Full & Partial Projects</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- Footer -->
+  <section class="testimonial-section">
+    <span class="quote-mark reveal">"</span>
+    <blockquote class="reveal rd1">Swatika doesn't just design rooms — she designs the feeling of being in them. Our home carries something we can't name but can't imagine living without.</blockquote>
+    <p class="cite-name reveal rd2">Ananya &amp; Rahul Mehta</p>
+    <p class="cite-role reveal rd2">Residential Clients — Saratoga, CA</p>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact-left">
+      <p class="section-label reveal">Get in Touch</p>
+      <h2 class="reveal rd1">Let's begin<br>your <em>project</em></h2>
+      <p class="contact-desc reveal rd2">Open Storey takes on a limited number of new projects each year. If you're considering a redesign — residential or boutique commercial — an initial conversation is always a good place to start.</p>
+      <div class="contact-details reveal rd3">
+        <div class="contact-item"><span class="contact-label">Studio</span><span class="contact-value">San Francisco Bay Area<br>California</span></div>
+        <div class="contact-item"><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:swatika0905@gmail.com">swatika0905@gmail.com</a></span></div>
+        <div class="contact-item"><span class="contact-label">Phone</span><span class="contact-value"><a href="tel:+13413562847">(341) 356-2847</a></span></div>
+        <div class="contact-item"><span class="contact-label">Hours</span><span class="contact-value">Mon–Fri, 9am – 5pm PST</span></div>
+        <div class="contact-item"><span class="contact-label">LinkedIn</span><span class="contact-value"><a href="https://www.linkedin.com/in/swatika-upendaran/" target="_blank" rel="noopener noreferrer">swatika-upendaran</a></span></div>
+      </div>
+    </div>
+
+    <form class="contact-form reveal rd1" data-contact-form action="mailto:swatika0905@gmail.com" method="post" enctype="text/plain">
+      <div class="form-field">
+        <label for="contactName">Your Name</label>
+        <input id="contactName" name="name" type="text" placeholder="First and last name" autocomplete="name" required>
+      </div>
+      <div class="form-field">
+        <label for="contactEmail">Email Address</label>
+        <input id="contactEmail" name="email" type="email" placeholder="your@email.com" autocomplete="email" required>
+      </div>
+      <div class="form-field">
+        <label for="projectType">Project Type</label>
+        <select id="projectType" name="projectType" required>
+          <option value="" disabled selected>Select a category</option>
+          <option>Residential – Full Design</option>
+          <option>Residential – Single Room</option>
+          <option>Boutique Commercial</option>
+          <option>Consultation Only</option>
+          <option>International Project</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="projectDetails">Tell me about your space</label>
+        <textarea id="projectDetails" name="details" placeholder="Location, size, timeline, and what you're hoping for…" required></textarea>
+      </div>
+      <div class="form-submit">
+        <button class="btn-submit" type="submit">Send Enquiry</button>
+        <span class="form-note">Response within 2 business days</span>
+      </div>
+    </form>
+  </section>
+</main>
+
 <footer>
-  <span>&copy; 2026 Interior Design Studio. All rights reserved.</span>
-  <a href="#">Privacy Policy</a>
+  <span class="footer-logo">Open Storey</span>
+  <span class="footer-copy">© 2025 Open Storey · Swatika Upendran. All rights reserved.</span>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer">Pinterest</a>
+    <a href="https://www.linkedin.com/in/swatika-upendaran/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
 </footer>
 
-<script>
-  // Nav scroll effect
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  });
-
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  reveals.forEach(el => observer.observe(el));
-
-  // Smooth scroll for nav links
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-</script>
-
+<script src="assets/js/site.js" defer></script>
 </body>
 </html>
