@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Replace open-storey.example with the live production domain before deployment. -->
+<!-- Replace openstorey.design with the live production domain before deployment. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://open-storey.example/</loc>
+    <loc>https://openstorey.design/</loc>
   </url>
   <url>
-    <loc>https://open-storey.example/curated-finds/</loc>
+    <loc>https://openstorey.design/curated-finds/</loc>
   </url>
   <url>
-    <loc>https://open-storey.example/confidential/</loc>
+    <loc>https://openstorey.design/confidential/</loc>
   </url>
 </urlset>

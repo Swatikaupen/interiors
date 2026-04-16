@@ -6,6 +6,31 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const CONF_PW = 'openstorey2025';
   const STORAGE_KEY = 'openStoreyConfidentialAccess';
+  let revealObserver = null;
+
+  function readSessionFlag(key) {
+    try {
+      return window.sessionStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  }
+
+  function writeSessionFlag(key, value) {
+    try {
+      window.sessionStorage.setItem(key, value);
+    } catch {
+      // Ignore storage failures and keep the page functional.
+    }
+  }
+
+  function clearSessionFlag(key) {
+    try {
+      window.sessionStorage.removeItem(key);
+    } catch {
+      // Ignore storage failures and keep the page functional.
+    }
+  }
 
   function updateNavState() {
     if (!nav) {
@@ -48,8 +73,8 @@
     });
   }
 
-  function initReveal() {
-    const reveals = Array.from(document.querySelectorAll('.reveal'));
+  function observeReveals(root = document) {
+    const reveals = Array.from(root.querySelectorAll('.reveal:not(.visible)'));
     if (!reveals.length) {
       return;
     }
@@ -59,19 +84,25 @@
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+    }
 
-    reveals.forEach((element) => observer.observe(element));
+    reveals.forEach((element) => revealObserver.observe(element));
+  }
+
+  function initReveal() {
+    observeReveals(document);
   }
 
   function initFindsFilter() {
@@ -180,11 +211,12 @@
       content.style.display = 'block';
       footer.style.display = 'flex';
       if (persist) {
-        window.sessionStorage.setItem(STORAGE_KEY, 'granted');
+        writeSessionFlag(STORAGE_KEY, 'granted');
       }
+      window.requestAnimationFrame(() => observeReveals(content));
     };
 
-    if (window.sessionStorage.getItem(STORAGE_KEY) === 'granted') {
+    if (readSessionFlag(STORAGE_KEY) === 'granted') {
       showUnlocked(false);
     } else {
       showLocked();
@@ -210,7 +242,7 @@
     lockLinks.forEach((link) => {
       link.addEventListener('click', (event) => {
         event.preventDefault();
-        window.sessionStorage.removeItem(STORAGE_KEY);
+        clearSessionFlag(STORAGE_KEY);
         showLocked();
         window.location.href = homeHref;
       });
