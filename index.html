@@ -171,10 +171,10 @@ blockquote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:cl
 .form-field input::placeholder,.form-field textarea::placeholder{color:rgba(245,240,232,.55);}
 .form-field select option{background:var(--ink);}
 .form-field textarea{height:75px;}
-.form-submit{margin-top:2.5rem;display:flex;align-items:center;justify-content:space-between;}
-.btn-submit{font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);background:var(--ivory);border:none;padding:1.15rem 3rem;cursor:none;transition:background .3s,color .3s;}
+.form-submit{margin-top:2.5rem;display:flex;align-items:center;justify-content:flex-start;gap:1rem;flex-wrap:wrap;}
+.btn-submit{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);background:var(--ivory);border:none;padding:1rem 2.2rem;cursor:none;transition:background .3s,color .3s;white-space:nowrap;flex:0 0 auto;}
 .btn-submit:hover{background:var(--terra);color:var(--ivory);}
-.form-note{font-size:.62rem;color:rgba(245,240,232,.28);}
+.form-note{font-size:.62rem;color:rgba(245,240,232,.36);line-height:1.5;flex:1 1 12rem;min-height:1.5rem;}
 
 /* ══ CURATED FINDS ══ */
 .finds-hero{height:45vh;position:relative;overflow:hidden;}
@@ -808,6 +808,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
 .cs-notify input::placeholder{color:rgba(245,240,232,.4);}
 .cs-notify button{background:var(--terra);border:none;color:var(--ivory);font-family:'Karla',sans-serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;padding:.9rem 1.6rem;cursor:pointer;transition:background .3s;}
 .cs-notify button:hover{background:var(--gold);}
+.cs-note{font-size:.68rem;line-height:1.6;color:rgba(245,240,232,.42);min-height:1.4rem;}
 .cs-back{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,240,232,.35);text-decoration:none;transition:color .3s;}
 .cs-back:hover{color:var(--terra);}
 /* Confidential page */
@@ -1273,19 +1274,19 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
       <p class="contact-desc reveal rd2">Open Storey takes on a limited number of new projects each year. If you're considering a redesign — residential or boutique commercial — an initial conversation is always a good place to start.</p>
       <div class="contact-details reveal rd3">
         <div class="contact-item"><span class="contact-label">Studio</span><span class="contact-value">San Francisco Bay Area<br>California</span></div>
-        <div class="contact-item"><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:openstory.design@gmail.com">openstory.design@gmail.com</a></span></div>
+        <div class="contact-item"><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:openstorey.design@gmail.com">openstorey.design@gmail.com</a></span></div>
         
         <div class="contact-item"><span class="contact-label">Hours</span><span class="contact-value">Mon–Fri, 11am – 7pm PST</span></div>
       </div>
     </div>
     <div class="contact-form reveal rd1">
-      <div class="form-field"><label>Your Name</label><input type="text" id="cf-name" placeholder="First and last name"></div>
-      <div class="form-field"><label>Email Address</label><input type="email" id="cf-email" placeholder="your@email.com"></div>
+      <div class="form-field"><label>Your Name</label><input type="text" id="cf-name" name="name" placeholder="First and last name"></div>
+      <div class="form-field"><label>Email Address</label><input type="email" id="cf-email" name="email" placeholder="your@email.com"></div>
       <div class="form-field"><label>Project Type</label>
-        <select id="cf-type"><option value="" disabled selected>Select a category</option><option>Residential – Full Design</option><option>Residential – Single Room</option><option>Boutique Commercial</option><option>Consultation Only</option><option>International Project</option></select>
+        <select id="cf-type" name="project_type"><option value="" disabled selected>Select a category</option><option>Residential – Full Design</option><option>Residential – Single Room</option><option>Boutique Commercial</option><option>Consultation Only</option><option>International Project</option></select>
       </div>
-      <div class="form-field"><label>Tell me about your space</label><textarea id="cf-msg" placeholder="Location, size, timeline, and what you're hoping for…"></textarea></div>
-      <div class="form-submit"><button class="btn-submit" onclick="sendEnquiry()">Send Enquiry</button><span class="form-note" id="form-status">Response within 2 business days</span></div>
+      <div class="form-field"><label>Tell me about your space</label><textarea id="cf-msg" name="message" placeholder="Location, size, timeline, and what you're hoping for…"></textarea></div>
+      <div class="form-submit"><button class="btn-submit" id="contactSubmitBtn" type="button" onclick="sendEnquiry()">Send Enquiry</button><span class="form-note" id="form-status">Response within 2 business days</span></div>
     </div>
   </section>
 
@@ -1312,8 +1313,9 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
       <p class="cs-page-desc">A personally curated edit of objects, materials, and furnishings — pieces I've used in projects, recommended to clients, or keep in my own home. Check back soon.</p>
       <div class="cs-notify">
         <input type="email" id="csEmail" placeholder="Your email address">
-        <button onclick="var e=document.getElementById('csEmail');if(e.value){this.textContent='✓ Noted';this.style.background='#6B8F6B';e.disabled=true;}">Notify me</button>
+        <button id="csNotifyBtn" type="button" onclick="sendCuratedNotify()">Notify me</button>
       </div>
+      <p class="cs-note" id="csStatus">Join the list for launch updates.</p>
       <a href="#" class="cs-back" onclick="showPage('home');return false;">← Back to Home</a>
     </div>
   </div>
@@ -1510,6 +1512,7 @@ function lockConf(){
 </script>
 <script>
 // Extracted image asset map
+const FORM_ENDPOINT='https://formsubmit.co/ajax/openstorey.design@gmail.com';
 const _m={
   iLR: 'assets/images/home-hero.jpg',
   iFLOOR: 'assets/images/detail-floor-inlay.jpg',
@@ -1647,27 +1650,137 @@ function sendEnquiry() {
   var type    = document.getElementById('cf-type')    ? document.getElementById('cf-type').value            : '';
   var msg     = document.getElementById('cf-msg')     ? document.getElementById('cf-msg').value.trim()     : '';
   var status  = document.getElementById('form-status');
+  var button  = document.getElementById('contactSubmitBtn');
 
   if (!name || !email) {
     if (status) { status.textContent = 'Please fill in your name and email.'; status.style.color = 'var(--terra)'; }
     return;
   }
 
-  var subject = encodeURIComponent('New Enquiry from ' + name + (type ? ' — ' + type : ''));
-  var body    = encodeURIComponent(
-    'Name: ' + name + '\n' +
-    'Email: ' + email + '\n' +
-    'Project Type: ' + (type || 'Not specified') + '\n\n' +
-    'Message:\n' + (msg || 'No message provided.')
-  );
-  var mailto  = 'mailto:openstory.design@gmail.com?subject=' + subject + '&body=' + body;
-  window.location.href = mailto;
+  submitInbox({
+    name: name,
+    email: email,
+    project_type: type || 'Not specified',
+    message: msg || 'No message provided.',
+    form_name: 'Open Storey Contact',
+    page_url: window.location.href,
+    _subject: 'Open Storey enquiry — ' + name,
+    _replyto: email,
+    _template: 'table',
+    _captcha: 'false'
+  }, {
+    button: button,
+    defaultButtonText: 'Send Enquiry',
+    pendingButtonText: 'Sending…',
+    successButtonText: 'Sent',
+    statusNode: status,
+    pendingMessage: 'Sending your enquiry…',
+    successMessage: 'Enquiry sent. I will review it and reply within 2 business days.',
+    reset: function(){
+      document.getElementById('cf-name').value='';
+      document.getElementById('cf-email').value='';
+      document.getElementById('cf-type').selectedIndex=0;
+      document.getElementById('cf-msg').value='';
+    },
+    onSuccess: function(){
+      window.setTimeout(function(){
+        if(button){ button.textContent='Send Enquiry'; button.disabled=false; }
+      }, 2400);
+    }
+  });
+}
 
-  if (status) {
-    status.textContent = 'Opening your email client…';
-    status.style.color = 'var(--gold)';
-    setTimeout(function(){ status.textContent = 'Response within 2 business days'; status.style.color = ''; }, 4000);
+function submitInbox(payload, options){
+  var button = options && options.button;
+  var statusNode = options && options.statusNode;
+
+  if (button) {
+    button.disabled = true;
+    button.textContent = options.pendingButtonText || 'Sending…';
   }
+  if (statusNode) {
+    statusNode.textContent = options.pendingMessage || 'Sending…';
+    statusNode.style.color = 'var(--gold)';
+  }
+
+  return fetch(FORM_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
+    .then(function(response){
+      return response.json().catch(function(){ return {}; }).then(function(data){
+        if (!response.ok) {
+          throw new Error(data.message || 'Request failed.');
+        }
+        return data;
+      });
+    })
+    .then(function(){
+      if (button) {
+        button.textContent = options.successButtonText || options.defaultButtonText || 'Sent';
+      }
+      if (statusNode) {
+        statusNode.textContent = options.successMessage || 'Sent successfully.';
+        statusNode.style.color = '#9BB39A';
+      }
+      if (typeof options.reset === 'function') options.reset();
+      if (typeof options.onSuccess === 'function') options.onSuccess();
+    })
+    .catch(function(){
+      if (button) {
+        button.disabled = false;
+        button.textContent = options.defaultButtonText || 'Send';
+      }
+      if (statusNode) {
+        statusNode.textContent = 'Could not send right now. Please email openstorey.design@gmail.com directly.';
+        statusNode.style.color = 'var(--terra)';
+      }
+    });
+}
+
+function sendCuratedNotify(){
+  var emailInput = document.getElementById('csEmail');
+  var status = document.getElementById('csStatus');
+  var button = document.getElementById('csNotifyBtn');
+  var email = emailInput ? emailInput.value.trim() : '';
+
+  if (!email) {
+    if (status) {
+      status.textContent = 'Please enter your email address.';
+      status.style.color = 'var(--terra)';
+    }
+    return;
+  }
+
+  submitInbox({
+    email: email,
+    interest: 'Curated Finds launch updates',
+    message: 'Please add this email to the Curated Finds notify list.',
+    form_name: 'Open Storey Curated Finds Notify',
+    page_url: window.location.href,
+    _subject: 'Curated Finds notify request — ' + email,
+    _replyto: email,
+    _template: 'table',
+    _captcha: 'false'
+  }, {
+    button: button,
+    defaultButtonText: 'Notify me',
+    pendingButtonText: 'Sending…',
+    successButtonText: 'Noted',
+    statusNode: status,
+    pendingMessage: 'Adding you to the notify list…',
+    successMessage: 'Thanks. Your notify request has been sent.',
+    reset: function(){
+      emailInput.value='';
+    },
+    onSuccess: function(){
+      if(emailInput) emailInput.disabled = true;
+    }
+  });
 }
 
 </script>
