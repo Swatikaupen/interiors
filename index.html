@@ -1662,7 +1662,6 @@ function sendEnquiry() {
     email: email,
     project_type: type || 'Not specified',
     message: msg || 'No message provided.',
-    form_name: 'Open Storey Contact',
     page_url: window.location.href,
     _subject: 'Open Storey enquiry — ' + name,
     _replyto: email,
@@ -1730,13 +1729,13 @@ function submitInbox(payload, options){
       if (typeof options.reset === 'function') options.reset();
       if (typeof options.onSuccess === 'function') options.onSuccess();
     })
-    .catch(function(){
+    .catch(function(error){
       if (button) {
         button.disabled = false;
         button.textContent = options.defaultButtonText || 'Send';
       }
       if (statusNode) {
-        statusNode.textContent = 'Could not send right now. Please email openstorey.design@gmail.com directly.';
+        statusNode.textContent = error && error.message ? error.message : 'Could not send right now. Please email openstorey.design@gmail.com directly.';
         statusNode.style.color = 'var(--terra)';
       }
     });
@@ -1760,7 +1759,6 @@ function sendCuratedNotify(){
     email: email,
     interest: 'Curated Finds launch updates',
     message: 'Please add this email to the Curated Finds notify list.',
-    form_name: 'Open Storey Curated Finds Notify',
     page_url: window.location.href,
     _subject: 'Curated Finds notify request — ' + email,
     _replyto: email,
