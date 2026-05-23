@@ -18,7 +18,7 @@
   --safe-bottom:env(safe-area-inset-bottom);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;background:var(--warm);}
 body{background:var(--warm);color:var(--ink);font-family:'Karla',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;font-size:16px;}
 
 /* grain */
@@ -361,6 +361,7 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
   body { cursor: auto; }
   a, button { cursor: pointer; }
   body.menu-open { overflow: hidden; }
+  body.menu-open .calendly-badge-widget { opacity: 0; pointer-events: none; }
 
   /* Nav — hamburger */
   nav {
@@ -368,6 +369,7 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
     top: 0;
     left: auto;
     right: auto;
+    width: 100%;
     min-height: var(--mobile-nav-offset);
     padding: calc(.9rem + var(--safe-top)) 1.6rem .95rem;
     background: var(--warm) !important;
@@ -1472,6 +1474,7 @@ document.querySelectorAll('a,button,.project-card,.product-card,.conf-card,.phil
 
 // Page routing
 function showPage(id,anchor){
+  setMenuState(false,false);
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   window.scrollTo(0,0);
@@ -1518,23 +1521,49 @@ document.querySelectorAll('.product-wishlist').forEach(btn=>{
   });
 });
 
-function toggleMenu(){
+let menuScrollY=0;
+function setMenuState(isOpen,restoreScroll){
   var menu=document.getElementById('mainNavLinks');
   var btn=document.getElementById('hamburger');
-  menu.classList.toggle('open');
-  btn.classList.toggle('open');
-  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+  if(!menu||!btn) return;
+  if(restoreScroll===undefined) restoreScroll=true;
+
+  menu.classList.toggle('open',isOpen);
+  btn.classList.toggle('open',isOpen);
+  nav.classList.toggle('menu-open',isOpen);
+  document.body.classList.toggle('menu-open',isOpen);
+
+  if(isOpen){
+    menuScrollY=window.scrollY||window.pageYOffset||0;
+    document.body.style.position='fixed';
+    document.body.style.top='-'+menuScrollY+'px';
+    document.body.style.left='0';
+    document.body.style.right='0';
+    document.body.style.width='100%';
+  }else{
+    document.body.style.position='';
+    document.body.style.top='';
+    document.body.style.left='';
+    document.body.style.right='';
+    document.body.style.width='';
+    if(restoreScroll) window.scrollTo(0,menuScrollY);
+  }
+}
+
+function toggleMenu(){
+  var menu=document.getElementById('mainNavLinks');
+  if(!menu) return;
+  setMenuState(!menu.classList.contains('open'));
 }
 // Close menu on nav link click
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.nav-links a').forEach(function(a){
     a.addEventListener('click',function(){
-      var menu=document.getElementById('mainNavLinks');
-      var btn=document.getElementById('hamburger');
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      document.body.style.overflow='';
+      setMenuState(false,false);
     });
+  });
+  window.addEventListener('resize',function(){
+    if(window.innerWidth>768) setMenuState(false,true);
   });
   // Touch: show card-info on tap for mobile
   document.querySelectorAll('.project-card').forEach(function(card){
