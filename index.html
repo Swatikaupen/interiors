@@ -357,7 +357,9 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
   a, button { cursor: pointer; }
 
   /* Nav — hamburger */
-  nav { padding: 1.2rem 1.6rem; }
+  nav { padding: 1.2rem 1.6rem; background: rgba(250,248,244,.97) !important; box-shadow: 0 1px 0 rgba(26,23,20,.07); }
+  nav .nav-logo { color: var(--ink); }
+  nav .nav-links a { color: var(--ink); }
   .nav-sub { display: none; }
   .nav-links { display: none; }
   .nav-links.open {
@@ -377,7 +379,7 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
   }
   .nav-hamburger span {
     display: block; width: 22px; height: 1.5px;
-    background: var(--ivory); transition: transform .3s, opacity .3s, background .4s;
+    background: var(--ink); transition: transform .3s, opacity .3s, background .4s;
   }
   .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
   .nav-hamburger.open span:nth-child(2) { opacity: 0; }
@@ -415,7 +417,7 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
   /* About */
   .about { padding: 4rem 1.6rem 2rem; grid-template-columns: 1fr; gap: 0; }
   .about-visual { margin-bottom: 5rem; }
-  .about-img-frame { aspect-ratio: 4/3; }
+  .about-img-frame { aspect-ratio: unset; height: 480px; }
   .about-accent-box { width: 80%; right: -1rem; bottom: -2rem; padding: 1.5rem; }
   .about-accent-box p { font-size: .95rem; }
   .about-stats { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
@@ -815,6 +817,36 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
 .conf-lock-bg{position:absolute;inset:0;background:var(--ink);}
 .conf-lock-bg::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,.015) 60px,rgba(255,255,255,.015) 61px);}
 
+/* ── Confidential Project Cards ── */
+.conf-proj-card{background:var(--ivory);cursor:pointer;overflow:hidden;transition:transform .4s,box-shadow .4s;}
+.conf-proj-card:hover{transform:translateY(-5px);box-shadow:0 20px 60px rgba(26,23,20,.13);}
+.conf-proj-cover{position:relative;overflow:hidden;aspect-ratio:4/3;}
+.conf-proj-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .75s cubic-bezier(.25,.46,.45,.94);}
+.conf-proj-card:hover .conf-proj-cover img{transform:scale(1.05);}
+.conf-proj-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,13,11,.72) 0%,transparent 55%);display:flex;align-items:flex-end;padding:1.8rem;opacity:0;transition:opacity .4s;}
+.conf-proj-card:hover .conf-proj-overlay{opacity:1;}
+.conf-proj-view{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--ivory);}
+
+/* ── Project Detail View ── */
+.conf-proj-back{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);background:none;border:1px solid var(--mist);padding:.6rem 1.4rem;cursor:pointer;margin-bottom:3rem;display:inline-block;transition:all .3s;}
+.conf-proj-back:hover{color:var(--ink);border-color:var(--ink);}
+.conf-proj-detail-header{margin-bottom:3rem;}
+.conf-proj-detail-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;color:var(--ink);line-height:1.1;margin:.6rem 0 1rem;}
+.conf-proj-detail-desc{font-size:.9rem;line-height:1.9;color:var(--stone);max-width:640px;margin-bottom:1.2rem;}
+
+/* ── Project Gallery ── */
+.conf-proj-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+.conf-proj-gallery-item{overflow:hidden;aspect-ratio:3/4;cursor:pointer;position:relative;}
+.conf-proj-gallery-item:first-child{grid-column:1/3;aspect-ratio:16/9;}
+.conf-proj-gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.25,.46,.45,.94);}
+.conf-proj-gallery-item:hover img{transform:scale(1.04);}
+@media(max-width:768px){
+  .conf-proj-gallery{grid-template-columns:1fr;}
+  .conf-proj-gallery-item:first-child{grid-column:auto;aspect-ratio:4/3;}
+  .conf-proj-gallery-item{aspect-ratio:4/3;}
+  .conf-proj-back{cursor:pointer;}
+}
+
 </style>
 <!-- Calendly badge widget begin -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -828,10 +860,10 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox" onclick="lbClose(event)">
   <div class="lightbox-img-wrap" onclick="event.stopPropagation()">
-    <button class="lb-close" onclick="lbClose()">✕</button>
-    <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
+    <button class="lb-close" type="button" onclick="lbClose(event)">✕</button>
+    <button class="lb-nav lb-prev" type="button" onclick="lbNav(-1)">‹</button>
     <img id="lbImg" src="" alt="">
-    <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
+    <button class="lb-nav lb-next" type="button" onclick="lbNav(1)">›</button>
     <div class="lb-caption" id="lbCaption"></div>
   </div>
 </div>
@@ -1355,44 +1387,23 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
       </div>
       <button class="conf-logout" onclick="lockConf()">Lock &amp; Exit</button>
     </div>
-    <div class="conf-pg">
-      <div class="conf-card">
-        <img src="" data-k="iLV1" style="width:100%;height:320px;object-fit:cover;display:block;">
-        <div class="conf-card-body">
-          <div class="conf-card-tag">Residential · NDA</div>
-          <div class="conf-card-title">Private Residence</div>
-          <p class="conf-card-desc">Full interior design for a private family home — South Asian cultural identity balanced with California modernism through teak, stone, and hand-sourced Indian textiles.</p>
-          <div class="conf-card-scope"><span class="scope-tag">Full Interior</span><span class="scope-tag">Material Sourcing</span><span class="scope-tag">Custom Furniture</span></div>
+    <!-- Project index grid -->
+    <div class="conf-pg" id="confProjectGrid"></div>
+
+    <!-- Project detail view (hidden until a card is clicked) -->
+    <div class="conf-proj-detail" id="confProjDetail" style="display:none;">
+      <button class="conf-proj-back" onclick="closeConfProject()">← Back to Projects</button>
+      <div class="conf-proj-detail-header">
+        <div>
+          <div class="conf-card-tag" id="detailTag"></div>
+          <h2 class="conf-proj-detail-title" id="detailTitle"></h2>
+          <p class="conf-proj-detail-desc" id="detailDesc"></p>
+          <div class="conf-card-scope" id="detailScope"></div>
         </div>
       </div>
-      <div class="conf-card">
-        <img src="" data-k="iDDPL" style="width:100%;height:320px;object-fit:cover;display:block;">
-        <div class="conf-card-body">
-          <div class="conf-card-tag">Commercial · NDA</div>
-          <div class="conf-card-title">Tech Campus Executive Floors</div>
-          <p class="conf-card-desc">Executive and hospitality floors for a Fortune 500 tech campus — warm natural stone and curated craft objects within the company's design language.</p>
-          <div class="conf-card-scope"><span class="scope-tag">Space Planning</span><span class="scope-tag">FF&amp;E</span><span class="scope-tag">Art Curation</span></div>
-        </div>
-      </div>
-      <div class="conf-card">
-        <img src="" data-k="iDROT" style="width:100%;height:320px;object-fit:cover;display:block;">
-        <div class="conf-card-body">
-          <div class="conf-card-tag">Luxury Retail · NDA</div>
-          <div class="conf-card-title">Fashion Flagship</div>
-          <p class="conf-card-desc">A luxury fashion flagship built around the narrative of a private residence — intimate, material-rich, and deeply considered in its spatial sequence.</p>
-          <div class="conf-card-scope"><span class="scope-tag">Retail Strategy</span><span class="scope-tag">Spatial Narrative</span><span class="scope-tag">Joinery</span></div>
-        </div>
-      </div>
-      <div class="conf-card">
-        <img src="" data-k="iPRLR" style="width:100%;height:320px;object-fit:cover;display:block;">
-        <div class="conf-card-body">
-          <div class="conf-card-tag">Hospitality · NDA</div>
-          <div class="conf-card-title">Heritage Hotel Renovation</div>
-          <p class="conf-card-desc">Sensitive renovation of a historic property into a boutique hotel — preserving original architectural elements while meeting contemporary hospitality standards.</p>
-          <div class="conf-card-scope"><span class="scope-tag">Heritage Restoration</span><span class="scope-tag">Hospitality Design</span></div>
-        </div>
-      </div>
+      <div class="conf-proj-gallery" id="detailGallery"></div>
     </div>
+
   </div>
   <footer id="confFooter" style="display:none;">
     <span class="footer-logo">Open Storey</span>
@@ -1419,6 +1430,7 @@ function showPage(id,anchor){
   window.scrollTo(0,0);
   if(anchor){setTimeout(()=>{const el=document.getElementById(anchor);if(el)el.scrollIntoView({behavior:'smooth'});},80);}
   triggerReveal();
+  if(id==='confidential') syncConfAccess();
   if(id==='home') setTimeout(function(){ initPtSlider(); buildLbCards(); }, 120);
 }
 
@@ -1459,22 +1471,6 @@ document.querySelectorAll('.product-wishlist').forEach(btn=>{
   });
 });
 
-// Confidential
-const CONF_PW='openstorey2026';
-function checkPw(){
-  const val=document.getElementById('pwInput').value.trim();
-  const err=document.getElementById('pwErr');
-  if(val===CONF_PW){
-    document.getElementById('confLock').style.display='none';
-    document.getElementById('confContent').style.display='block';
-    document.getElementById('confFooter').style.display='flex';
-    triggerReveal();
-  } else {
-    err.textContent='Incorrect password. Please try again.';
-    document.getElementById('pwInput').value='';
-    setTimeout(()=>{err.innerHTML='&nbsp;';},3000);
-  }
-}
 function toggleMenu(){
   var menu=document.getElementById('mainNavLinks');
   var btn=document.getElementById('hamburger');
@@ -1502,54 +1498,83 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   });
 });
-function lockConf(){
-  document.getElementById('confLock').style.display='flex';
-  document.getElementById('confContent').style.display='none';
-  document.getElementById('confFooter').style.display='none';
-  document.getElementById('pwInput').value='';
-  showPage('home');
-}
 </script>
 <script>
 // Extracted image asset map
 const FORM_ENDPOINT='https://formsubmit.co/ajax/openstorey.design@gmail.com';
 const _m={
-  iLR: 'assets/images/home-hero.jpg',
-  iFLOOR: 'assets/images/detail-floor-inlay.jpg',
-  iLOTUS: 'assets/images/finds-lotus-arabesque-tile-panel.jpg',
-  iGARU: 'assets/images/finds-antique-garuda-figure.jpg',
-  iMASK: 'assets/images/finds-west-african-sun-mask.jpg',
-  iYALI: 'assets/images/finds-carved-teak-yali-figure.jpg',
-  iART: 'assets/images/finds-curated-art-object.jpg',
-  iOPT1: 'assets/images/conf-fashion-flagship-concept.jpg',
-  iDRK: 'assets/images/conf-atherton-private-residence.jpg',
-  iMRL: 'assets/images/conf-tech-campus-executive-floors.jpg',
-  iLV1: 'assets/images/portfolio-family-residence.jpg',
-  iLV2: 'assets/images/portfolio-private-residence.jpg',
-  iCEIL: 'assets/images/portfolio-brass-oak-dining.jpg',
-  iDBLK: 'assets/images/portfolio-dark-dining-room.jpg',
-  iDRM: 'assets/images/portfolio-botanical-dining.jpg',
-  iPBLU: 'assets/images/portfolio-chinoiserie-powder-room.jpg',
-  iFISH: 'assets/images/portfolio-emerald-fish-scale-bathroom.jpg',
-  iDCAJ: 'assets/images/portfolio-tropical-dining.jpg',
-  iDBIR: 'assets/images/portfolio-crane-mural-dining-room.jpg',
-  iPRM2: 'assets/images/portfolio-marble-penny-tile-bathroom.jpg',
-  iKOHL: 'assets/images/portfolio-dark-marble-bathroom.jpg',
-  iWBBT: 'assets/images/portfolio-silver-blue-bathroom.jpg',
-  iNURS: 'assets/images/portfolio-botanical-nursery.jpg',
-  iEDIN: 'assets/images/portfolio-formal-dining-room.jpg',
-  iABOUT: 'assets/images/about-material-detail.jpg',
-  iFOYR: 'assets/images/portfolio-entry-foyer.jpg',
-  iKITC: 'assets/images/portfolio-burgundy-kitchen.jpg',
-  iSWAT: 'assets/images/about-swatika-upendran.jpg',
-  iLVDN: 'assets/images/portfolio-living-dining.jpg',
-  iPRLR: 'assets/images/portfolio-parlour.jpg',
-  iIFLB: 'assets/images/portfolio-informal-living.jpg',
-  iDROT: 'assets/images/portfolio-grand-dining-room.jpg',
-  iDDPD: 'assets/images/portfolio-formal-dining.jpg',
-  iDDPL: 'assets/images/portfolio-living-room.jpg',
-  iDPCH: 'assets/images/portfolio-dining-with-perch-light.jpg',
-  iFMIR: 'assets/images/portfolio-entry-foyer-with-mirror.jpg',
+  "iLR": "assets/images/home-hero.jpg",
+  "iFLOOR": "assets/images/detail-floor-inlay.jpg",
+  "iLOTUS": "assets/images/finds-lotus-arabesque-tile-panel.jpg",
+  "iGARU": "assets/images/finds-antique-garuda-figure.jpg",
+  "iMASK": "assets/images/finds-west-african-sun-mask.jpg",
+  "iYALI": "assets/images/finds-carved-teak-yali-figure.jpg",
+  "iART": "assets/images/finds-curated-art-object.jpg",
+  "iLV1": "assets/images/portfolio-family-residence.jpg",
+  "iLV2": "assets/images/portfolio-private-residence.jpg",
+  "iCEIL": "assets/images/portfolio-brass-oak-dining.jpg",
+  "iDBLK": "assets/images/portfolio-dark-dining-room.jpg",
+  "iDRM": "assets/images/portfolio-botanical-dining.jpg",
+  "iPBLU": "assets/images/portfolio-chinoiserie-powder-room.jpg",
+  "iFISH": "assets/images/portfolio-emerald-fish-scale-bathroom.jpg",
+  "iDCAJ": "assets/images/portfolio-tropical-dining.jpg",
+  "iDBIR": "assets/images/portfolio-crane-mural-dining-room.jpg",
+  "iPRM2": "assets/images/portfolio-marble-penny-tile-bathroom.jpg",
+  "iKOHL": "assets/images/portfolio-dark-marble-bathroom.jpg",
+  "iWBBT": "assets/images/portfolio-silver-blue-bathroom.jpg",
+  "iNURS": "assets/images/portfolio-botanical-nursery.jpg",
+  "iEDIN": "assets/images/portfolio-formal-dining-room.jpg",
+  "iABOUT": "assets/images/about-material-detail.jpg",
+  "iFOYR": "assets/images/portfolio-entry-foyer.jpg",
+  "iKITC": "assets/images/portfolio-burgundy-kitchen.jpg",
+  "iSWAT": "assets/images/about-swatika-upendran.jpg",
+  "iLVDN": "assets/images/portfolio-living-dining.jpg",
+  "iPRLR": "assets/images/portfolio-parlour.jpg",
+  "iIFLB": "assets/images/portfolio-informal-living.jpg",
+  "iDROT": "assets/images/portfolio-grand-dining-room.jpg",
+  "iDDPD": "assets/images/portfolio-formal-dining.jpg",
+  "iDDPL": "assets/images/portfolio-living-room.jpg",
+  "iDPCH": "assets/images/portfolio-dining-with-perch-light.jpg",
+  "iFMIR": "assets/images/portfolio-entry-foyer-with-mirror.jpg",
+  "cEVO01": "assets/images/conf-evoluzione-boutique-01-jewellery-salon-overview.jpg",
+  "cEVO02": "assets/images/conf-evoluzione-boutique-02-jewellery-display-cases.jpg",
+  "cEVO03": "assets/images/conf-evoluzione-boutique-03-apparel-floor-glass-partition.jpg",
+  "cEVO04": "assets/images/conf-evoluzione-boutique-04-apparel-floor-collection-rails.jpg",
+  "cEVO05": "assets/images/conf-evoluzione-boutique-05-central-atrium-and-display-towers.jpg",
+  "cEVO06": "assets/images/conf-evoluzione-boutique-06-lounge-and-reception-area.jpg",
+  "cEVO07": "assets/images/conf-evoluzione-boutique-07-fitting-and-display-room.jpg",
+  "cEVO08": "assets/images/conf-evoluzione-boutique-08-upper-level-pre-opening.jpg",
+  "cCIS01": "assets/images/conf-cisco-b17-campus-bangalore-01-3rd-floor-mela-folk-art-breakout-site-photograph.jpg",
+  "cCIS02": "assets/images/conf-cisco-b17-campus-bangalore-02-3rd-floor-mela-working-drawings.jpg",
+  "cCIS03": "assets/images/conf-cisco-b17-campus-bangalore-03-3rd-floor-mela-renders-and-documentation.jpg",
+  "cCIS04": "assets/images/conf-cisco-b17-campus-bangalore-04-4th-floor-camp-us-forest-campsite-site-photograph.jpg",
+  "cCIS05": "assets/images/conf-cisco-b17-campus-bangalore-05-4th-floor-camp-us-working-drawings.jpg",
+  "cCIS06": "assets/images/conf-cisco-b17-campus-bangalore-06-4th-floor-camp-us-renders-and-documentation.jpg",
+  "cCIS07": "assets/images/conf-cisco-b17-campus-bangalore-07-5th-floor-grow-r-u-games-zone-working-drawings.jpg",
+  "cCIS08": "assets/images/conf-cisco-b17-campus-bangalore-08-5th-floor-grow-r-u-renders-and-documentation.jpg",
+  "cCIS09": "assets/images/conf-cisco-b17-campus-bangalore-09-6th-floor-out-of-the-box-collaborative-zone-site-photograph.jpg",
+  "cCIS10": "assets/images/conf-cisco-b17-campus-bangalore-10-6th-floor-out-of-the-box-working-drawings.jpg",
+  "cCIS11": "assets/images/conf-cisco-b17-campus-bangalore-11-6th-floor-out-of-the-box-renders-and-documentation.jpg",
+  "cCIS12": "assets/images/conf-cisco-b17-campus-bangalore-12-7th-floor-lazy-galaxies-relaxation-lounge-site-photograph.jpg",
+  "cCIS13": "assets/images/conf-cisco-b17-campus-bangalore-13-7th-floor-lazy-galaxies-curved-curtain-pods-site-photograph.jpg",
+  "cCIS14": "assets/images/conf-cisco-b17-campus-bangalore-14-7th-floor-lazy-galaxies-working-drawings.jpg",
+  "cCIS15": "assets/images/conf-cisco-b17-campus-bangalore-15-7th-floor-lazy-galaxies-renders-and-documentation.jpg",
+  "cCIS16": "assets/images/conf-cisco-b17-campus-bangalore-16-8th-floor-swing-garden-island-breakout-site-photograph.jpg",
+  "cCIS17": "assets/images/conf-cisco-b17-campus-bangalore-17-8th-floor-swing-garden-pergola-swings-site-photograph.jpg",
+  "cCIS18": "assets/images/conf-cisco-b17-campus-bangalore-18-8th-floor-swing-garden-working-drawings.jpg",
+  "cCIS19": "assets/images/conf-cisco-b17-campus-bangalore-19-8th-floor-swing-garden-renders-and-documentation.jpg",
+  "cKHC01": "assets/images/conf-keha-casa-01-double-height-atrium-orb-lighting-installation.jpg",
+  "cKHC02": "assets/images/conf-keha-casa-02-keha-casa-exterior-facade-and-signage.jpg",
+  "cKHC03": "assets/images/conf-keha-casa-03-atrium-full-height-glass-staircase-and-chandelier.jpg",
+  "cKHC04": "assets/images/conf-keha-casa-04-ground-floor-botanical-mosaic-wall-and-clawfoot-bath.jpg",
+  "cKHC05": "assets/images/conf-keha-casa-05-atrium-glass-staircase-and-driftwood-sculpture.jpg",
+  "cKHC06": "assets/images/conf-keha-casa-06-material-wall-chevron-mosaic-detail.jpg",
+  "cKHC07": "assets/images/conf-keha-casa-07-showroom-floor-flamingo-mosaic-and-gold-vanity.jpg",
+  "cKHC08": "assets/images/conf-keha-casa-08-showroom-flamingo-wall-and-spiral-floor-mosaic.jpg",
+  "cKHC09": "assets/images/conf-keha-casa-09-atrium-overview-lighting-and-glass-stair.jpg",
+  "cKHC10": "assets/images/conf-keha-casa-10-butterfly-mosaic-wall-detail.jpg",
+  "cKHC11": "assets/images/conf-keha-casa-11-showroom-butterfly-wall-and-gold-pivot-door.jpg",
+  "cKHC12": "assets/images/conf-keha-casa-12-ground-floor-clawfoot-bath-and-botanical-mosaic-detail.jpg"
 };
 function _loadImgs(){document.querySelectorAll("[data-k]").forEach(function(e){var k=e.getAttribute("data-k");if(_m[k])e.src=_m[k];});}
 if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",_loadImgs);}else{_loadImgs();}
@@ -1589,60 +1614,476 @@ function initPtSlider(){
 }
 
 // Lightbox
-var _lbCards = [], _lbIdx = 0;
-function buildLbCards(){
-  _lbCards = [];
-  document.querySelectorAll('#projGrid .project-card').forEach(function(card){
-    var img = card.querySelector('img');
-    var title = card.querySelector('.card-title');
-    var tag = card.querySelector('.card-tag');
-    _lbCards.push({
-      src: img ? img.src : '',
-      caption: (tag ? tag.textContent+' — ' : '') + (title ? title.textContent : '')
-    });
-    card.addEventListener('click', function(){
-      var idx = _lbCards.indexOf(_lbCards.find(function(c){ return c.src===img.src; }));
-      lbOpen(idx);
-    });
-  });
-}
-function lbOpen(idx){
-  _lbIdx = idx;
+var _lbCards = [];
+var _lbCardEls = [];
+var _lbSet = [];
+var _lbIdx = 0;
+var _lbMode = 'portfolio';
+
+function lbRender(item){
   var lb = document.getElementById('lightbox');
   var lbImg = document.getElementById('lbImg');
   var lbCap = document.getElementById('lbCaption');
-  var card = _lbCards[idx];
-  if(!card) return;
-  lbImg.src = card.src;
-  lbCap.textContent = card.caption;
+  if(!lb || !lbImg || !lbCap || !item) return;
+  lbImg.src = item.src;
+  lbImg.alt = item.caption || 'Project image';
+  lbCap.textContent = item.caption || '';
   lb.classList.add('open');
+  lb.dataset.mode = _lbMode;
   document.body.style.overflow = 'hidden';
 }
-function lbClose(e){
-  if(e && e.target !== document.getElementById('lightbox') && !e.target.classList.contains('lb-close')) return;
-  document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function lbNav(dir){
-  var visible = _lbCards.filter(function(c,i){
-    var card = document.querySelectorAll('#projGrid .project-card')[i];
-    return card && card.style.display !== 'none';
+
+function buildLbCards(){
+  _lbCardEls = Array.from(document.querySelectorAll('#projGrid .project-card'));
+  _lbCards = _lbCardEls.map(function(card, idx){
+    var img = card.querySelector('img');
+    var title = card.querySelector('.card-title');
+    var tag = card.querySelector('.card-tag');
+    card.onclick = function(){ lbOpen(idx); };
+    return {
+      src: img ? img.src : '',
+      caption: (tag ? tag.textContent + ' — ' : '') + (title ? title.textContent : '')
+    };
   });
-  var curVis = visible.findIndex(function(c){ return c===_lbCards[_lbIdx]; });
-  var next = (curVis + dir + visible.length) % visible.length;
-  var nextGlobal = _lbCards.indexOf(visible[next]);
-  lbOpen(nextGlobal);
 }
+
+function lbOpen(idx){
+  if(!_lbCards[idx]) return;
+  _lbMode = 'portfolio';
+  _lbIdx = idx;
+  lbRender(_lbCards[_lbIdx]);
+}
+
+function lbOpenSet(images, idx){
+  if(!images || !images.length || !images[idx]) return;
+  _lbMode = 'set';
+  _lbSet = images.slice();
+  _lbIdx = idx;
+  lbRender(_lbSet[_lbIdx]);
+}
+
+function lbClose(event){
+  var lb = document.getElementById('lightbox');
+  if(!lb) return;
+  if(event && event.target !== lb && !event.target.closest('.lb-close')) return;
+  lb.classList.remove('open');
+  lb.dataset.mode = '';
+  document.body.style.overflow = '';
+  _lbSet = [];
+  _lbMode = 'portfolio';
+}
+
+function lbNav(dir){
+  if(_lbMode === 'set'){
+    if(!_lbSet.length) return;
+    _lbIdx = (_lbIdx + dir + _lbSet.length) % _lbSet.length;
+    lbRender(_lbSet[_lbIdx]);
+    return;
+  }
+  var visibleIndexes = _lbCardEls.reduce(function(list, card, idx){
+    if(card && card.style.display !== 'none') list.push(idx);
+    return list;
+  }, []);
+  if(!visibleIndexes.length) return;
+  var current = visibleIndexes.indexOf(_lbIdx);
+  if(current === -1) current = 0;
+  _lbIdx = visibleIndexes[(current + dir + visibleIndexes.length) % visibleIndexes.length];
+  lbRender(_lbCards[_lbIdx]);
+}
+
 document.addEventListener('keydown', function(e){
   var lb = document.getElementById('lightbox');
-  if(!lb.classList.contains('open')) return;
-  if(e.key==='Escape') lbClose({target:lb});
-  if(e.key==='ArrowRight') lbNav(1);
-  if(e.key==='ArrowLeft') lbNav(-1);
+  if(!lb || !lb.classList.contains('open')) return;
+  if(e.key === 'Escape') lbClose({target: lb});
+  if(e.key === 'ArrowRight') lbNav(1);
+  if(e.key === 'ArrowLeft') lbNav(-1);
 });
 
-// Init on page load
-document.addEventListener("DOMContentLoaded", function(){ buildLbCards(); initPtSlider(); });
+// Confidential access
+const CONF_SESSION_KEY = 'openstorey-confidential-access';
+const CONF_PW_HASH = 'b3fbcc4d9e313619c80295c924ad62d796046a7e517144034384acf7820021f4';
+
+function setConfAccess(isUnlocked){
+  var confLock = document.getElementById('confLock');
+  var confContent = document.getElementById('confContent');
+  var confFooter = document.getElementById('confFooter');
+  var err = document.getElementById('pwErr');
+  if(!confLock || !confContent || !confFooter) return;
+  confLock.style.display = isUnlocked ? 'none' : 'flex';
+  confContent.style.display = isUnlocked ? 'block' : 'none';
+  confFooter.style.display = isUnlocked ? 'flex' : 'none';
+  if(isUnlocked){
+    sessionStorage.setItem(CONF_SESSION_KEY, '1');
+  } else {
+    sessionStorage.removeItem(CONF_SESSION_KEY);
+    window._confGallery = [];
+    closeConfProject();
+    if(err) err.innerHTML = '&nbsp;';
+  }
+}
+
+function syncConfAccess(){
+  setConfAccess(sessionStorage.getItem(CONF_SESSION_KEY) === '1');
+}
+
+async function sha256Hex(value){
+  var data = new TextEncoder().encode(value);
+  var digest = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(digest)).map(function(byte){
+    return byte.toString(16).padStart(2, '0');
+  }).join('');
+}
+
+async function checkPw(){
+  var input = document.getElementById('pwInput');
+  var err = document.getElementById('pwErr');
+  if(!input || !err) return;
+  var val = input.value.trim();
+  if(!val){
+    err.textContent = 'Enter the access password.';
+    return;
+  }
+  var hash = await sha256Hex('openstorey-confidential::' + val);
+  if(hash === CONF_PW_HASH){
+    input.value = '';
+    err.innerHTML = '&nbsp;';
+    setConfAccess(true);
+    triggerReveal();
+  } else {
+    err.textContent = 'Incorrect password. Please try again.';
+    input.value = '';
+    setTimeout(function(){ err.innerHTML = '&nbsp;'; }, 3000);
+  }
+}
+
+function lockConf(){
+  var input = document.getElementById('pwInput');
+  if(input) input.value = '';
+  setConfAccess(false);
+  showPage('home');
+}
+
+// Confidential Projects Data
+var CONF_PROJECTS = {
+  "evoluzione": {
+    "tag": "Luxury Retail · NDA",
+    "title": "Evoluzione Boutique",
+    "cardTitle": "Evoluzione Boutique",
+    "cardDesc": "A multi-floor luxury boutique housing haute couture and fine jewellery — designed around intimate discovery, warm gold tones, and material richness.",
+    "cardScope": [
+      "Retail Interior",
+      "Jewellery Display",
+      "Spatial Narrative"
+    ],
+    "desc": "A multi-floor luxury boutique housing haute couture and fine jewellery — designed around intimate discovery, warm gold tones, and material richness. Each zone flows into the next through considered spatial transitions, bespoke joinery, and curated lighting.",
+    "scope": [
+      "Retail Interior",
+      "Jewellery Display",
+      "Spatial Narrative",
+      "Lighting Design",
+      "Bespoke Joinery"
+    ],
+    "coverKey": "cEVO01",
+    "images": [
+      {
+        "key": "cEVO01",
+        "caption": "Jewellery Salon — Overview"
+      },
+      {
+        "key": "cEVO02",
+        "caption": "Jewellery Display Cases"
+      },
+      {
+        "key": "cEVO03",
+        "caption": "Apparel Floor — Glass Partition"
+      },
+      {
+        "key": "cEVO04",
+        "caption": "Apparel Floor — Collection Rails"
+      },
+      {
+        "key": "cEVO05",
+        "caption": "Central Atrium & Display Towers"
+      },
+      {
+        "key": "cEVO06",
+        "caption": "Lounge & Reception Area"
+      },
+      {
+        "key": "cEVO07",
+        "caption": "Fitting & Display Room"
+      },
+      {
+        "key": "cEVO08",
+        "caption": "Upper Level — Pre-opening"
+      }
+    ]
+  },
+  "cisco": {
+    "tag": "Commercial · NDA",
+    "title": "Cisco B17 Campus, Bangalore",
+    "cardTitle": "Cisco B17 Campus",
+    "cardDesc": "Six themed breakout floors for Cisco's B17 campus in Bangalore — each zone a distinct experiential world, from a folk-art mela to a forest campsite, a galaxy lounge to a tropical swing garden.",
+    "cardScope": [
+      "Commercial Interior",
+      "Space Planning",
+      "Thematic Design",
+      "FF&E"
+    ],
+    "desc": "A full interior design commission across six floors of Cisco's B17 building in Bangalore. Each floor was conceived as a distinct thematic world — drawing from Indian folk traditions, the natural landscape, games culture, and the cosmos — to create immersive, human-centred breakout zones for over a thousand employees.",
+    "scope": [
+      "Commercial Interior",
+      "Space Planning",
+      "Thematic Design",
+      "Custom Furniture",
+      "FF&E",
+      "Working Drawings"
+    ],
+    "coverKey": "cCIS01",
+    "images": [
+      {
+        "key": "cCIS01",
+        "caption": "3rd Floor — 'Mela': Folk Art Breakout, Site Photograph"
+      },
+      {
+        "key": "cCIS02",
+        "caption": "3rd Floor — 'Mela': Working Drawings"
+      },
+      {
+        "key": "cCIS03",
+        "caption": "3rd Floor — 'Mela': Renders & Documentation"
+      },
+      {
+        "key": "cCIS04",
+        "caption": "4th Floor — 'Camp Us': Forest Campsite, Site Photograph"
+      },
+      {
+        "key": "cCIS05",
+        "caption": "4th Floor — 'Camp Us': Working Drawings"
+      },
+      {
+        "key": "cCIS06",
+        "caption": "4th Floor — 'Camp Us': Renders & Documentation"
+      },
+      {
+        "key": "cCIS07",
+        "caption": "5th Floor — 'Grow R U': Games Zone, Working Drawings"
+      },
+      {
+        "key": "cCIS08",
+        "caption": "5th Floor — 'Grow R U': Renders & Documentation"
+      },
+      {
+        "key": "cCIS09",
+        "caption": "6th Floor — 'Out Of The Box': Collaborative Zone, Site Photograph"
+      },
+      {
+        "key": "cCIS10",
+        "caption": "6th Floor — 'Out Of The Box': Working Drawings"
+      },
+      {
+        "key": "cCIS11",
+        "caption": "6th Floor — 'Out Of The Box': Renders & Documentation"
+      },
+      {
+        "key": "cCIS12",
+        "caption": "7th Floor — 'Lazy Galaxies': Relaxation Lounge, Site Photograph"
+      },
+      {
+        "key": "cCIS13",
+        "caption": "7th Floor — 'Lazy Galaxies': Curved Curtain Pods, Site Photograph"
+      },
+      {
+        "key": "cCIS14",
+        "caption": "7th Floor — 'Lazy Galaxies': Working Drawings"
+      },
+      {
+        "key": "cCIS15",
+        "caption": "7th Floor — 'Lazy Galaxies': Renders & Documentation"
+      },
+      {
+        "key": "cCIS16",
+        "caption": "8th Floor — 'Swing Garden': Island Breakout, Site Photograph"
+      },
+      {
+        "key": "cCIS17",
+        "caption": "8th Floor — 'Swing Garden': Pergola Swings, Site Photograph"
+      },
+      {
+        "key": "cCIS18",
+        "caption": "8th Floor — 'Swing Garden': Working Drawings"
+      },
+      {
+        "key": "cCIS19",
+        "caption": "8th Floor — 'Swing Garden': Renders & Documentation"
+      }
+    ]
+  },
+  "kehacasa": {
+    "tag": "Luxury Retail · NDA",
+    "title": "Keha Casa",
+    "cardTitle": "Keha Casa",
+    "cardDesc": "A flagship showroom for a luxury tile and surface brand — a double-height atrium dressed in bespoke mosaic, suspended orb lighting, botanical glass, and hand-crafted material storytelling across every surface.",
+    "cardScope": [
+      "Retail Interior",
+      "Lighting Design",
+      "Material Curation",
+      "Mosaic"
+    ],
+    "desc": "A flagship showroom for a luxury tile and surface brand — conceived as an immersive material journey through a double-height atrium. Suspended orb and botanical-form lighting installations, bespoke mosaic murals depicting flora and butterflies, a hand-painted clawfoot bath, and chevron glass surfaces create a space that is as much gallery as retail destination.",
+    "scope": [
+      "Retail Interior",
+      "Lighting Design",
+      "Material Curation",
+      "Mosaic Art Direction",
+      "Spatial Narrative"
+    ],
+    "coverKey": "cKHC12",
+    "images": [
+      {
+        "key": "cKHC01",
+        "caption": "Double-Height Atrium — Orb Lighting Installation"
+      },
+      {
+        "key": "cKHC02",
+        "caption": "Keha Casa Exterior — Facade & Signage"
+      },
+      {
+        "key": "cKHC03",
+        "caption": "Atrium — Full Height Glass Staircase & Chandelier"
+      },
+      {
+        "key": "cKHC04",
+        "caption": "Ground Floor — Botanical Mosaic Wall & Clawfoot Bath"
+      },
+      {
+        "key": "cKHC05",
+        "caption": "Atrium — Glass Staircase & Driftwood Sculpture"
+      },
+      {
+        "key": "cKHC06",
+        "caption": "Material Wall — Chevron Mosaic Detail"
+      },
+      {
+        "key": "cKHC07",
+        "caption": "Showroom Floor — Flamingo Mosaic & Gold Vanity"
+      },
+      {
+        "key": "cKHC08",
+        "caption": "Showroom — Flamingo Wall & Spiral Floor Mosaic"
+      },
+      {
+        "key": "cKHC09",
+        "caption": "Atrium Overview — Lighting & Glass Stair"
+      },
+      {
+        "key": "cKHC10",
+        "caption": "Butterfly Mosaic Wall — Detail"
+      },
+      {
+        "key": "cKHC11",
+        "caption": "Showroom — Butterfly Wall & Gold Pivot Door"
+      },
+      {
+        "key": "cKHC12",
+        "caption": "Ground Floor — Clawfoot Bath & Botanical Mosaic, Detail"
+      }
+    ]
+  }
+};
+
+function escHtml(value){
+  return String(value).replace(/[&<>"']/g, function(char){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[char];
+  });
+}
+
+function resolveConfImages(project){
+  return project.images.map(function(img){
+    return {
+      key: img.key,
+      src: _m[img.key],
+      caption: img.caption
+    };
+  }).filter(function(img){
+    return !!img.src;
+  });
+}
+
+function renderConfProjectGrid(){
+  var grid = document.getElementById('confProjectGrid');
+  if(!grid) return;
+  grid.innerHTML = Object.keys(CONF_PROJECTS).map(function(id){
+    var project = CONF_PROJECTS[id];
+    var coverItem = project.images.find(function(img){ return img.key === project.coverKey; }) || project.images[0];
+    var coverSrc = coverItem && _m[coverItem.key] ? _m[coverItem.key] : '';
+    var coverAlt = project.title + ' — ' + (coverItem ? coverItem.caption : 'Project cover');
+    var scope = (project.cardScope || project.scope || []).map(function(item){
+      return '<span class="scope-tag">' + escHtml(item) + '</span>';
+    }).join('');
+    return '<div class="conf-proj-card" onclick="openConfProject(\'' + id + '\')">'
+      + '<div class="conf-proj-cover">'
+      + '<img src="' + escHtml(coverSrc) + '" alt="' + escHtml(coverAlt) + '" loading="lazy">'
+      + '<div class="conf-proj-overlay"><span class="conf-proj-view">View Project →</span></div>'
+      + '</div>'
+      + '<div class="conf-card-body">'
+      + '<div class="conf-card-tag">' + escHtml(project.tag) + '</div>'
+      + '<div class="conf-card-title">' + escHtml(project.cardTitle || project.title) + '</div>'
+      + '<p class="conf-card-desc">' + escHtml(project.cardDesc || project.desc) + '</p>'
+      + '<div class="conf-card-scope">' + scope + '</div>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function openConfProject(id){
+  var project = CONF_PROJECTS[id];
+  if(!project) return;
+  var images = resolveConfImages(project);
+  if(!images.length) return;
+  document.getElementById('confProjectGrid').style.display = 'none';
+  var detail = document.getElementById('confProjDetail');
+  detail.style.display = 'block';
+  document.getElementById('detailTag').textContent = project.tag;
+  document.getElementById('detailTitle').textContent = project.title;
+  document.getElementById('detailDesc').textContent = project.desc;
+  var scopeEl = document.getElementById('detailScope');
+  scopeEl.innerHTML = project.scope.map(function(item){
+    return '<span class="scope-tag">' + escHtml(item) + '</span>';
+  }).join('');
+  var gallery = document.getElementById('detailGallery');
+  gallery.innerHTML = images.map(function(img, index){
+    return '<div class="conf-proj-gallery-item" onclick="lbOpenSet(window._confGallery,' + index + ')">'
+      + '<img src="' + escHtml(img.src) + '" alt="' + escHtml(project.title + ' — ' + img.caption) + '" loading="lazy">'
+      + '</div>';
+  }).join('');
+  window._confGallery = images.map(function(img){
+    return {
+      src: img.src,
+      caption: img.caption
+    };
+  });
+  window.scrollTo(0,0);
+}
+
+function closeConfProject(){
+  var grid = document.getElementById('confProjectGrid');
+  var detail = document.getElementById('confProjDetail');
+  var gallery = document.getElementById('detailGallery');
+  if(grid) grid.style.display = '';
+  if(detail) detail.style.display = 'none';
+  if(gallery) gallery.innerHTML = '';
+  window._confGallery = [];
+  window.scrollTo(0,0);
+}
+
+window._confGallery = [];
+document.addEventListener('DOMContentLoaded', function(){
+  renderConfProjectGrid();
+  buildLbCards();
+  initPtSlider();
+  syncConfAccess();
+});
 
 function sendEnquiry() {
   var name    = document.getElementById('cf-name')    ? document.getElementById('cf-name').value.trim()    : '';
