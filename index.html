@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#FAF8F4">
 <title>Open Storey — Swatika Upendran</title>
+<link rel="canonical" href="https://openstorey.design/">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Karla:wght@300;400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -12,6 +14,8 @@
   --mist:#D4CFC8;--deep:#0F0D0B;--blush:#EDD5C5;
   --clay:#B8A08A;--silk:rgba(184,160,138,0.15);
   --charcoal:#2A2522;--deep-earth:#6B5B4F;
+  --safe-top:env(safe-area-inset-top);
+  --safe-bottom:env(safe-area-inset-bottom);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -351,23 +355,40 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
 
 /* ── Mobile (≤768px) ── */
 @media (max-width: 768px) {
+  :root { --mobile-nav-offset: calc(5rem + var(--safe-top)); }
   /* Disable custom cursor */
   .cursor, .cursor-ring { display: none; }
   body { cursor: auto; }
   a, button { cursor: pointer; }
+  body.menu-open { overflow: hidden; }
 
   /* Nav — hamburger */
   nav {
-    padding: 1.2rem 1.6rem;
-    padding-top: calc(1.2rem + env(safe-area-inset-top));
+    position: sticky;
+    top: 0;
+    left: auto;
+    right: auto;
+    min-height: var(--mobile-nav-offset);
+    padding: calc(.9rem + var(--safe-top)) 1.6rem .95rem;
     background: var(--warm) !important;
     box-shadow: 0 1px 0 rgba(26,23,20,.07);
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    align-items: center;
   }
-  nav.scrolled {
+  nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--warm);
+    z-index: -1;
+  }
+  nav.scrolled,
+  nav.menu-open {
     background: var(--warm) !important;
     box-shadow: 0 1px 0 rgba(26,23,20,.07);
     backdrop-filter: none !important;
@@ -378,13 +399,23 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
   .nav-sub { display: none; }
   .nav-links { display: none; }
   .nav-links.open {
-    display: flex; flex-direction: column; gap: 0;
-    position: fixed; inset: 0; top: 0;
-    background: var(--warm); padding: 5rem 2.5rem 3rem;
-    padding-top: calc(5rem + env(safe-area-inset-top));
-    z-index: 190; align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: var(--mobile-nav-offset);
+    bottom: 0;
+    background: var(--warm);
+    padding: .4rem 1.6rem calc(2rem + var(--safe-bottom));
+    z-index: 250;
+    align-items: flex-start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .nav-links.open li { width: 100%; border-bottom: 1px solid var(--mist); }
+  .nav-links.open li:first-child { border-top: 1px solid var(--mist); }
   .nav-links.open a {
     display: block; padding: 1.2rem 0; font-size: .85rem;
     letter-spacing: .18em; color: var(--ink);
@@ -475,7 +506,7 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
   .finds-hero-text { left: 1.6rem; bottom: 2rem; }
   .finds-hero-title { font-size: clamp(2rem, 8vw, 3rem); }
   .finds-intro { padding: 3rem 1.6rem 2rem; grid-template-columns: 1fr; gap: 2rem; }
-  .finds-tabs { padding: 1.5rem 1.6rem; top: 58px; gap: 1.5rem; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
+  .finds-tabs { padding: 1.5rem 1.6rem; top: var(--mobile-nav-offset); gap: 1.5rem; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
   .finds-tabs::-webkit-scrollbar { display: none; }
   .finds-tab { white-space: nowrap; }
   .finds-grid-wrap { padding: 2.5rem 1.6rem 5rem; }

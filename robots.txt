@@ -1,5 +1,3 @@
 User-agent: *
 Allow: /
-
-# Replace openstorey.design with the live production domain before deployment.
 Sitemap: https://openstorey.design/sitemap.xml
