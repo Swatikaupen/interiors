@@ -1,0 +1,12 @@
+{
+  "name": "openstorey-interiors",
+  "private": true,
+  "scripts": {
+    "test:mobile": "playwright test",
+    "test:mobile:headed": "playwright test --headed",
+    "test:mobile:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0"
+  }
+}

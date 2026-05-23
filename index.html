@@ -358,29 +358,44 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
   :root { --mobile-nav-offset: calc(5rem + var(--safe-top)); }
   /* Disable custom cursor */
   .cursor, .cursor-ring { display: none; }
+  html, body { overscroll-behavior-y: none; }
   body { cursor: auto; }
   a, button { cursor: pointer; }
   body.menu-open { overflow: hidden; }
   body.menu-open .calendly-badge-widget { opacity: 0; pointer-events: none; }
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(var(--mobile-nav-offset) + 1px);
+    background: var(--warm);
+    z-index: 1099;
+    pointer-events: none;
+  }
 
   /* Nav — hamburger */
   nav {
-    position: sticky;
+    position: fixed;
     top: 0;
-    left: auto;
-    right: auto;
+    left: 0;
+    right: 0;
     width: 100%;
+    z-index: 1100;
     min-height: var(--mobile-nav-offset);
     padding: calc(.9rem + var(--safe-top)) 1.6rem .95rem;
     background: var(--warm) !important;
     box-shadow: 0 1px 0 rgba(26,23,20,.07);
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    will-change: transform;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     align-items: center;
+    overflow: visible;
   }
   nav::before {
     content: '';
@@ -396,6 +411,11 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
+  nav.menu-open {
+    min-height: 100dvh;
+    height: 100dvh;
+    overflow: hidden;
+  }
   nav .nav-logo { color: var(--ink); }
   nav .nav-links a { color: var(--ink); }
   .nav-sub { display: none; }
@@ -404,14 +424,14 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
     display: flex;
     flex-direction: column;
     gap: 0;
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
     top: var(--mobile-nav-offset);
     bottom: 0;
     background: var(--warm);
     padding: .4rem 1.6rem calc(2rem + var(--safe-bottom));
-    z-index: 250;
+    z-index: 1;
     align-items: flex-start;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -471,6 +491,7 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
   .about-accent-box p { font-size: .95rem; }
   .about-stats { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
   .stat-num { font-size: 2.4rem; }
+  #philosophy, #about, #portfolio, #process, #contact { scroll-margin-top: calc(var(--mobile-nav-offset) + 1rem); }
 
   /* Section label + h2 padding */
   .portfolio { padding: 2rem 1.6rem 4rem; }
