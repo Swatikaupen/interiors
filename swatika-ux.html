@@ -1,0 +1,2953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#F4EBDD">
+<title>Swatika Upendran - Product / UX + Spatial Design Portfolio</title>
+<meta name="description" content="An interactive Product and UX design portfolio concept for Swatika Upendran, connecting enterprise UX, AI product thinking, and spatial design.">
+<link rel="canonical" href="https://openstorey.design/swatika-ux.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,40,1&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sand: #f4ebdd;
+  --salt: #fffaf1;
+  --ink: #171410;
+  --ink-soft: #2c261e;
+  --cocoa: #563b2a;
+  --clay: #bd6c3f;
+  --oxide: #8d3f2a;
+  --sage: #768b6f;
+  --moss: #394633;
+  --chartreuse: #d5df74;
+  --sky: #98bfc6;
+  --line: rgba(23, 20, 16, .14);
+  --line-strong: rgba(23, 20, 16, .28);
+  --glass: rgba(255, 250, 241, .72);
+  --shadow: 0 24px 70px rgba(73, 45, 25, .16);
+  --nav-h: 76px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--sand);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Space Grotesk", sans-serif;
+  background:
+    radial-gradient(circle at 11% 4%, rgba(213, 223, 116, .32), transparent 28rem),
+    radial-gradient(circle at 86% 8%, rgba(152, 191, 198, .35), transparent 30rem),
+    linear-gradient(145deg, var(--sand), #efe0cc 55%, #ead3bd);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(23, 20, 16, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 20, 16, .045) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.2) 70%, transparent);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: auto -15vw -35vh auto;
+  width: 54vw;
+  height: 54vw;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(189,108,63,.24), transparent 68%);
+}
+
+body[data-mode="space"] {
+  --accent-mode: var(--sage);
+  --accent-mode-2: var(--moss);
+}
+
+body[data-mode="screen"] {
+  --accent-mode: var(--sky);
+  --accent-mode-2: #2e6873;
+}
+
+body[data-mode="system"] {
+  --accent-mode: var(--chartreuse);
+  --accent-mode-2: #6f7b1e;
+}
+
+body[data-mode="bridge"] {
+  --accent-mode: var(--clay);
+  --accent-mode-2: var(--oxide);
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 999;
+  transform: translateY(-140%);
+  background: var(--ink);
+  color: var(--salt);
+  padding: .75rem 1rem;
+  border-radius: 999px;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.ux-nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  min-height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem clamp(1.25rem, 4vw, 4rem);
+  background: rgba(244, 235, 221, .78);
+  backdrop-filter: blur(22px);
+  border-bottom: 1px solid rgba(23, 20, 16, .1);
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: .9rem;
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--salt);
+  font-family: "Fraunces", serif;
+  font-weight: 650;
+  letter-spacing: -.06em;
+  box-shadow: 0 10px 24px rgba(86, 59, 42, .12);
+}
+
+.brand-text strong {
+  display: block;
+  font-size: .92rem;
+  letter-spacing: .02em;
+}
+
+.brand-text span {
+  display: block;
+  margin-top: .12rem;
+  color: rgba(23, 20, 16, .58);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .63rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.ux-nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
+}
+
+.ux-nav-links a {
+  position: relative;
+  color: rgba(23, 20, 16, .68);
+  font-size: .78rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ux-nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -.35rem;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--accent-mode);
+  transition: transform .25s ease;
+}
+
+.ux-nav-links a:hover::after,
+.ux-nav-links a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .68rem .95rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(255, 250, 241, .58);
+}
+
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--salt);
+}
+
+.nav-toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  margin: 4px auto;
+  background: var(--ink);
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+.nav-toggle.open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+main {
+  padding-top: var(--nav-h);
+}
+
+section {
+  scroll-margin-top: calc(var(--nav-h) + 1.5rem);
+}
+
+.ux-hero {
+  min-height: calc(100vh - var(--nav-h));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(350px, .86fr);
+  gap: clamp(2rem, 5vw, 5.5rem);
+  align-items: center;
+  padding: clamp(3.5rem, 7vw, 7rem) clamp(1.25rem, 5vw, 5rem) clamp(3rem, 6vw, 6rem);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  margin: 0 0 1.25rem;
+  color: var(--oxide);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: currentColor;
+}
+
+.hero-title {
+  max-width: 950px;
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(4rem, 10vw, 10.5rem);
+  font-weight: 520;
+  line-height: .82;
+  letter-spacing: -.075em;
+}
+
+.hero-title span {
+  display: block;
+  color: var(--accent-mode-2);
+  font-style: italic;
+}
+
+.hero-kicker {
+  max-width: 720px;
+  margin: 2rem 0 0;
+  color: rgba(23, 20, 16, .72);
+  font-size: clamp(1.05rem, 1.55vw, 1.35rem);
+  line-height: 1.65;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .85rem;
+  margin-top: 2rem;
+}
+
+.primary-action,
+.secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: .9rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.primary-action {
+  background: var(--ink);
+  color: var(--salt);
+  box-shadow: 0 15px 34px rgba(23, 20, 16, .25);
+}
+
+.secondary-action {
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 250, 241, .62);
+}
+
+.hero-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin-top: 2rem;
+}
+
+.hero-proof span {
+  display: inline-flex;
+  padding: .55rem .78rem;
+  border: 1px solid rgba(23, 20, 16, .12);
+  border-radius: 999px;
+  background: rgba(255, 250, 241, .5);
+  color: rgba(23, 20, 16, .66);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .7rem;
+}
+
+.orbit-lab {
+  position: relative;
+  min-height: 620px;
+  perspective: 1300px;
+}
+
+.lab-shell {
+  position: absolute;
+  inset: 7% 0 3%;
+  border-radius: 42px;
+  border: 1px solid rgba(23, 20, 16, .12);
+  background:
+    linear-gradient(135deg, rgba(255, 250, 241, .9), rgba(255, 250, 241, .34)),
+    radial-gradient(circle at 30% 10%, rgba(213, 223, 116, .48), transparent 22rem);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transform: rotateX(5deg) rotateY(-10deg);
+  transform-style: preserve-3d;
+  animation: labFloat 9s ease-in-out infinite;
+}
+
+.lab-shell::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 32px;
+  border: 1px solid rgba(23, 20, 16, .1);
+  background-image:
+    linear-gradient(90deg, rgba(23, 20, 16, .06) 1px, transparent 1px),
+    linear-gradient(rgba(23, 20, 16, .05) 1px, transparent 1px);
+  background-size: 34px 34px;
+  transform: translateZ(-60px) rotateX(70deg) translateY(8rem);
+  opacity: .76;
+}
+
+.lab-pane {
+  position: absolute;
+  border: 1px solid rgba(23, 20, 16, .12);
+  border-radius: 24px;
+  background: rgba(255, 250, 241, .76);
+  box-shadow: 0 16px 46px rgba(86, 59, 42, .14);
+  backdrop-filter: blur(12px);
+}
+
+.pane-dashboard {
+  left: 8%;
+  top: 12%;
+  width: 54%;
+  min-height: 170px;
+  padding: 1rem;
+  transform: translateZ(96px);
+}
+
+.pane-phone {
+  right: 10%;
+  top: 28%;
+  width: 24%;
+  min-height: 270px;
+  padding: .8rem;
+  border-radius: 30px;
+  transform: translateZ(140px) rotateY(-8deg);
+}
+
+.pane-space {
+  left: 14%;
+  bottom: 13%;
+  width: 40%;
+  min-height: 170px;
+  padding: 1rem;
+  transform: translateZ(118px) rotateX(2deg);
+}
+
+.pane-ai {
+  right: 9%;
+  bottom: 12%;
+  width: 34%;
+  min-height: 140px;
+  padding: 1rem;
+  transform: translateZ(86px);
+}
+
+.pane-label {
+  margin: 0 0 .65rem;
+  color: rgba(23, 20, 16, .54);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .58rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .5rem;
+}
+
+.mini-metric {
+  padding: .8rem .6rem;
+  border-radius: 16px;
+  background: rgba(23, 20, 16, .045);
+}
+
+.mini-metric strong {
+  display: block;
+  font-family: "Fraunces", serif;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.mini-metric span {
+  display: block;
+  margin-top: .4rem;
+  color: rgba(23, 20, 16, .54);
+  font-size: .62rem;
+}
+
+.chart-line {
+  height: 58px;
+  margin-top: .9rem;
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, transparent 0 24%, rgba(57,70,51,.28) 24% 26%, transparent 26% 48%, rgba(189,108,63,.42) 48% 51%, transparent 51%),
+    linear-gradient(to top, rgba(23,20,16,.05), rgba(23,20,16,.02));
+}
+
+.phone-notch {
+  width: 48px;
+  height: 5px;
+  margin: .15rem auto .9rem;
+  border-radius: 999px;
+  background: rgba(23, 20, 16, .22);
+}
+
+.phone-card {
+  padding: .8rem;
+  border-radius: 20px;
+  background: linear-gradient(160deg, rgba(213,223,116,.6), rgba(152,191,198,.38));
+}
+
+.phone-card strong {
+  display: block;
+  font-size: .92rem;
+}
+
+.phone-card span {
+  display: block;
+  margin-top: .45rem;
+  color: rgba(23, 20, 16, .62);
+  font-size: .72rem;
+  line-height: 1.4;
+}
+
+.phone-list {
+  display: grid;
+  gap: .45rem;
+  margin-top: .8rem;
+}
+
+.phone-list i {
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(23, 20, 16, .12);
+}
+
+.floor-chip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .55rem;
+}
+
+.floor-chip {
+  min-height: 50px;
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(141,63,42,.18), transparent),
+    rgba(23,20,16,.05);
+  border: 1px solid rgba(23,20,16,.07);
+}
+
+.flow-node {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  color: rgba(23, 20, 16, .67);
+  font-size: .72rem;
+}
+
+.flow-node::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-mode);
+  box-shadow: 0 0 0 5px rgba(23, 20, 16, .05);
+}
+
+.floating-note {
+  position: absolute;
+  left: 2%;
+  bottom: 5%;
+  max-width: 260px;
+  padding: 1rem;
+  border-radius: 22px;
+  background: var(--ink);
+  color: var(--salt);
+  box-shadow: 0 18px 46px rgba(23, 20, 16, .26);
+  animation: noteIn 1s .4s both;
+}
+
+.floating-note p {
+  margin: 0;
+  color: rgba(255, 250, 241, .76);
+  font-size: .82rem;
+  line-height: 1.55;
+}
+
+.floating-note strong {
+  color: var(--chartreuse);
+}
+
+.mode-strip {
+  padding: 0 clamp(1.25rem, 5vw, 5rem) 4rem;
+}
+
+.mode-card {
+  display: grid;
+  grid-template-columns: minmax(260px, .7fr) 1fr;
+  gap: 2rem;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border: 1px solid rgba(23, 20, 16, .14);
+  border-radius: 34px;
+  background: rgba(255, 250, 241, .58);
+  box-shadow: 0 18px 54px rgba(86, 59, 42, .1);
+}
+
+.mode-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .65rem;
+}
+
+.mode-button {
+  border: 1px solid rgba(23, 20, 16, .15);
+  border-radius: 20px;
+  background: rgba(255, 250, 241, .72);
+  padding: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: transform .22s ease, background .22s ease, border-color .22s ease;
+}
+
+.mode-button:hover,
+.mode-button:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(23, 20, 16, .32);
+}
+
+.mode-button.active {
+  background: var(--ink);
+  color: var(--salt);
+}
+
+.mode-button strong {
+  display: block;
+}
+
+.mode-button span {
+  display: block;
+  margin-top: .35rem;
+  color: currentColor;
+  opacity: .68;
+  font-size: .75rem;
+}
+
+.mode-output {
+  position: relative;
+  overflow: hidden;
+  min-height: 260px;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 90% 18%, color-mix(in srgb, var(--accent-mode) 58%, transparent), transparent 15rem),
+    var(--ink);
+  color: var(--salt);
+}
+
+.mode-output::before {
+  content: "";
+  position: absolute;
+  inset: 1.25rem;
+  border: 1px solid rgba(255, 250, 241, .1);
+  border-radius: 22px;
+  pointer-events: none;
+}
+
+.mode-output h2 {
+  position: relative;
+  max-width: 680px;
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.2rem, 5vw, 4.8rem);
+  font-weight: 500;
+  line-height: .96;
+  letter-spacing: -.045em;
+}
+
+.mode-output p {
+  position: relative;
+  max-width: 620px;
+  margin: 1rem 0 0;
+  color: rgba(255, 250, 241, .7);
+  line-height: 1.72;
+}
+
+.mode-orbit {
+  position: absolute;
+  right: clamp(1rem, 4vw, 4rem);
+  bottom: clamp(1rem, 4vw, 2.5rem);
+  width: 170px;
+  height: 170px;
+  border: 1px solid rgba(255, 250, 241, .18);
+  border-radius: 50%;
+  animation: spin 16s linear infinite;
+}
+
+.mode-orbit::before,
+.mode-orbit::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.mode-orbit::before {
+  inset: 38px;
+  border: 1px solid rgba(255, 250, 241, .12);
+}
+
+.mode-orbit::after {
+  width: 22px;
+  height: 22px;
+  left: 24px;
+  top: 24px;
+  background: var(--accent-mode);
+}
+
+.section-wrap {
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 5rem);
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(1.75rem, 4vw, 3.25rem);
+}
+
+.section-header h2 {
+  max-width: 780px;
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.6rem, 6vw, 6.2rem);
+  font-weight: 500;
+  line-height: .92;
+  letter-spacing: -.055em;
+}
+
+.section-header p {
+  max-width: 420px;
+  margin: 0;
+  color: rgba(23, 20, 16, .66);
+  line-height: 1.7;
+}
+
+.research-stack {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.research-card {
+  min-height: 190px;
+  padding: 1.3rem;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: rgba(255, 250, 241, .56);
+  box-shadow: 0 14px 40px rgba(86, 59, 42, .08);
+}
+
+.research-card span {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  padding: .42rem .62rem;
+  border-radius: 999px;
+  background: rgba(23, 20, 16, .06);
+  color: rgba(23, 20, 16, .62);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .64rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.research-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.15;
+}
+
+.research-card p {
+  margin: .8rem 0 0;
+  color: rgba(23, 20, 16, .65);
+  font-size: .92rem;
+  line-height: 1.6;
+}
+
+.research-card a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--oxide);
+  font-weight: 700;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .22rem;
+}
+
+.navigator-grid {
+  display: grid;
+  grid-template-columns: minmax(340px, 1fr) minmax(320px, .74fr);
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.studio-map {
+  position: relative;
+  min-height: 640px;
+  border: 1px solid rgba(23, 20, 16, .14);
+  border-radius: 38px;
+  overflow: hidden;
+  background:
+    linear-gradient(140deg, rgba(255,250,241,.85), rgba(255,250,241,.42)),
+    url("assets/images/home-hero.jpg") center/cover;
+  box-shadow: var(--shadow);
+}
+
+.studio-map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(23,20,16,.72), rgba(23,20,16,.08) 52%, rgba(255,250,241,.12)),
+    radial-gradient(circle at 20% 20%, rgba(213,223,116,.28), transparent 16rem);
+}
+
+.studio-caption {
+  position: absolute;
+  left: clamp(1.2rem, 3vw, 2rem);
+  bottom: clamp(1.2rem, 3vw, 2rem);
+  max-width: 430px;
+  color: var(--salt);
+}
+
+.studio-caption h3 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.2rem, 5vw, 4.8rem);
+  font-weight: 500;
+  line-height: .95;
+  letter-spacing: -.05em;
+}
+
+.studio-caption p {
+  margin: 1rem 0 0;
+  color: rgba(255, 250, 241, .74);
+  line-height: 1.6;
+}
+
+.hotspot {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 250, 241, .66);
+  border-radius: 50%;
+  background: rgba(23, 20, 16, .52);
+  color: var(--salt);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 0 0 rgba(213, 223, 116, .48);
+  animation: pulseHotspot 2.6s ease-in-out infinite;
+}
+
+.hotspot::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + .55rem);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 180px;
+  padding: .45rem .62rem;
+  border-radius: 999px;
+  background: rgba(255, 250, 241, .9);
+  color: var(--ink);
+  font-size: .72rem;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.hotspot:hover::after,
+.hotspot:focus-visible::after,
+.hotspot.active::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.hotspot.active {
+  background: var(--chartreuse);
+  color: var(--ink);
+  border-color: rgba(23, 20, 16, .28);
+}
+
+.hotspot[data-case="experian"] {
+  left: 57%;
+  top: 24%;
+}
+
+.hotspot[data-case="nourish"] {
+  left: 73%;
+  top: 54%;
+}
+
+.hotspot[data-case="openstorey"] {
+  left: 36%;
+  top: 46%;
+}
+
+.hotspot[data-case="cisco"] {
+  left: 22%;
+  top: 28%;
+}
+
+.hotspot[data-case="keha"] {
+  left: 48%;
+  top: 69%;
+}
+
+.case-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 640px;
+  padding: clamp(1.2rem, 2.5vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: 38px;
+  background: rgba(255, 250, 241, .7);
+  box-shadow: 0 18px 52px rgba(86, 59, 42, .1);
+}
+
+.case-kicker {
+  margin: 0 0 .75rem;
+  color: var(--oxide);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+.case-panel h3 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 530;
+  line-height: .95;
+  letter-spacing: -.045em;
+}
+
+.case-panel p {
+  color: rgba(23, 20, 16, .68);
+  line-height: 1.7;
+}
+
+.case-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin: .45rem 0 1.2rem;
+}
+
+.case-meta span {
+  padding: .45rem .6rem;
+  border-radius: 999px;
+  background: rgba(23,20,16,.06);
+  color: rgba(23,20,16,.64);
+  font-size: .72rem;
+}
+
+.case-detail-grid {
+  display: grid;
+  gap: .8rem;
+  margin-top: auto;
+}
+
+.case-detail {
+  padding: 1rem;
+  border: 1px solid rgba(23,20,16,.1);
+  border-radius: 22px;
+  background: rgba(255,255,255,.42);
+}
+
+.case-detail strong {
+  display: block;
+  margin-bottom: .4rem;
+}
+
+.case-detail span {
+  color: rgba(23, 20, 16, .64);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.08fr .92fr;
+  gap: 1.25rem;
+}
+
+.impact-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .85rem;
+}
+
+.impact-card {
+  min-height: 210px;
+  padding: 1.25rem;
+  border: 1px solid rgba(23,20,16,.13);
+  border-radius: 28px;
+  background: rgba(255, 250, 241, .62);
+  box-shadow: 0 18px 44px rgba(86, 59, 42, .08);
+}
+
+.impact-card strong {
+  display: block;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.7rem, 5vw, 4.8rem);
+  line-height: .9;
+  letter-spacing: -.06em;
+  color: var(--accent-mode-2);
+}
+
+.impact-card span {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.impact-card p {
+  margin: .7rem 0 0;
+  color: rgba(23,20,16,.62);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.skills-map {
+  min-height: 100%;
+  padding: 1.35rem;
+  border: 1px solid rgba(23,20,16,.13);
+  border-radius: 34px;
+  background: var(--ink);
+  color: var(--salt);
+  box-shadow: var(--shadow);
+}
+
+.skills-map h3 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: 2rem;
+  font-weight: 520;
+  letter-spacing: -.03em;
+}
+
+.radar-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 350px;
+  margin-top: 1rem;
+}
+
+.radar {
+  width: min(320px, 80vw);
+  height: min(320px, 80vw);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 24%, rgba(255,250,241,.06) 24% 25%, transparent 25% 49%, rgba(255,250,241,.08) 49% 50%, transparent 50% 74%, rgba(255,250,241,.1) 74% 75%, transparent 75%),
+    conic-gradient(from -22deg, rgba(213,223,116,.72), rgba(152,191,198,.74), rgba(189,108,63,.78), rgba(118,139,111,.7), rgba(213,223,116,.72));
+  clip-path: polygon(50% 5%, 87% 22%, 91% 66%, 60% 90%, 18% 74%, 14% 30%);
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,.24));
+}
+
+.radar-ring {
+  position: absolute;
+  width: min(320px, 80vw);
+  height: min(320px, 80vw);
+  border: 1px solid rgba(255,250,241,.2);
+  border-radius: 50%;
+}
+
+.radar-label {
+  position: absolute;
+  padding: .38rem .55rem;
+  border: 1px solid rgba(255,250,241,.18);
+  border-radius: 999px;
+  background: rgba(255,250,241,.08);
+  color: rgba(255,250,241,.74);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .62rem;
+}
+
+.radar-label:nth-of-type(1) { top: 4%; left: 42%; }
+.radar-label:nth-of-type(2) { top: 24%; right: 2%; }
+.radar-label:nth-of-type(3) { bottom: 18%; right: 8%; }
+.radar-label:nth-of-type(4) { bottom: 11%; left: 7%; }
+.radar-label:nth-of-type(5) { top: 25%; left: 0; }
+
+.timeline {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(23,20,16,.1);
+  border-radius: 24px;
+  background: rgba(255,250,241,.5);
+}
+
+.timeline-item time {
+  color: var(--oxide);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.timeline-item strong {
+  display: block;
+}
+
+.timeline-item span {
+  display: block;
+  margin-top: .35rem;
+  color: rgba(23,20,16,.62);
+  line-height: 1.55;
+}
+
+.case-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.expand-card {
+  position: relative;
+  min-height: 360px;
+  overflow: hidden;
+  padding: 1.25rem;
+  border: 1px solid rgba(23,20,16,.13);
+  border-radius: 30px;
+  background: rgba(255,250,241,.62);
+  box-shadow: 0 18px 44px rgba(86, 59, 42, .08);
+}
+
+.expand-card::before {
+  content: "";
+  position: absolute;
+  inset: auto -25% -42% auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--card-accent, var(--clay)) 42%, transparent);
+}
+
+.expand-card h3 {
+  position: relative;
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -.035em;
+}
+
+.expand-card p {
+  position: relative;
+  color: rgba(23,20,16,.64);
+  line-height: 1.62;
+}
+
+.expand-card button {
+  position: relative;
+  margin-top: .5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(255,250,241,.72);
+  padding: .65rem .85rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.expand-card .more {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .35s ease;
+}
+
+.expand-card .more > div {
+  overflow: hidden;
+}
+
+.expand-card.open .more {
+  grid-template-rows: 1fr;
+}
+
+.artifact-list {
+  position: relative;
+  display: grid;
+  gap: .55rem;
+  margin-top: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.artifact-list li {
+  padding: .7rem .8rem;
+  border-radius: 16px;
+  background: rgba(23,20,16,.055);
+  color: rgba(23,20,16,.7);
+  font-size: .9rem;
+}
+
+.journey-shell {
+  position: relative;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border: 1px solid rgba(23,20,16,.13);
+  border-radius: 34px;
+  background: rgba(255,250,241,.58);
+  overflow: hidden;
+}
+
+.journey-shell::before {
+  content: "";
+  position: absolute;
+  inset: 50% 8% auto;
+  height: 2px;
+  background: linear-gradient(90deg, var(--clay), var(--sage), var(--sky));
+  opacity: .7;
+}
+
+.journey-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.journey-stop {
+  position: relative;
+  min-height: 320px;
+  padding: 1.25rem;
+  border: 1px solid rgba(23,20,16,.12);
+  border-radius: 28px;
+  background: rgba(255,250,241,.78);
+  box-shadow: 0 15px 38px rgba(86, 59, 42, .08);
+}
+
+.journey-stop::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  display: block;
+  margin-bottom: 4rem;
+  border: 5px solid var(--salt);
+  border-radius: 50%;
+  background: var(--accent-stop, var(--clay));
+  box-shadow: 0 0 0 1px rgba(23,20,16,.18), 0 12px 24px rgba(23,20,16,.12);
+}
+
+.journey-stop span {
+  color: var(--oxide);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.journey-stop h3 {
+  margin: .55rem 0;
+  font-family: "Fraunces", serif;
+  font-size: 2.2rem;
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+
+.journey-stop p {
+  color: rgba(23,20,16,.64);
+  line-height: 1.62;
+}
+
+.companion-grid {
+  display: grid;
+  grid-template-columns: minmax(310px, .8fr) 1fr;
+  gap: 1.25rem;
+}
+
+.companion-panel,
+.roadmap-panel {
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid rgba(23,20,16,.13);
+  border-radius: 34px;
+  background: rgba(255,250,241,.62);
+  box-shadow: 0 18px 44px rgba(86, 59, 42, .08);
+}
+
+.companion-panel h3,
+.roadmap-panel h3 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: .96;
+  letter-spacing: -.045em;
+}
+
+.question-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin: 1rem 0;
+}
+
+.question-chips button {
+  border: 1px solid rgba(23,20,16,.16);
+  border-radius: 999px;
+  background: rgba(255,250,241,.8);
+  padding: .62rem .8rem;
+  cursor: pointer;
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+.chat-box {
+  display: grid;
+  gap: .8rem;
+  margin-top: 1rem;
+}
+
+.chat-output {
+  min-height: 180px;
+  padding: 1rem;
+  border-radius: 22px;
+  background: var(--ink);
+  color: rgba(255,250,241,.76);
+  line-height: 1.65;
+}
+
+.chat-output strong {
+  color: var(--chartreuse);
+}
+
+.chat-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: .55rem;
+}
+
+.chat-row input {
+  min-width: 0;
+  border: 1px solid rgba(23,20,16,.16);
+  border-radius: 999px;
+  background: rgba(255,250,241,.8);
+  padding: .85rem 1rem;
+  outline: none;
+}
+
+.chat-row input:focus {
+  border-color: rgba(23,20,16,.4);
+}
+
+.chat-row button {
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--salt);
+  padding: .85rem 1rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.roadmap-list {
+  display: grid;
+  gap: .8rem;
+  margin-top: 1.2rem;
+}
+
+.roadmap-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 22px;
+  background: rgba(23,20,16,.055);
+}
+
+.roadmap-item strong {
+  color: var(--oxide);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .74rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.roadmap-item span {
+  color: rgba(23,20,16,.66);
+  line-height: 1.55;
+}
+
+.case-workbench {
+  display: grid;
+  grid-template-columns: minmax(250px, .34fr) 1fr;
+  gap: 1rem;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border: 1px solid rgba(23,20,16,.13);
+  border-radius: 34px;
+  background: rgba(255,250,241,.58);
+  box-shadow: 0 18px 44px rgba(86, 59, 42, .08);
+}
+
+.case-tabs {
+  display: grid;
+  gap: .65rem;
+  align-content: start;
+}
+
+.case-tab {
+  border: 1px solid rgba(23,20,16,.14);
+  border-radius: 22px;
+  background: rgba(255,250,241,.76);
+  padding: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease, border-color .2s ease;
+}
+
+.case-tab:hover,
+.case-tab:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(23,20,16,.3);
+}
+
+.case-tab.active {
+  background: var(--ink);
+  color: var(--salt);
+}
+
+.case-tab span {
+  display: block;
+  margin-top: .35rem;
+  color: currentColor;
+  opacity: .64;
+  font-size: .76rem;
+}
+
+.detail-workbench {
+  min-height: 640px;
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 88% 10%, color-mix(in srgb, var(--accent-mode) 42%, transparent), transparent 18rem),
+    var(--salt);
+  border: 1px solid rgba(23,20,16,.12);
+}
+
+.detail-hero {
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, .55fr);
+  gap: 1rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border-bottom: 1px solid rgba(23,20,16,.1);
+}
+
+.detail-copy h3 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.2rem, 5vw, 4.7rem);
+  font-weight: 530;
+  line-height: .92;
+  letter-spacing: -.052em;
+}
+
+.detail-copy p {
+  max-width: 660px;
+  color: rgba(23,20,16,.66);
+  line-height: 1.68;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  margin-bottom: .9rem;
+  padding: .45rem .65rem;
+  border-radius: 999px;
+  background: rgba(23,20,16,.06);
+  color: rgba(23,20,16,.66);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .66rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.detail-visual {
+  position: relative;
+  min-height: 280px;
+  border-radius: 24px;
+  border: 1px solid rgba(23,20,16,.12);
+  background: rgba(23,20,16,.045);
+  overflow: hidden;
+}
+
+.detail-visual::before {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(23,20,16,.08);
+}
+
+.visual-dashboard {
+  background:
+    linear-gradient(140deg, rgba(152,191,198,.44), transparent),
+    rgba(255,250,241,.72);
+}
+
+.visual-dashboard .bars,
+.visual-phone .bars {
+  position: absolute;
+  inset: 4rem 1.2rem 1.4rem;
+  display: grid;
+  align-items: end;
+  grid-template-columns: repeat(5, 1fr);
+  gap: .45rem;
+}
+
+.visual-dashboard .bars i,
+.visual-phone .bars i {
+  display: block;
+  border-radius: 999px 999px 12px 12px;
+  background: var(--ink);
+  opacity: .74;
+}
+
+.visual-phone {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(213,223,116,.52), transparent 9rem),
+    rgba(255,250,241,.72);
+}
+
+.visual-phone::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 2rem;
+  width: 110px;
+  height: 230px;
+  transform: translateX(-50%);
+  border: 10px solid var(--ink);
+  border-radius: 34px;
+  background: rgba(255,250,241,.85);
+  box-shadow: 0 18px 42px rgba(23,20,16,.18);
+}
+
+.visual-gallery {
+  background-size: cover;
+  background-position: center;
+}
+
+.visual-gallery::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(23,20,16,.72), transparent 58%);
+}
+
+.detail-body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .85rem;
+  padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+.detail-block {
+  min-height: 170px;
+  padding: 1rem;
+  border-radius: 22px;
+  border: 1px solid rgba(23,20,16,.1);
+  background: rgba(255,255,255,.46);
+}
+
+.detail-block strong {
+  display: block;
+  margin-bottom: .55rem;
+}
+
+.detail-block span,
+.detail-block li {
+  color: rgba(23,20,16,.64);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.detail-block ul {
+  display: grid;
+  gap: .42rem;
+  margin: 0;
+  padding-left: 1.05rem;
+}
+
+.evidence-lab {
+  display: grid;
+  grid-template-columns: minmax(280px, .36fr) 1fr;
+  gap: 1.25rem;
+}
+
+.evidence-control {
+  padding: clamp(1.2rem, 2vw, 1.6rem);
+  border: 1px solid rgba(23,20,16,.13);
+  border-radius: 32px;
+  background: var(--ink);
+  color: var(--salt);
+  box-shadow: var(--shadow);
+}
+
+.evidence-control h3 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: 2.5rem;
+  line-height: .95;
+  letter-spacing: -.045em;
+}
+
+.evidence-control p {
+  color: rgba(255,250,241,.66);
+  line-height: 1.7;
+}
+
+.evidence-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin-top: 1rem;
+}
+
+.evidence-filters button {
+  border: 1px solid rgba(255,250,241,.18);
+  border-radius: 999px;
+  background: rgba(255,250,241,.08);
+  color: var(--salt);
+  padding: .62rem .78rem;
+  cursor: pointer;
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.evidence-filters button.active {
+  background: var(--chartreuse);
+  color: var(--ink);
+  border-color: transparent;
+}
+
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .85rem;
+}
+
+.evidence-card {
+  min-height: 210px;
+  padding: 1rem;
+  border: 1px solid rgba(23,20,16,.13);
+  border-radius: 26px;
+  background: rgba(255,250,241,.64);
+  box-shadow: 0 16px 38px rgba(86,59,42,.08);
+}
+
+.evidence-card[hidden] {
+  display: none;
+}
+
+.evidence-card span {
+  display: inline-flex;
+  margin-bottom: .9rem;
+  padding: .42rem .58rem;
+  border-radius: 999px;
+  background: rgba(23,20,16,.06);
+  color: rgba(23,20,16,.62);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.evidence-card h3 {
+  margin: 0;
+  font-size: 1.18rem;
+  line-height: 1.16;
+}
+
+.evidence-card p {
+  color: rgba(23,20,16,.64);
+  line-height: 1.58;
+}
+
+.evidence-card.verified span {
+  background: rgba(118,139,111,.18);
+  color: var(--moss);
+}
+
+.evidence-card.needs-source span {
+  background: rgba(189,108,63,.14);
+  color: var(--oxide);
+}
+
+.evidence-card.placeholder span {
+  background: rgba(152,191,198,.2);
+  color: #2e6873;
+}
+
+.spatial-milestone {
+  display: grid;
+  grid-template-columns: 1fr minmax(300px, .48fr);
+  gap: 1.25rem;
+}
+
+.room-prototype {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  border: 1px solid rgba(23,20,16,.13);
+  border-radius: 38px;
+  background:
+    linear-gradient(130deg, rgba(255,250,241,.88), rgba(255,250,241,.38)),
+    radial-gradient(circle at 78% 24%, rgba(213,223,116,.32), transparent 18rem);
+  box-shadow: var(--shadow);
+  perspective: 1000px;
+}
+
+.room-floor {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: -10%;
+  height: 58%;
+  transform: rotateX(68deg);
+  transform-origin: bottom;
+  border: 1px solid rgba(23,20,16,.12);
+  background-image:
+    linear-gradient(90deg, rgba(23,20,16,.08) 1px, transparent 1px),
+    linear-gradient(rgba(23,20,16,.07) 1px, transparent 1px);
+  background-size: 42px 42px;
+  border-radius: 28px;
+}
+
+.room-object {
+  position: absolute;
+  border: 1px solid rgba(23,20,16,.14);
+  border-radius: 24px;
+  background: rgba(255,250,241,.74);
+  box-shadow: 0 18px 44px rgba(86,59,42,.14);
+  backdrop-filter: blur(10px);
+}
+
+.room-object.wall {
+  left: 12%;
+  top: 15%;
+  width: 48%;
+  height: 26%;
+  padding: 1rem;
+}
+
+.room-object.table {
+  left: 18%;
+  bottom: 19%;
+  width: 34%;
+  height: 24%;
+  transform: rotate(-4deg);
+}
+
+.room-object.portal {
+  right: 10%;
+  top: 23%;
+  width: 28%;
+  height: 44%;
+  background:
+    linear-gradient(to top, rgba(23,20,16,.78), transparent),
+    url("assets/images/conf-keha-casa-01-double-height-atrium-orb-lighting-installation.jpg") center/cover;
+}
+
+.room-object.note {
+  right: 16%;
+  bottom: 13%;
+  width: 32%;
+  min-height: 120px;
+  padding: 1rem;
+  background: var(--ink);
+  color: var(--salt);
+}
+
+.room-object strong {
+  display: block;
+}
+
+.room-object span {
+  display: block;
+  margin-top: .4rem;
+  color: rgba(23,20,16,.62);
+  font-size: .82rem;
+  line-height: 1.5;
+}
+
+.room-object.note span {
+  color: rgba(255,250,241,.68);
+}
+
+.milestone-panel {
+  padding: clamp(1.2rem, 2.5vw, 2rem);
+  border: 1px solid rgba(23,20,16,.13);
+  border-radius: 34px;
+  background: rgba(255,250,241,.62);
+  box-shadow: 0 18px 44px rgba(86,59,42,.08);
+}
+
+.milestone-panel h3 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: .96;
+  letter-spacing: -.045em;
+}
+
+.milestone-panel p {
+  color: rgba(23,20,16,.64);
+  line-height: 1.7;
+}
+
+.milestone-panel code {
+  display: block;
+  white-space: pre-wrap;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(23,20,16,.06);
+  color: rgba(23,20,16,.72);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .72rem;
+  line-height: 1.55;
+}
+
+.contact-band {
+  margin: 0 clamp(1.25rem, 5vw, 5rem) clamp(2rem, 4vw, 4rem);
+  padding: clamp(2rem, 5vw, 4rem);
+  border-radius: 38px;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(213,223,116,.35), transparent 20rem),
+    var(--ink);
+  color: var(--salt);
+  overflow: hidden;
+}
+
+.contact-band h2 {
+  max-width: 820px;
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.8rem, 7vw, 6.8rem);
+  font-weight: 520;
+  line-height: .9;
+  letter-spacing: -.055em;
+}
+
+.contact-band p {
+  max-width: 620px;
+  color: rgba(255,250,241,.68);
+  line-height: 1.72;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 1.5rem;
+}
+
+.contact-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: .85rem 1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.contact-links a:first-child {
+  background: var(--salt);
+  color: var(--ink);
+}
+
+.contact-links a:last-child {
+  border: 1px solid rgba(255,250,241,.25);
+  color: var(--salt);
+}
+
+.ux-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2rem clamp(1.25rem, 5vw, 5rem);
+  color: rgba(23, 20, 16, .58);
+  font-size: .82rem;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes labFloat {
+  0%, 100% { transform: rotateX(5deg) rotateY(-10deg) translateY(0); }
+  50% { transform: rotateX(7deg) rotateY(-7deg) translateY(-14px); }
+}
+
+@keyframes noteIn {
+  from { opacity: 0; transform: translateY(16px) rotate(-2deg); }
+  to { opacity: 1; transform: translateY(0) rotate(-2deg); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulseHotspot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(213,223,116,.36); }
+  50% { box-shadow: 0 0 0 12px rgba(213,223,116,0); }
+}
+
+@media (max-width: 1120px) {
+  .ux-hero,
+  .mode-card,
+  .navigator-grid,
+  .dashboard-grid,
+  .companion-grid,
+  .case-workbench,
+  .evidence-lab,
+  .spatial-milestone {
+    grid-template-columns: 1fr;
+  }
+
+  .orbit-lab {
+    min-height: 560px;
+  }
+
+  .research-stack,
+  .case-card-grid,
+  .journey-grid,
+  .detail-body,
+  .evidence-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 820px) {
+  :root {
+    --nav-h: 68px;
+  }
+
+  .ux-nav {
+    align-items: center;
+    padding: .75rem 1rem;
+  }
+
+  .brand-text span {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .ux-nav-links {
+    position: fixed;
+    inset: var(--nav-h) 0 auto;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: .75rem 1rem 1rem;
+    background: rgba(244,235,221,.98);
+    border-bottom: 1px solid rgba(23,20,16,.1);
+  }
+
+  .ux-nav-links.open {
+    display: flex;
+  }
+
+  .ux-nav-links a {
+    padding: 1rem .2rem;
+    border-bottom: 1px solid rgba(23,20,16,.1);
+    font-size: .95rem;
+  }
+
+  .nav-cta {
+    justify-content: center;
+    margin-top: .75rem;
+  }
+
+  .ux-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: 3rem;
+  }
+
+  .hero-title {
+    font-size: clamp(4.4rem, 19vw, 8rem);
+  }
+
+  .orbit-lab {
+    min-height: 480px;
+  }
+
+  .lab-shell {
+    inset: 4% 0 0;
+    transform: none;
+    animation: none;
+  }
+
+  .pane-dashboard {
+    left: 7%;
+    top: 9%;
+    width: 70%;
+  }
+
+  .pane-phone {
+    right: 7%;
+    top: 33%;
+    width: 34%;
+    min-height: 225px;
+  }
+
+  .pane-space {
+    left: 8%;
+    bottom: 13%;
+    width: 50%;
+  }
+
+  .pane-ai {
+    right: 7%;
+    bottom: 8%;
+    width: 42%;
+  }
+
+  .floating-note {
+    left: 1rem;
+    right: 1rem;
+    bottom: -1rem;
+    max-width: none;
+  }
+
+  .mode-buttons,
+  .research-stack,
+  .case-card-grid,
+  .journey-grid,
+  .impact-board,
+  .detail-hero,
+  .detail-body,
+  .evidence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    display: block;
+  }
+
+  .section-header p {
+    margin-top: 1rem;
+  }
+
+  .studio-map,
+  .case-panel {
+    min-height: 560px;
+  }
+
+  .timeline-item,
+  .roadmap-item {
+    grid-template-columns: 1fr;
+  }
+
+  .ux-footer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 520px) {
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+  }
+
+  .brand-text strong {
+    max-width: 170px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .hero-actions,
+  .contact-links {
+    flex-direction: column;
+  }
+
+  .primary-action,
+  .secondary-action,
+  .contact-links a {
+    width: 100%;
+  }
+
+  .metric-row {
+    grid-template-columns: 1fr;
+  }
+
+  .pane-phone {
+    display: none;
+  }
+
+  .pane-dashboard,
+  .pane-space,
+  .pane-ai {
+    width: auto;
+    left: 1rem;
+    right: 1rem;
+    transform: none;
+  }
+
+  .pane-dashboard { top: 1rem; }
+  .pane-space { top: 14rem; bottom: auto; }
+  .pane-ai { bottom: 3.5rem; }
+
+  .hotspot::after {
+    display: none;
+  }
+
+  .chat-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .001ms !important;
+  }
+}
+</style>
+</head>
+<body data-mode="bridge">
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="ux-nav" aria-label="Product portfolio navigation">
+  <a class="brand-lockup" href="#top" aria-label="Swatika Product UX portfolio home">
+    <span class="brand-mark">SU</span>
+    <span class="brand-text">
+      <strong>Swatika Upendran</strong>
+      <span>Product UX + Spatial Design</span>
+    </span>
+  </a>
+  <button class="nav-toggle" id="portfolioMenuButton" type="button" aria-label="Open portfolio menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="ux-nav-links" id="portfolioNavLinks">
+    <a href="#thesis">Thesis</a>
+    <a href="#navigator">Navigator</a>
+    <a href="#impact">Impact</a>
+    <a href="#cases">Cases</a>
+    <a href="#evidence">Evidence</a>
+    <a href="#companion">Companion</a>
+    <a class="nav-cta" href="index.html">Open Storey</a>
+  </div>
+</nav>
+
+<main id="main">
+  <header class="ux-hero" id="top">
+    <div class="hero-copy reveal">
+      <p class="eyebrow">Portfolio concept milestone 1</p>
+      <h1 class="hero-title">I design the app <span>and the room it lives in.</span></h1>
+      <p class="hero-kicker">A product and UX portfolio for a designer whose edge is uncommon: enterprise dashboards, AI-enabled product flows, HCI strategy, and a spatial design practice that understands bodies, environments, materials, and behavior.</p>
+      <div class="hero-actions">
+        <a class="primary-action" href="#navigator">Enter the portfolio studio</a>
+        <a class="secondary-action" href="#impact">See the impact dashboard</a>
+      </div>
+      <div class="hero-proof" aria-label="Core skill signals">
+        <span>Enterprise UX</span>
+        <span>AI product thinking</span>
+        <span>Spatial systems</span>
+        <span>Research storytelling</span>
+        <span>Executive dashboards</span>
+      </div>
+    </div>
+    <div class="orbit-lab reveal" aria-label="Interactive spatial portfolio preview">
+      <div class="lab-shell">
+        <div class="lab-pane pane-dashboard">
+          <p class="pane-label">Executive signal layer</p>
+          <div class="metric-row">
+            <div class="mini-metric"><strong>25%</strong><span>decision latency reduction</span></div>
+            <div class="mini-metric"><strong>40%</strong><span>engagement lift</span></div>
+            <div class="mini-metric"><strong>96%</strong><span>delivery reliability</span></div>
+          </div>
+          <div class="chart-line" aria-hidden="true"></div>
+        </div>
+        <div class="lab-pane pane-phone">
+          <div class="phone-notch"></div>
+          <div class="phone-card">
+            <strong>Nourish AI flow</strong>
+            <span>Care moments, meal context, and conversational guidance.</span>
+          </div>
+          <div class="phone-list" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="lab-pane pane-space">
+          <p class="pane-label">Spatial reasoning</p>
+          <div class="floor-chip-grid" aria-hidden="true">
+            <div class="floor-chip"></div><div class="floor-chip"></div><div class="floor-chip"></div><div class="floor-chip"></div>
+          </div>
+        </div>
+        <div class="lab-pane pane-ai">
+          <p class="pane-label">Case study companion</p>
+          <div class="flow-node">Ask why</div>
+          <div class="flow-node">Trace constraints</div>
+          <div class="flow-node">Explain tradeoffs</div>
+        </div>
+      </div>
+      <div class="floating-note">
+        <p><strong>Hiring-manager read:</strong> this portfolio should feel like a product demo, not a resume pasted into a webpage.</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="mode-strip reveal" id="thesis">
+    <div class="mode-card">
+      <div class="mode-buttons" aria-label="Portfolio thesis modes">
+        <button class="mode-button active" type="button" data-mode-target="bridge">
+          <strong>Bridge</strong>
+          <span>Physical to digital</span>
+        </button>
+        <button class="mode-button" type="button" data-mode-target="space">
+          <strong>Space</strong>
+          <span>Rooms, retail, campuses</span>
+        </button>
+        <button class="mode-button" type="button" data-mode-target="screen">
+          <strong>Screen</strong>
+          <span>Apps, dashboards, flows</span>
+        </button>
+        <button class="mode-button" type="button" data-mode-target="system">
+          <strong>System</strong>
+          <span>Metrics, teams, delivery</span>
+        </button>
+      </div>
+      <div class="mode-output" aria-live="polite">
+        <h2 id="modeTitle">A portfolio built around translation.</h2>
+        <p id="modeDesc">The core idea: Swatika translates human behavior across scales. A hiring manager can inspect product craft, spatial intuition, business impact, and collaboration without losing the thread.</p>
+        <div class="mode-orbit" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-wrap reveal" aria-labelledby="research-title">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Research synthesis</p>
+        <h2 id="research-title">The site should be memorable, but the evidence has to stay legible.</h2>
+      </div>
+      <p>External research pushed this prototype toward a layered experience: bold first impression, fast case-study scanning, clear role and outcomes, and spatial interactions that clarify rather than distract.</p>
+    </div>
+    <div class="research-stack">
+      <article class="research-card">
+        <span>Google portfolio tips</span>
+        <h3>Show 3-5 case studies with role, process, problem, solution, and impact.</h3>
+        <p>This prototype therefore centers selected stories and makes the case-study frame reusable.</p>
+        <a href="https://services.google.com/fh/files/misc/ux_design_portfolio_tips_19.pdf" target="_blank" rel="noopener">Source</a>
+      </article>
+      <article class="research-card">
+        <span>NN/g hiring research</span>
+        <h3>Hiring managers look for thought process, workflow, business goals, and outcomes.</h3>
+        <p>The dashboard and case drawer make metrics and decision logic visible before a long read.</p>
+        <a href="https://media.nngroup.com/media/reports/free/UserExperienceCareers_2nd_Edition.pdf" target="_blank" rel="noopener">Source</a>
+      </article>
+      <article class="research-card">
+        <span>Spatial UX guidance</span>
+        <h3>Depth should communicate hierarchy and add value, not visual noise.</h3>
+        <p>The 3D layer is intentionally CSS-light now, with a path to Spline or Three.js later.</p>
+        <a href="https://developer.apple.com/design/human-interface-guidelines/spatial-layout/" target="_blank" rel="noopener">Source</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-wrap reveal" id="navigator" aria-labelledby="navigator-title">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Interactive idea 1</p>
+        <h2 id="navigator-title">The Swatika Studio Navigator</h2>
+      </div>
+      <p>Instead of a flat project grid, the portfolio opens like a studio. Each object is a proof point: a dashboard, a phone, a material board, a campus map, a retail installation.</p>
+    </div>
+    <div class="navigator-grid">
+      <div class="studio-map" aria-label="Clickable portfolio studio">
+        <button class="hotspot active" type="button" data-case="experian" data-label="Experian dashboard">01</button>
+        <button class="hotspot" type="button" data-case="nourish" data-label="Nourish AI app">02</button>
+        <button class="hotspot" type="button" data-case="openstorey" data-label="Open Storey">03</button>
+        <button class="hotspot" type="button" data-case="cisco" data-label="Cisco campus">04</button>
+        <button class="hotspot" type="button" data-case="keha" data-label="Keha Casa">05</button>
+        <div class="studio-caption">
+          <h3>Click the room.</h3>
+          <p>Each hotspot opens the hiring-manager version of the story: problem, your role, evidence, and why it matters for Product / UX roles.</p>
+        </div>
+      </div>
+      <aside class="case-panel" id="casePanel" aria-live="polite">
+        <p class="case-kicker" id="caseKicker">Enterprise UX</p>
+        <h3 id="caseTitle">Experian executive decision dashboard</h3>
+        <div class="case-meta" id="caseMeta"></div>
+        <p id="caseSummary"></p>
+        <div class="case-detail-grid" id="caseDetails"></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section-wrap reveal" id="impact" aria-labelledby="impact-title">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Interactive idea 2</p>
+        <h2 id="impact-title">The impact dashboard becomes the resume.</h2>
+      </div>
+      <p>Because Swatika has worked across executive products and environments, the resume can behave like the kind of decision tool she designs: filterable, quantified, and immediately scannable.</p>
+    </div>
+    <div class="dashboard-grid">
+      <div>
+        <div class="impact-board">
+          <article class="impact-card">
+            <strong>25%</strong>
+            <span>Faster decisions</span>
+            <p>Frame as dashboard latency, executive review speed, or fewer handoff loops once exact source data is confirmed.</p>
+          </article>
+          <article class="impact-card">
+            <strong>40%</strong>
+            <span>Engagement lift</span>
+            <p>Useful for Nourish, content interactions, or adoption if backed by product analytics.</p>
+          </article>
+          <article class="impact-card">
+            <strong>96%</strong>
+            <span>Delivery reliability</span>
+            <p>Signals operational maturity: scopes, timelines, stakeholder coordination, and implementation follow-through.</p>
+          </article>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <time>Chennai</time>
+            <div><strong>Spatial foundation</strong><span>Interior design, retail, hospitality, luxury residences, and built-environment storytelling.</span></div>
+          </div>
+          <div class="timeline-item">
+            <time>Barcelona</time>
+            <div><strong>Brand and cultural translation</strong><span>Visual systems, global design language, and cross-cultural communication.</span></div>
+          </div>
+          <div class="timeline-item">
+            <time>San Francisco</time>
+            <div><strong>HCI and product strategy</strong><span>Product / UX design, AI tools, enterprise workflows, and portfolio systems.</span></div>
+          </div>
+        </div>
+      </div>
+      <aside class="skills-map" aria-label="Skill signal radar">
+        <h3>Skill signal radar</h3>
+        <div class="radar-wrap">
+          <div class="radar-ring" aria-hidden="true"></div>
+          <div class="radar" aria-hidden="true"></div>
+          <span class="radar-label">Research</span>
+          <span class="radar-label">UX systems</span>
+          <span class="radar-label">AI flows</span>
+          <span class="radar-label">Spatial design</span>
+          <span class="radar-label">Storytelling</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section-wrap reveal" id="cases" aria-labelledby="cases-title">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Interactive idea 3</p>
+        <h2 id="cases-title">Case studies that can be scanned in 30 seconds or defended for 30 minutes.</h2>
+      </div>
+      <p>Each card starts with the hiring-manager read, then expands into artifacts. This avoids the classic portfolio trap: beautiful pages that do not explain the designer's decisions.</p>
+    </div>
+    <div class="case-card-grid">
+      <article class="expand-card" style="--card-accent:#98bfc6">
+        <h3>Experian: Decision intelligence dashboard</h3>
+        <p>Show how you turned complex business signals into a legible executive workflow.</p>
+        <button type="button" data-expand-card>Show artifacts</button>
+        <div class="more"><div>
+          <ul class="artifact-list">
+            <li>Before / after information architecture</li>
+            <li>KPI hierarchy and drilldown logic</li>
+            <li>Decision latency and stakeholder impact</li>
+          </ul>
+        </div></div>
+      </article>
+      <article class="expand-card" style="--card-accent:#d5df74">
+        <h3>Nourish: AI care companion</h3>
+        <p>Demonstrate AI product judgment: prompt boundaries, trust, context, and human-centered guidance.</p>
+        <button type="button" data-expand-card>Show artifacts</button>
+        <div class="more"><div>
+          <ul class="artifact-list">
+            <li>Conversation model and guardrails</li>
+            <li>Provider / patient journey map</li>
+            <li>Prototype flows for meal and care moments</li>
+          </ul>
+        </div></div>
+      </article>
+      <article class="expand-card" style="--card-accent:#bd6c3f">
+        <h3>Open Storey: Spatial brand system</h3>
+        <p>Reframe interior practice as product strategy: audience, positioning, conversion, and visual identity.</p>
+        <button type="button" data-expand-card>Show artifacts</button>
+        <div class="more"><div>
+          <ul class="artifact-list">
+            <li>Service blueprint and inquiry funnel</li>
+            <li>Visual system and content architecture</li>
+            <li>Portfolio gallery and private-project access model</li>
+          </ul>
+        </div></div>
+      </article>
+      <article class="expand-card" style="--card-accent:#768b6f">
+        <h3>Cisco: Workplace experience worlds</h3>
+        <p>Use the campus work to prove systems thinking at human scale: movement, collaboration, zones, and behavior.</p>
+        <button type="button" data-expand-card>Show artifacts</button>
+        <div class="more"><div>
+          <ul class="artifact-list">
+            <li>Floor-by-floor narrative system</li>
+            <li>Employee behavior and breakout zoning</li>
+            <li>Working drawings, renders, and installed outcomes</li>
+          </ul>
+        </div></div>
+      </article>
+      <article class="expand-card" style="--card-accent:#8d3f2a">
+        <h3>Keha Casa: Retail experience center</h3>
+        <p>Show luxury retail UX before it was called UX: discovery, pacing, product comprehension, and memory.</p>
+        <button type="button" data-expand-card>Show artifacts</button>
+        <div class="more"><div>
+          <ul class="artifact-list">
+            <li>Retail journey and display strategy</li>
+            <li>Material storytelling and lighting hierarchy</li>
+            <li>Press validation and spatial differentiation</li>
+          </ul>
+        </div></div>
+      </article>
+      <article class="expand-card" style="--card-accent:#563b2a">
+        <h3>Career map: Chennai to Barcelona to SF</h3>
+        <p>Make the multicultural arc memorable and useful: it explains why your design lens is hard to copy.</p>
+        <button type="button" data-expand-card>Show artifacts</button>
+        <div class="more"><div>
+          <ul class="artifact-list">
+            <li>Journey map of education and practice</li>
+            <li>Transferable skills matrix</li>
+            <li>Role narrative for Product / UX interviews</li>
+          </ul>
+        </div></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-wrap reveal" id="evidence" aria-labelledby="workbench-title">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Milestone 2</p>
+        <h2 id="workbench-title">A case-study workbench with source status built in.</h2>
+      </div>
+      <p>This is the safer version of “replace placeholders”: every case now has a reusable long-form structure, and every metric or artifact has a visible source state before it becomes public proof.</p>
+    </div>
+    <div class="case-workbench">
+      <div class="case-tabs" role="tablist" aria-label="Case study workbench">
+        <button class="case-tab active" type="button" data-detail-case="experian"><strong>Experian</strong><span>Enterprise dashboard story</span></button>
+        <button class="case-tab" type="button" data-detail-case="nourish"><strong>Nourish</strong><span>AI companion story</span></button>
+        <button class="case-tab" type="button" data-detail-case="openstorey"><strong>Open Storey</strong><span>Founder-led service UX</span></button>
+        <button class="case-tab" type="button" data-detail-case="cisco"><strong>Cisco</strong><span>Workplace systems</span></button>
+        <button class="case-tab" type="button" data-detail-case="keha"><strong>Keha Casa</strong><span>Retail experience design</span></button>
+      </div>
+      <article class="detail-workbench" aria-live="polite">
+        <div class="detail-hero">
+          <div class="detail-copy">
+            <span class="status-pill" id="detailStatus">Needs resume validation</span>
+            <h3 id="detailCaseTitle">Experian executive dashboard</h3>
+            <p id="detailCaseSummary">A detailed case-study slot for the enterprise dashboard story.</p>
+          </div>
+          <div class="detail-visual visual-dashboard" id="detailCaseVisual" aria-label="Case study visual placeholder">
+            <div class="bars" aria-hidden="true"><i style="height:36%"></i><i style="height:62%"></i><i style="height:48%"></i><i style="height:78%"></i><i style="height:54%"></i></div>
+          </div>
+        </div>
+        <div class="detail-body" id="detailCaseBody"></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-wrap reveal" aria-labelledby="ledger-title">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Evidence ledger</p>
+        <h2 id="ledger-title">Separate public proof from asset gaps.</h2>
+      </div>
+      <p>The ledger helps us keep momentum without muddying credibility. Green items are locally verifiable, blue items are designed placeholders, and orange items need exact resume or analytics confirmation.</p>
+    </div>
+    <div class="evidence-lab">
+      <aside class="evidence-control">
+        <h3>Filter the proof stack.</h3>
+        <p>Use this like a production checklist before applying to Product / UX roles. The goal is not more content; it is stronger evidence per scroll.</p>
+        <div class="evidence-filters" aria-label="Evidence filters">
+          <button class="active" type="button" data-evidence-filter="all">All</button>
+          <button type="button" data-evidence-filter="verified">Verified</button>
+          <button type="button" data-evidence-filter="needs-source">Needs source</button>
+          <button type="button" data-evidence-filter="placeholder">Placeholder</button>
+        </div>
+      </aside>
+      <div class="evidence-grid" id="evidenceGrid">
+        <article class="evidence-card verified" data-evidence-type="verified">
+          <span>Verified locally</span>
+          <h3>Open Storey live portfolio system</h3>
+          <p>The current repo already contains the public interior site, private portfolio flow, mobile navigation tests, gallery filters, and contact funnel.</p>
+        </article>
+        <article class="evidence-card verified" data-evidence-type="verified">
+          <span>Verified locally</span>
+          <h3>Cisco and Keha spatial imagery</h3>
+          <p>Commercial and retail assets exist in the local image library, so these can become real spatial UX case studies quickly.</p>
+        </article>
+        <article class="evidence-card needs-source" data-evidence-type="needs-source">
+          <span>Needs source</span>
+          <h3>25% / 40% / 96% metrics</h3>
+          <p>These came from the brief and remain visible as candidates, but should not be treated as final until tied to resume lines, analytics, or project notes.</p>
+        </article>
+        <article class="evidence-card needs-source" data-evidence-type="needs-source">
+          <span>Needs source</span>
+          <h3>Experian and Nourish product visuals</h3>
+          <p>No screenshots were found in this workspace. The page uses CSS mock visuals until approved images or sanitized screens are added.</p>
+        </article>
+        <article class="evidence-card placeholder" data-evidence-type="placeholder">
+          <span>Designed placeholder</span>
+          <h3>AI companion answer model</h3>
+          <p>The companion is intentionally scripted for preview. It gives us UX behavior now and a clean path to retrieval-backed answers later.</p>
+        </article>
+        <article class="evidence-card placeholder" data-evidence-type="placeholder">
+          <span>Designed placeholder</span>
+          <h3>3D room layer</h3>
+          <p>The next section uses a CSS spatial prototype so we can test hierarchy, story, and performance before adding Spline or Three.js.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-wrap reveal" aria-labelledby="journey-title">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Interactive idea 4</p>
+        <h2 id="journey-title">A geographic story, not a linear resume.</h2>
+      </div>
+      <p>The journey map turns a varied background into a coherent advantage: each place adds a lens that Product / UX teams need.</p>
+    </div>
+    <div class="journey-shell">
+      <div class="journey-grid">
+        <article class="journey-stop" style="--accent-stop:#bd6c3f">
+          <span>Origin</span>
+          <h3>Chennai</h3>
+          <p>Material intelligence, hospitality, residences, and a sensitivity to how culture shows up in space.</p>
+        </article>
+        <article class="journey-stop" style="--accent-stop:#768b6f">
+          <span>Expansion</span>
+          <h3>Barcelona</h3>
+          <p>Brand systems, global references, and visual communication across different design vocabularies.</p>
+        </article>
+        <article class="journey-stop" style="--accent-stop:#98bfc6">
+          <span>Product lens</span>
+          <h3>San Francisco</h3>
+          <p>HCI, AI-enabled workflows, product strategy, and the ability to prototype digital systems end to end.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-wrap reveal" aria-labelledby="spatial-title">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Milestone 3 scaffold</p>
+        <h2 id="spatial-title">3D room navigation, proven first as a fast CSS prototype.</h2>
+      </div>
+      <p>This gives us the interaction shape without adding a heavy dependency yet. If the preview feels right, the same content model can move into Spline or Three.js.</p>
+    </div>
+    <div class="spatial-milestone">
+      <div class="room-prototype" aria-label="CSS spatial room prototype">
+        <div class="room-floor" aria-hidden="true"></div>
+        <div class="room-object wall">
+          <strong>Dashboard wall</strong>
+          <span>Enterprise UX, metrics, and decision hierarchy.</span>
+        </div>
+        <div class="room-object table" aria-hidden="true"></div>
+        <div class="room-object portal" aria-label="Retail and spatial work portal"></div>
+        <div class="room-object note">
+          <strong>Recruiter-safe fallback</strong>
+          <span>Every 3D object maps to regular HTML content, so the portfolio stays readable and testable.</span>
+        </div>
+      </div>
+      <aside class="milestone-panel">
+        <h3>Implementation path</h3>
+        <p>The spatial layer should earn its keep: fast load, keyboard-accessible hotspots, static fallback, and case-study URLs that hiring managers can share.</p>
+        <code>m3.next =
+  1. Export room objects from Spline or Three.js
+  2. Bind hotspots to case data
+  3. Lazy-load 3D after primary content
+  4. Preserve HTML fallback for SEO and mobile</code>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section-wrap reveal" id="companion" aria-labelledby="companion-title">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Interactive idea 5</p>
+        <h2 id="companion-title">The case-study companion.</h2>
+      </div>
+      <p>Milestone 4 is now scaffolded as a safe preview: local scripted answers for the browser, with a clear backend contract for a Cloudflare Worker once the case-study source pack is approved.</p>
+    </div>
+    <div class="companion-grid">
+      <article class="companion-panel">
+        <h3>Ask the portfolio</h3>
+        <div class="question-chips" aria-label="Suggested questions">
+          <button type="button" data-question="What is Swatika's differentiator?">Differentiator</button>
+          <button type="button" data-question="Which case study should a hiring manager read first?">Best first case</button>
+          <button type="button" data-question="How does spatial design transfer to UX?">Spatial to UX</button>
+        </div>
+        <div class="chat-box">
+          <div class="chat-output" id="chatOutput"><strong>Try a question.</strong> I can explain the portfolio thesis, suggest the best case study path, or connect spatial design to product design.</div>
+          <div class="chat-row">
+            <input id="chatInput" type="text" placeholder="Ask about process, impact, or spatial UX">
+            <button type="button" id="chatAsk">Ask</button>
+          </div>
+        </div>
+      </article>
+      <aside class="roadmap-panel">
+        <h3>Build milestones</h3>
+        <div class="roadmap-list">
+          <div class="roadmap-item"><strong>M1 done</strong><span>Standalone interactive prototype, research synthesis, dashboard, navigator, local companion, and tests.</span></div>
+          <div class="roadmap-item"><strong>M2 done</strong><span>Case-study workbench, evidence ledger, source labels, and reusable long-form case structure.</span></div>
+          <div class="roadmap-item"><strong>M3 scaffold</strong><span>CSS 3D room prototype with content-first fallback, ready to move into Spline or Three.js.</span></div>
+          <div class="roadmap-item"><strong>M4 scaffold</strong><span>Browser-safe companion UX now, Cloudflare Worker retrieval contract next after source content is approved.</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="contact-band reveal" aria-labelledby="contact-title">
+    <h2 id="contact-title">The next version should feel like opening a door.</h2>
+    <p>Milestones 1-4 now establish the story, evidence system, spatial prototype, and companion path. From here, the highest-leverage move is to plug in verified resume metrics and approved Product / UX screenshots.</p>
+    <div class="contact-links">
+      <a href="mailto:openstorey.design@gmail.com">Email Swatika</a>
+      <a href="index.html">Back to Open Storey</a>
+    </div>
+  </section>
+</main>
+
+<footer class="ux-footer">
+  <span>© 2026 Swatika Upendran</span>
+  <span>Product / UX portfolio prototype, milestones 1-4 scaffolded</span>
+</footer>
+
+<script>
+const modeCopy = {
+  bridge: {
+    title: "A portfolio built around translation.",
+    desc: "The core idea: Swatika translates human behavior across scales. A hiring manager can inspect product craft, spatial intuition, business impact, and collaboration without losing the thread."
+  },
+  space: {
+    title: "Spatial design is a UX credential.",
+    desc: "Rooms, showrooms, and workplaces are interaction systems. They require journey mapping, hierarchy, accessibility, emotional pacing, and clear affordances before a single screen exists."
+  },
+  screen: {
+    title: "The screen layer proves product craft.",
+    desc: "Dashboards, AI companions, mobile flows, prototypes, and service funnels show the same thinking in a digital medium: reduce ambiguity, guide decisions, and earn trust."
+  },
+  system: {
+    title: "The systems layer makes the work hireable.",
+    desc: "Metrics, constraints, stakeholders, delivery, and tradeoffs make the portfolio credible to hiring managers who need to understand how Swatika works inside teams."
+  }
+};
+
+const cases = {
+  experian: {
+    kicker: "Enterprise UX",
+    title: "Experian executive decision dashboard",
+    meta: ["Dashboards", "Data visualization", "Executive workflows"],
+    summary: "A flagship Product / UX story: translating complex risk, performance, and decision signals into a dashboard experience that helps leaders move faster with more confidence.",
+    details: [
+      ["Hiring-manager read", "Swatika can structure ambiguity, prioritize signal over noise, and design for high-stakes business decisions."],
+      ["Artifacts to show", "Information architecture, KPI hierarchy, wireframes, dashboard states, stakeholder feedback, and before / after decision flow."],
+      ["Metric angle", "Use verified latency, adoption, or engagement metrics here. The prototype currently reserves space for the 25% decision-latency story from the brief."]
+    ]
+  },
+  nourish: {
+    kicker: "AI Product Design",
+    title: "Nourish care companion",
+    meta: ["AI flows", "Healthcare context", "Conversational UX"],
+    summary: "A case study for AI-native product thinking: design the moments where guidance, trust, user context, and safety boundaries matter more than novelty.",
+    details: [
+      ["Hiring-manager read", "Swatika understands AI as an interaction model, not a decorative feature."],
+      ["Artifacts to show", "Prompt model, conversation states, fallback paths, user journey, trust cues, prototype, and evaluation plan."],
+      ["Metric angle", "Engagement, task completion, retention, or qualitative confidence scores can make this story concrete."]
+    ]
+  },
+  openstorey: {
+    kicker: "Spatial Brand + Service UX",
+    title: "Open Storey design studio system",
+    meta: ["Brand strategy", "Service funnel", "Spatial portfolio"],
+    summary: "A live proof point that Swatika can position, design, and ship a complete experience: brand, content, visual system, inquiry flow, private portfolio, and client trust.",
+    details: [
+      ["Hiring-manager read", "She can own a product end to end, from narrative to implementation details."],
+      ["Artifacts to show", "Brand system, IA, service blueprint, homepage conversion path, gallery filters, inquiry form, and private-project access."],
+      ["Metric angle", "Add inquiry conversion, time on page, consultation bookings, or qualitative client feedback after analytics are connected."]
+    ]
+  },
+  cisco: {
+    kicker: "Workplace Experience",
+    title: "Cisco B17 campus breakout spaces",
+    meta: ["Spatial systems", "Employee experience", "Thematic wayfinding"],
+    summary: "A multi-floor environment where each level becomes a distinct interaction world, proving large-scale systems thinking through physical space.",
+    details: [
+      ["Hiring-manager read", "The work shows journey design, zoning, emotional pacing, and cross-functional delivery in a complex environment."],
+      ["Artifacts to show", "Floor concepts, journey maps, mood boards, working drawings, renders, and installed photographs."],
+      ["Metric angle", "If direct utilization metrics are unavailable, use scope, employee population, delivery timeline, and stakeholder complexity."]
+    ]
+  },
+  keha: {
+    kicker: "Retail Experience",
+    title: "Keha Casa luxury experience center",
+    meta: ["Retail UX", "Material storytelling", "Press validation"],
+    summary: "A showroom that behaves like an experience product: visitors move through material discovery, product comprehension, and emotional memory.",
+    details: [
+      ["Hiring-manager read", "Swatika can design comprehension and delight in a complex product environment."],
+      ["Artifacts to show", "Retail path, display logic, lighting hierarchy, material narratives, press links, and before / after space planning."],
+      ["Metric angle", "Use press validation, showroom scale, product breadth, and visitor journey as evidence where business metrics are private."]
+    ]
+  }
+};
+
+const detailCases = {
+  experian: {
+    status: "Needs resume validation",
+    title: "Experian executive decision dashboard",
+    summary: "Long-form case structure for a high-stakes enterprise UX story: clarify the decision problem, show how the information model changed, and prove the result with verified business impact.",
+    visual: "visual-dashboard",
+    blocks: [
+      ["Problem", ["Executives needed a faster way to understand risk, performance, and decision signals without jumping across fragmented views.", "The story should open with the business decision being delayed, not with UI screens."]],
+      ["Your role", ["Product / UX design, information architecture, dashboard hierarchy, stakeholder translation, and prototype storytelling.", "Add team size, timeline, tools, and decision ownership once confirmed."]],
+      ["Evidence to add", ["Sanitized dashboard screenshots or reconstructed wireframes", "Before / after IA", "Exact metric source for decision latency, adoption, or stakeholder efficiency"]]
+    ]
+  },
+  nourish: {
+    status: "Needs product asset",
+    title: "Nourish AI care companion",
+    summary: "A product case for AI-native UX: show how conversational guidance, care context, safety, and trust are designed before model capability becomes visible.",
+    visual: "visual-phone",
+    blocks: [
+      ["Problem", ["People need care guidance that feels contextual and safe, especially around food, health, and everyday decision moments.", "The portfolio should explain why AI is useful here and where it should stay constrained."]],
+      ["Your role", ["AI product thinking, conversation design, prompt boundaries, prototype flows, user journey, and evaluation criteria.", "Add platform, collaborators, and prototype fidelity once source files are available."]],
+      ["Evidence to add", ["Conversation state map", "Prompt and fallback model", "Provider / patient flow", "Validated engagement or task-confidence metric"]]
+    ]
+  },
+  openstorey: {
+    status: "Verified locally",
+    title: "Open Storey service and brand system",
+    summary: "A live founder-led proof point: positioning, content strategy, gallery interaction, private work access, contact funnel, and mobile behavior are already present in this repo.",
+    visual: "visual-gallery",
+    image: "assets/images/home-hero.jpg",
+    blocks: [
+      ["Problem", ["A spatial design studio needs to build trust quickly while protecting confidential project work.", "The site must balance editorial beauty with conversion clarity."]],
+      ["Your role", ["Brand narrative, UX architecture, visual design, implementation direction, gallery behavior, private access flow, and QA through Playwright tests."]],
+      ["Evidence available", ["Live static site", "Private portfolio password flow", "Mobile nav test coverage", "Contact and notify flows"]]
+    ]
+  },
+  cisco: {
+    status: "Verified spatial assets",
+    title: "Cisco B17 campus breakout spaces",
+    summary: "A spatial UX story at workplace scale: six themed breakout floors become a system of collaboration modes, wayfinding cues, and emotional transitions.",
+    visual: "visual-gallery",
+    image: "assets/images/conf-cisco-b17-campus-bangalore-01-3rd-floor-mela-folk-art-breakout-site-photograph.jpg",
+    blocks: [
+      ["Problem", ["Large campuses can feel anonymous. The design opportunity was to create differentiated zones that support pauses, gathering, focus, and memory."]],
+      ["Your role", ["Commercial interiors, thematic concepts, FF&E, working drawings, renders, documentation, and stakeholder coordination."]],
+      ["Evidence available", ["Installed photography", "Working drawings", "Renders", "Floor-by-floor narrative system"]]
+    ]
+  },
+  keha: {
+    status: "Verified spatial assets",
+    title: "Keha Casa luxury retail experience center",
+    summary: "A retail experience case: transform product discovery into a memorable material journey through lighting hierarchy, display pacing, and immersive surfaces.",
+    visual: "visual-gallery",
+    image: "assets/images/conf-keha-casa-01-double-height-atrium-orb-lighting-installation.jpg",
+    blocks: [
+      ["Problem", ["A luxury surface showroom must help visitors understand material range while still feeling emotionally distinct from a catalog or warehouse."]],
+      ["Your role", ["Retail interior, lighting design, material curation, mosaic art direction, spatial narrative, and display strategy."]],
+      ["Evidence available", ["Local project imagery", "Material storytelling", "Press-reference path", "Retail journey framing"]]
+    ]
+  }
+};
+
+function setMode(mode) {
+  const next = modeCopy[mode] ? mode : "bridge";
+  document.body.dataset.mode = next;
+  document.querySelectorAll("[data-mode-target]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.modeTarget === next);
+  });
+  document.getElementById("modeTitle").textContent = modeCopy[next].title;
+  document.getElementById("modeDesc").textContent = modeCopy[next].desc;
+}
+
+function renderCase(id) {
+  const item = cases[id] || cases.experian;
+  document.querySelectorAll(".hotspot").forEach((hotspot) => {
+    hotspot.classList.toggle("active", hotspot.dataset.case === id);
+  });
+  document.getElementById("caseKicker").textContent = item.kicker;
+  document.getElementById("caseTitle").textContent = item.title;
+  document.getElementById("caseSummary").textContent = item.summary;
+  document.getElementById("caseMeta").innerHTML = item.meta.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
+  document.getElementById("caseDetails").innerHTML = item.details.map(([label, text]) => (
+    `<div class="case-detail"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(text)}</span></div>`
+  )).join("");
+}
+
+function renderDetailCase(id) {
+  const item = detailCases[id] || detailCases.experian;
+  document.querySelectorAll("[data-detail-case]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.detailCase === id);
+  });
+  document.getElementById("detailStatus").textContent = item.status;
+  document.getElementById("detailCaseTitle").textContent = item.title;
+  document.getElementById("detailCaseSummary").textContent = item.summary;
+
+  const visual = document.getElementById("detailCaseVisual");
+  visual.className = "detail-visual " + item.visual;
+  visual.style.backgroundImage = item.image ? `url("${item.image}")` : "";
+  visual.innerHTML = item.visual === "visual-gallery"
+    ? ""
+    : '<div class="bars" aria-hidden="true"><i style="height:36%"></i><i style="height:62%"></i><i style="height:48%"></i><i style="height:78%"></i><i style="height:54%"></i></div>';
+
+  document.getElementById("detailCaseBody").innerHTML = item.blocks.map(([title, points]) => (
+    `<section class="detail-block"><strong>${escapeHtml(title)}</strong><ul>${points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>`
+  )).join("");
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function answerQuestion(rawQuestion) {
+  const question = String(rawQuestion || "").trim();
+  const lower = question.toLowerCase();
+  let answer = "<strong>Portfolio answer:</strong> Swatika's story is strongest when it connects product decisions to human environments: what people need to understand, feel, trust, and do next.";
+
+  if (!question) {
+    answer = "<strong>Try asking:</strong> What is Swatika's differentiator? Which case should a hiring manager read first? How does spatial design transfer to UX?";
+  } else if (lower.includes("differentiator") || lower.includes("different")) {
+    answer = "<strong>Differentiator:</strong> Swatika can credibly bridge screens and spaces. That means she brings product UX, spatial behavior, material storytelling, and service thinking into one design practice.";
+  } else if (lower.includes("first") || lower.includes("case")) {
+    answer = "<strong>Best first case:</strong> Lead with Experian if the role is enterprise Product / UX. Lead with Nourish if the role is AI or healthcare. Lead with Open Storey if the team values founder-level ownership and brand systems.";
+  } else if (lower.includes("spatial") || lower.includes("space") || lower.includes("ux")) {
+    answer = "<strong>Spatial to UX:</strong> Interior design trains the same muscles as UX: wayfinding, hierarchy, affordances, accessibility, pacing, stakeholder constraints, and emotional context.";
+  } else if (lower.includes("impact") || lower.includes("metric")) {
+    answer = "<strong>Impact framing:</strong> Use confirmed metrics wherever possible, then pair them with decision quality, adoption, delivery complexity, and stakeholder outcomes.";
+  }
+
+  document.getElementById("chatOutput").innerHTML = answer;
+}
+
+document.querySelectorAll("[data-mode-target]").forEach((button) => {
+  button.addEventListener("click", () => setMode(button.dataset.modeTarget));
+});
+
+document.querySelectorAll(".hotspot").forEach((button) => {
+  button.addEventListener("click", () => renderCase(button.dataset.case));
+});
+
+document.querySelectorAll("[data-detail-case]").forEach((button) => {
+  button.addEventListener("click", () => renderDetailCase(button.dataset.detailCase));
+});
+
+document.querySelectorAll("[data-evidence-filter]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const filter = button.dataset.evidenceFilter;
+    document.querySelectorAll("[data-evidence-filter]").forEach((item) => {
+      item.classList.toggle("active", item === button);
+    });
+    document.querySelectorAll("[data-evidence-type]").forEach((card) => {
+      card.hidden = filter !== "all" && card.dataset.evidenceType !== filter;
+    });
+  });
+});
+
+document.querySelectorAll("[data-expand-card]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const card = button.closest(".expand-card");
+    const isOpen = card.classList.toggle("open");
+    button.textContent = isOpen ? "Hide artifacts" : "Show artifacts";
+  });
+});
+
+document.querySelectorAll("[data-question]").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.getElementById("chatInput").value = button.dataset.question;
+    answerQuestion(button.dataset.question);
+  });
+});
+
+document.getElementById("chatAsk").addEventListener("click", () => {
+  answerQuestion(document.getElementById("chatInput").value);
+});
+
+document.getElementById("chatInput").addEventListener("keydown", (event) => {
+  if (event.key === "Enter") answerQuestion(event.currentTarget.value);
+});
+
+const menuButton = document.getElementById("portfolioMenuButton");
+const menuLinks = document.getElementById("portfolioNavLinks");
+menuButton.addEventListener("click", () => {
+  const isOpen = menuLinks.classList.toggle("open");
+  menuButton.classList.toggle("open", isOpen);
+  menuButton.setAttribute("aria-expanded", String(isOpen));
+  menuButton.setAttribute("aria-label", isOpen ? "Close portfolio menu" : "Open portfolio menu");
+});
+
+menuLinks.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    menuLinks.classList.remove("open");
+    menuButton.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "Open portfolio menu");
+  });
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: .12 });
+
+document.querySelectorAll(".reveal").forEach((node) => revealObserver.observe(node));
+renderCase("experian");
+renderDetailCase("experian");
+</script>
+</body>
+</html>
