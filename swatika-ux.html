@@ -460,6 +460,22 @@ section {
   padding: .8rem .6rem;
   border-radius: 16px;
   background: rgba(23, 20, 16, .045);
+  opacity: 0;
+  transform: translateY(12px) scale(.98);
+  transition: opacity .55s ease, transform .55s cubic-bezier(.2,.8,.2,1);
+}
+
+.is-animated .mini-metric {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.is-animated .mini-metric:nth-child(2) {
+  transition-delay: .1s;
+}
+
+.is-animated .mini-metric:nth-child(3) {
+  transition-delay: .2s;
 }
 
 .mini-metric strong {
@@ -477,12 +493,30 @@ section {
 }
 
 .chart-line {
+  position: relative;
+  overflow: hidden;
   height: 58px;
   margin-top: .9rem;
   border-radius: 16px;
   background:
     linear-gradient(135deg, transparent 0 24%, rgba(57,70,51,.28) 24% 26%, transparent 26% 48%, rgba(189,108,63,.42) 48% 51%, transparent 51%),
     linear-gradient(to top, rgba(23,20,16,.05), rgba(23,20,16,.02));
+}
+
+.chart-line::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(135deg, transparent 0 22%, rgba(57,70,51,.42) 22% 25%, transparent 25% 45%, rgba(189,108,63,.5) 45% 49%, transparent 49%),
+    linear-gradient(90deg, rgba(213,223,116,.2), rgba(152,191,198,.18));
+  transition: width 1.2s cubic-bezier(.2,.8,.2,1);
+}
+
+.is-animated .chart-line::after {
+  width: 100%;
 }
 
 .phone-notch {
@@ -664,6 +698,7 @@ section {
   font-weight: 500;
   line-height: .96;
   letter-spacing: -.045em;
+  transition: opacity .22s ease, transform .22s ease;
 }
 
 .mode-output p {
@@ -672,6 +707,13 @@ section {
   margin: 1rem 0 0;
   color: rgba(255, 250, 241, .7);
   line-height: 1.72;
+  transition: opacity .22s ease, transform .22s ease;
+}
+
+.mode-output.mode-swapping h2,
+.mode-output.mode-swapping p {
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 .mode-orbit {
@@ -918,6 +960,35 @@ section {
   border-radius: 38px;
   background: rgba(255, 250, 241, .7);
   box-shadow: 0 18px 52px rgba(86, 59, 42, .1);
+  transform-origin: 20% 50%;
+  transition: opacity .28s ease, transform .28s cubic-bezier(.2,.8,.2,1), background .28s ease;
+}
+
+.case-panel.panel-exiting {
+  opacity: 0;
+  transform: translateX(22px) scale(.975);
+}
+
+.case-panel.panel-entering {
+  animation: casePanelIn .42s cubic-bezier(.2,.8,.2,1);
+}
+
+.case-panel::before {
+  content: "";
+  width: 54px;
+  height: 4px;
+  display: block;
+  margin-bottom: 1.15rem;
+  border-radius: 999px;
+  background: var(--accent-mode);
+  transform-origin: left;
+  transform: scaleX(.35);
+  transition: transform .42s cubic-bezier(.2,.8,.2,1), background .3s ease;
+}
+
+.case-panel.panel-entering::before,
+.case-panel:hover::before {
+  transform: scaleX(1);
 }
 
 .case-kicker {
@@ -1001,6 +1072,19 @@ section {
   border-radius: 28px;
   background: rgba(255, 250, 241, .62);
   box-shadow: 0 18px 44px rgba(86, 59, 42, .08);
+  opacity: 0;
+  transform: translateY(24px) scale(.98);
+  transition: opacity .65s ease, transform .65s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease;
+}
+
+.impact-card.motion-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.impact-card:hover {
+  box-shadow: 0 24px 60px rgba(86, 59, 42, .14);
+  transform: translateY(-4px) scale(1);
 }
 
 .impact-card strong {
@@ -1060,6 +1144,15 @@ section {
     conic-gradient(from -22deg, rgba(213,223,116,.72), rgba(152,191,198,.74), rgba(189,108,63,.78), rgba(118,139,111,.7), rgba(213,223,116,.72));
   clip-path: polygon(50% 5%, 87% 22%, 91% 66%, 60% 90%, 18% 74%, 14% 30%);
   filter: drop-shadow(0 20px 40px rgba(0,0,0,.24));
+  opacity: 0;
+  transform: scale(.55) rotate(-18deg);
+  transform-origin: center;
+  transition: opacity .75s ease, transform .9s cubic-bezier(.2,.8,.2,1), clip-path 1s cubic-bezier(.2,.8,.2,1);
+}
+
+.skills-map.motion-in .radar {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
 }
 
 .radar-ring {
@@ -1068,6 +1161,14 @@ section {
   height: min(320px, 80vw);
   border: 1px solid rgba(255,250,241,.2);
   border-radius: 50%;
+  opacity: 0;
+  transform: scale(.8);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.skills-map.motion-in .radar-ring {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .radar-label {
@@ -1079,7 +1180,21 @@ section {
   color: rgba(255,250,241,.74);
   font-family: "IBM Plex Mono", monospace;
   font-size: .62rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .45s ease, transform .45s ease;
 }
+
+.skills-map.motion-in .radar-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skills-map.motion-in .radar-label:nth-of-type(1) { transition-delay: .1s; }
+.skills-map.motion-in .radar-label:nth-of-type(2) { transition-delay: .2s; }
+.skills-map.motion-in .radar-label:nth-of-type(3) { transition-delay: .3s; }
+.skills-map.motion-in .radar-label:nth-of-type(4) { transition-delay: .4s; }
+.skills-map.motion-in .radar-label:nth-of-type(5) { transition-delay: .5s; }
 
 .radar-label:nth-of-type(1) { top: 4%; left: 42%; }
 .radar-label:nth-of-type(2) { top: 24%; right: 2%; }
@@ -1101,6 +1216,22 @@ section {
   border: 1px solid rgba(23,20,16,.1);
   border-radius: 24px;
   background: rgba(255,250,241,.5);
+  opacity: 0;
+  transform: translateX(-18px);
+  transition: opacity .58s ease, transform .58s cubic-bezier(.2,.8,.2,1);
+}
+
+.timeline.motion-in .timeline-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.timeline.motion-in .timeline-item:nth-child(2) {
+  transition-delay: .12s;
+}
+
+.timeline.motion-in .timeline-item:nth-child(3) {
+  transition-delay: .24s;
 }
 
 .timeline-item time {
@@ -1222,6 +1353,13 @@ section {
   height: 2px;
   background: linear-gradient(90deg, var(--clay), var(--sage), var(--sky));
   opacity: .7;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.15s cubic-bezier(.2,.8,.2,1);
+}
+
+.journey-shell.motion-in::before {
+  transform: scaleX(1);
 }
 
 .journey-grid {
@@ -1239,6 +1377,22 @@ section {
   border-radius: 28px;
   background: rgba(255,250,241,.78);
   box-shadow: 0 15px 38px rgba(86, 59, 42, .08);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .65s ease, transform .65s cubic-bezier(.2,.8,.2,1);
+}
+
+.journey-shell.motion-in .journey-stop {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.journey-shell.motion-in .journey-stop:nth-child(2) {
+  transition-delay: .22s;
+}
+
+.journey-shell.motion-in .journey-stop:nth-child(3) {
+  transition-delay: .44s;
 }
 
 .journey-stop::before {
@@ -1328,6 +1482,25 @@ section {
   background: var(--ink);
   color: rgba(255,250,241,.76);
   line-height: 1.65;
+  position: relative;
+  overflow: hidden;
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease;
+}
+
+.chat-output.is-typing {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 46px rgba(23,20,16,.18);
+}
+
+.chat-output.is-typing::after {
+  content: "";
+  display: inline-block;
+  width: .48em;
+  height: 1em;
+  margin-left: .18em;
+  vertical-align: -.15em;
+  background: var(--chartreuse);
+  animation: caretBlink .8s steps(2, jump-none) infinite;
 }
 
 .chat-output strong {
@@ -1445,6 +1618,16 @@ section {
     radial-gradient(circle at 88% 10%, color-mix(in srgb, var(--accent-mode) 42%, transparent), transparent 18rem),
     var(--salt);
   border: 1px solid rgba(23,20,16,.12);
+  transition: opacity .25s ease, transform .25s cubic-bezier(.2,.8,.2,1);
+}
+
+.detail-workbench.detail-exiting {
+  opacity: 0;
+  transform: translateY(12px) scale(.99);
+}
+
+.detail-workbench.detail-entering {
+  animation: detailIn .42s cubic-bezier(.2,.8,.2,1);
 }
 
 .detail-hero {
@@ -1492,6 +1675,12 @@ section {
   border: 1px solid rgba(23,20,16,.12);
   background: rgba(23,20,16,.045);
   overflow: hidden;
+  transform: translateY(0);
+  transition: transform .45s cubic-bezier(.2,.8,.2,1), opacity .35s ease;
+}
+
+.detail-workbench.detail-entering .detail-visual {
+  animation: visualPop .62s cubic-bezier(.2,.8,.2,1);
 }
 
 .detail-visual::before {
@@ -1524,7 +1713,24 @@ section {
   border-radius: 999px 999px 12px 12px;
   background: var(--ink);
   opacity: .74;
+  transform: scaleY(.08);
+  transform-origin: bottom;
+  transition: transform .8s cubic-bezier(.2,.8,.2,1);
 }
+
+.detail-workbench.detail-entering .bars i,
+.detail-workbench.motion-in .bars i {
+  transform: scaleY(1);
+}
+
+.detail-workbench.detail-entering .bars i:nth-child(2),
+.detail-workbench.motion-in .bars i:nth-child(2) { transition-delay: .08s; }
+.detail-workbench.detail-entering .bars i:nth-child(3),
+.detail-workbench.motion-in .bars i:nth-child(3) { transition-delay: .16s; }
+.detail-workbench.detail-entering .bars i:nth-child(4),
+.detail-workbench.motion-in .bars i:nth-child(4) { transition-delay: .24s; }
+.detail-workbench.detail-entering .bars i:nth-child(5),
+.detail-workbench.motion-in .bars i:nth-child(5) { transition-delay: .32s; }
 
 .visual-phone {
   background:
@@ -1571,6 +1777,25 @@ section {
   border-radius: 22px;
   border: 1px solid rgba(23,20,16,.1);
   background: rgba(255,255,255,.46);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .45s ease, transform .45s cubic-bezier(.2,.8,.2,1);
+}
+
+.detail-workbench.detail-entering .detail-block,
+.detail-workbench.motion-in .detail-block {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.detail-workbench.detail-entering .detail-block:nth-child(2),
+.detail-workbench.motion-in .detail-block:nth-child(2) {
+  transition-delay: .08s;
+}
+
+.detail-workbench.detail-entering .detail-block:nth-child(3),
+.detail-workbench.motion-in .detail-block:nth-child(3) {
+  transition-delay: .16s;
 }
 
 .detail-block strong {
@@ -1657,6 +1882,24 @@ section {
   border-radius: 26px;
   background: rgba(255,250,241,.64);
   box-shadow: 0 16px 38px rgba(86,59,42,.08);
+  opacity: 0;
+  transform: translateY(18px) scale(.98);
+  transition: opacity .42s ease, transform .42s cubic-bezier(.2,.8,.2,1), box-shadow .24s ease;
+}
+
+.evidence-card.motion-in,
+.evidence-card.filter-show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.evidence-card.filter-hide {
+  opacity: 0;
+  transform: translateY(12px) scale(.96);
+}
+
+.evidence-card:hover {
+  box-shadow: 0 22px 52px rgba(86,59,42,.13);
 }
 
 .evidence-card[hidden] {
@@ -1719,6 +1962,23 @@ section {
     radial-gradient(circle at 78% 24%, rgba(213,223,116,.32), transparent 18rem);
   box-shadow: var(--shadow);
   perspective: 1000px;
+  transform-style: preserve-3d;
+  --room-tilt-x: 0deg;
+  --room-tilt-y: 0deg;
+  --room-focus-x: 50%;
+  --room-focus-y: 50%;
+  transform: rotateX(var(--room-tilt-x)) rotateY(var(--room-tilt-y));
+  transition: transform .18s ease, box-shadow .24s ease;
+}
+
+.room-prototype::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--room-focus-x) var(--room-focus-y), rgba(213,223,116,.24), transparent 18rem);
+  opacity: .9;
+  transition: opacity .3s ease;
 }
 
 .room-floor {
@@ -1744,6 +2004,17 @@ section {
   background: rgba(255,250,241,.74);
   box-shadow: 0 18px 44px rgba(86,59,42,.14);
   backdrop-filter: blur(10px);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, border-color .25s ease, opacity .25s ease;
+}
+
+.room-object:not(.table) {
+  cursor: pointer;
+}
+
+.room-object.is-focused {
+  z-index: 4;
+  border-color: rgba(23,20,16,.38);
+  box-shadow: 0 28px 76px rgba(86,59,42,.22);
 }
 
 .room-object.wall {
@@ -1752,6 +2023,11 @@ section {
   width: 48%;
   height: 26%;
   padding: 1rem;
+  transform: translateZ(42px);
+}
+
+.room-object.wall.is-focused {
+  transform: translateZ(78px) translateY(-8px);
 }
 
 .room-object.table {
@@ -1770,6 +2046,11 @@ section {
   background:
     linear-gradient(to top, rgba(23,20,16,.78), transparent),
     url("assets/images/conf-keha-casa-01-double-height-atrium-orb-lighting-installation.jpg") center/cover;
+  transform: translateZ(52px);
+}
+
+.room-object.portal.is-focused {
+  transform: translateZ(88px) translateY(-10px) scale(1.03);
 }
 
 .room-object.note {
@@ -1780,6 +2061,11 @@ section {
   padding: 1rem;
   background: var(--ink);
   color: var(--salt);
+  transform: translateZ(64px) rotate(-1deg);
+}
+
+.room-object.note.is-focused {
+  transform: translateZ(100px) rotate(-1deg) translateY(-8px);
 }
 
 .room-object strong {
@@ -1841,6 +2127,53 @@ section {
     var(--ink);
   color: var(--salt);
   overflow: hidden;
+  position: relative;
+  isolation: isolate;
+}
+
+.contact-band::before,
+.contact-band::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  width: 50%;
+  background:
+    linear-gradient(135deg, rgba(255,250,241,.12), rgba(255,250,241,.02)),
+    var(--ink);
+  transition: transform 1s cubic-bezier(.2,.8,.2,1);
+}
+
+.contact-band::before {
+  left: 0;
+  transform-origin: left center;
+}
+
+.contact-band::after {
+  right: 0;
+  transform-origin: right center;
+}
+
+.contact-band.motion-in::before {
+  transform: perspective(900px) rotateY(-18deg) translateX(-7%);
+}
+
+.contact-band.motion-in::after {
+  transform: perspective(900px) rotateY(18deg) translateX(7%);
+}
+
+.contact-band > * {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .68s .28s ease, transform .68s .28s cubic-bezier(.2,.8,.2,1);
+}
+
+.contact-band.motion-in > * {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .contact-band h2 {
@@ -1915,6 +2248,26 @@ section {
 @keyframes noteIn {
   from { opacity: 0; transform: translateY(16px) rotate(-2deg); }
   to { opacity: 1; transform: translateY(0) rotate(-2deg); }
+}
+
+@keyframes casePanelIn {
+  from { opacity: 0; transform: translateX(-18px) scale(.985); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes detailIn {
+  from { opacity: 0; transform: translateY(12px) scale(.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes visualPop {
+  from { opacity: .65; transform: translateY(16px) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes caretBlink {
+  0%, 45% { opacity: 1; }
+  46%, 100% { opacity: 0; }
 }
 
 @keyframes spin {
@@ -2195,9 +2548,9 @@ section {
         <div class="lab-pane pane-dashboard">
           <p class="pane-label">Executive signal layer</p>
           <div class="metric-row">
-            <div class="mini-metric"><strong>25%</strong><span>decision latency reduction</span></div>
-            <div class="mini-metric"><strong>40%</strong><span>engagement lift</span></div>
-            <div class="mini-metric"><strong>96%</strong><span>delivery reliability</span></div>
+            <div class="mini-metric"><strong data-counter data-target="25" data-suffix="%">0%</strong><span>decision latency reduction</span></div>
+            <div class="mini-metric"><strong data-counter data-target="40" data-suffix="%">0%</strong><span>engagement lift</span></div>
+            <div class="mini-metric"><strong data-counter data-target="96" data-suffix="%">0%</strong><span>delivery reliability</span></div>
           </div>
           <div class="chart-line" aria-hidden="true"></div>
         </div>
@@ -2328,17 +2681,17 @@ section {
       <div>
         <div class="impact-board">
           <article class="impact-card">
-            <strong>25%</strong>
+            <strong data-counter data-target="25" data-suffix="%">0%</strong>
             <span>Faster decisions</span>
             <p>Frame as dashboard latency, executive review speed, or fewer handoff loops once exact source data is confirmed.</p>
           </article>
           <article class="impact-card">
-            <strong>40%</strong>
+            <strong data-counter data-target="40" data-suffix="%">0%</strong>
             <span>Engagement lift</span>
             <p>Useful for Nourish, content interactions, or adoption if backed by product analytics.</p>
           </article>
           <article class="impact-card">
-            <strong>96%</strong>
+            <strong data-counter data-target="96" data-suffix="%">0%</strong>
             <span>Delivery reliability</span>
             <p>Signals operational maturity: scopes, timelines, stakeholder coordination, and implementation follow-through.</p>
           </article>
@@ -2583,13 +2936,13 @@ section {
     <div class="spatial-milestone">
       <div class="room-prototype" aria-label="CSS spatial room prototype">
         <div class="room-floor" aria-hidden="true"></div>
-        <div class="room-object wall">
+        <div class="room-object wall" role="button" tabindex="0" data-room-focus="dashboard">
           <strong>Dashboard wall</strong>
           <span>Enterprise UX, metrics, and decision hierarchy.</span>
         </div>
         <div class="room-object table" aria-hidden="true"></div>
-        <div class="room-object portal" aria-label="Retail and spatial work portal"></div>
-        <div class="room-object note">
+        <div class="room-object portal" role="button" tabindex="0" data-room-focus="retail" aria-label="Retail and spatial work portal"></div>
+        <div class="room-object note" role="button" tabindex="0" data-room-focus="fallback">
           <strong>Recruiter-safe fallback</strong>
           <span>Every 3D object maps to regular HTML content, so the portfolio stays readable and testable.</span>
         </div>
@@ -2658,6 +3011,9 @@ section {
 </footer>
 
 <script>
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let chatTypeTimer = null;
+
 const modeCopy = {
   bridge: {
     title: "A portfolio built around translation.",
@@ -2798,15 +3154,27 @@ const detailCases = {
 
 function setMode(mode) {
   const next = modeCopy[mode] ? mode : "bridge";
+  const output = document.querySelector(".mode-output");
   document.body.dataset.mode = next;
   document.querySelectorAll("[data-mode-target]").forEach((button) => {
     button.classList.toggle("active", button.dataset.modeTarget === next);
   });
-  document.getElementById("modeTitle").textContent = modeCopy[next].title;
-  document.getElementById("modeDesc").textContent = modeCopy[next].desc;
+  const update = () => {
+    document.getElementById("modeTitle").textContent = modeCopy[next].title;
+    document.getElementById("modeDesc").textContent = modeCopy[next].desc;
+  };
+  if (!output || prefersReducedMotion) {
+    update();
+    return;
+  }
+  output.classList.add("mode-swapping");
+  window.setTimeout(() => {
+    update();
+    output.classList.remove("mode-swapping");
+  }, 180);
 }
 
-function renderCase(id) {
+function updateCaseContent(id) {
   const item = cases[id] || cases.experian;
   document.querySelectorAll(".hotspot").forEach((hotspot) => {
     hotspot.classList.toggle("active", hotspot.dataset.case === id);
@@ -2820,7 +3188,23 @@ function renderCase(id) {
   )).join("");
 }
 
-function renderDetailCase(id) {
+function renderCase(id) {
+  const panel = document.getElementById("casePanel");
+  if (!panel || prefersReducedMotion) {
+    updateCaseContent(id);
+    return;
+  }
+  panel.classList.remove("panel-entering");
+  panel.classList.add("panel-exiting");
+  window.setTimeout(() => {
+    updateCaseContent(id);
+    panel.classList.remove("panel-exiting");
+    panel.classList.add("panel-entering");
+    window.setTimeout(() => panel.classList.remove("panel-entering"), 460);
+  }, 180);
+}
+
+function updateDetailCaseContent(id) {
   const item = detailCases[id] || detailCases.experian;
   document.querySelectorAll("[data-detail-case]").forEach((button) => {
     button.classList.toggle("active", button.dataset.detailCase === id);
@@ -2839,6 +3223,23 @@ function renderDetailCase(id) {
   document.getElementById("detailCaseBody").innerHTML = item.blocks.map(([title, points]) => (
     `<section class="detail-block"><strong>${escapeHtml(title)}</strong><ul>${points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>`
   )).join("");
+}
+
+function renderDetailCase(id) {
+  const workbench = document.querySelector(".detail-workbench");
+  if (!workbench || prefersReducedMotion) {
+    updateDetailCaseContent(id);
+    if (workbench) workbench.classList.add("motion-in");
+    return;
+  }
+  workbench.classList.remove("detail-entering", "motion-in");
+  workbench.classList.add("detail-exiting");
+  window.setTimeout(() => {
+    updateDetailCaseContent(id);
+    workbench.classList.remove("detail-exiting");
+    workbench.classList.add("detail-entering", "motion-in");
+    window.setTimeout(() => workbench.classList.remove("detail-entering"), 520);
+  }, 170);
 }
 
 function escapeHtml(value) {
@@ -2868,7 +3269,31 @@ function answerQuestion(rawQuestion) {
     answer = "<strong>Impact framing:</strong> Use confirmed metrics wherever possible, then pair them with decision quality, adoption, delivery complexity, and stakeholder outcomes.";
   }
 
-  document.getElementById("chatOutput").innerHTML = answer;
+  typeAnswer(answer);
+}
+
+function typeAnswer(answerHtml) {
+  const output = document.getElementById("chatOutput");
+  if (!output) return;
+  window.clearInterval(chatTypeTimer);
+  if (prefersReducedMotion) {
+    output.innerHTML = answerHtml;
+    output.classList.remove("is-typing");
+    return;
+  }
+  const plainText = answerHtml.replace(/<[^>]+>/g, "");
+  let index = 0;
+  output.textContent = "";
+  output.classList.add("is-typing");
+  chatTypeTimer = window.setInterval(() => {
+    output.textContent = plainText.slice(0, index);
+    index += 1;
+    if (index > plainText.length) {
+      window.clearInterval(chatTypeTimer);
+      output.innerHTML = answerHtml;
+      output.classList.remove("is-typing");
+    }
+  }, 10);
 }
 
 document.querySelectorAll("[data-mode-target]").forEach((button) => {
@@ -2883,15 +3308,31 @@ document.querySelectorAll("[data-detail-case]").forEach((button) => {
   button.addEventListener("click", () => renderDetailCase(button.dataset.detailCase));
 });
 
+function filterEvidence(filter, activeButton) {
+  document.querySelectorAll("[data-evidence-filter]").forEach((item) => {
+    item.classList.toggle("active", item === activeButton);
+  });
+  document.querySelectorAll("[data-evidence-type]").forEach((card) => {
+    const shouldShow = filter === "all" || card.dataset.evidenceType === filter;
+    if (shouldShow) {
+      card.hidden = false;
+      card.classList.remove("filter-hide");
+      window.requestAnimationFrame(() => {
+        card.classList.add("filter-show", "motion-in");
+      });
+      return;
+    }
+    card.classList.remove("filter-show");
+    card.classList.add("filter-hide");
+    window.setTimeout(() => {
+      if (card.classList.contains("filter-hide")) card.hidden = true;
+    }, prefersReducedMotion ? 0 : 260);
+  });
+}
+
 document.querySelectorAll("[data-evidence-filter]").forEach((button) => {
   button.addEventListener("click", () => {
-    const filter = button.dataset.evidenceFilter;
-    document.querySelectorAll("[data-evidence-filter]").forEach((item) => {
-      item.classList.toggle("active", item === button);
-    });
-    document.querySelectorAll("[data-evidence-type]").forEach((card) => {
-      card.hidden = filter !== "all" && card.dataset.evidenceType !== filter;
-    });
+    filterEvidence(button.dataset.evidenceFilter, button);
   });
 });
 
@@ -2933,6 +3374,84 @@ menuLinks.querySelectorAll("a").forEach((link) => {
     menuButton.classList.remove("open");
     menuButton.setAttribute("aria-expanded", "false");
     menuButton.setAttribute("aria-label", "Open portfolio menu");
+  });
+});
+
+function animateCounter(node) {
+  const target = Number(node.dataset.target || 0);
+  const suffix = node.dataset.suffix || "";
+  if (node.dataset.counted === "true") return;
+  node.dataset.counted = "true";
+  if (prefersReducedMotion) {
+    node.textContent = Math.round(target) + suffix;
+    return;
+  }
+  const duration = 1100;
+  const start = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    node.textContent = Math.round(target * eased) + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const motionObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add("motion-in", "is-animated", "filter-show");
+    entry.target.querySelectorAll("[data-counter]").forEach(animateCounter);
+    if (entry.target.matches("[data-counter]")) animateCounter(entry.target);
+    motionObserver.unobserve(entry.target);
+  });
+}, { threshold: .28 });
+
+[
+  ".pane-dashboard",
+  ".impact-card",
+  ".skills-map",
+  ".timeline",
+  ".journey-shell",
+  ".detail-workbench",
+  ".evidence-card",
+  ".contact-band"
+].forEach((selector) => {
+  document.querySelectorAll(selector).forEach((node) => motionObserver.observe(node));
+});
+
+const roomPrototype = document.querySelector(".room-prototype");
+if (roomPrototype && !prefersReducedMotion) {
+  roomPrototype.addEventListener("pointermove", (event) => {
+    const rect = roomPrototype.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    roomPrototype.style.setProperty("--room-tilt-y", ((x - .5) * 8).toFixed(2) + "deg");
+    roomPrototype.style.setProperty("--room-tilt-x", ((.5 - y) * 6).toFixed(2) + "deg");
+    roomPrototype.style.setProperty("--room-focus-x", (x * 100).toFixed(1) + "%");
+    roomPrototype.style.setProperty("--room-focus-y", (y * 100).toFixed(1) + "%");
+  });
+  roomPrototype.addEventListener("pointerleave", () => {
+    roomPrototype.style.setProperty("--room-tilt-y", "0deg");
+    roomPrototype.style.setProperty("--room-tilt-x", "0deg");
+    roomPrototype.style.setProperty("--room-focus-x", "50%");
+    roomPrototype.style.setProperty("--room-focus-y", "50%");
+  });
+}
+
+document.querySelectorAll("[data-room-focus]").forEach((object) => {
+  const focusObject = () => {
+    document.querySelectorAll("[data-room-focus]").forEach((item) => {
+      item.classList.toggle("is-focused", item === object);
+    });
+  };
+  object.addEventListener("click", focusObject);
+  object.addEventListener("focus", focusObject);
+  object.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      focusObject();
+    }
   });
 });
 
