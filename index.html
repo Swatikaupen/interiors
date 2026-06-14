@@ -468,18 +468,20 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
     box-shadow: 0 1px 0 rgba(26,23,20,.07);
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    transform: translate3d(0,0,0);
-    -webkit-transform: translate3d(0,0,0);
-    will-change: transform;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+    /* Deliberately NO transform / will-change here: a transform on a
+       position:fixed element makes iOS Safari anchor it to the document instead
+       of the screen, so it drifts during scroll-bounce and lets page content
+       show above the bar. Plain fixed + the cream backings below keep it flush. */
     align-items: center;
     overflow: visible;
   }
   nav::before {
     content: '';
     position: absolute;
-    inset: 0;
+    top: -250px;          /* cream backing extends above the bar (moves with nav) */
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: var(--warm);
     z-index: -1;
   }

@@ -56,6 +56,25 @@ test.describe('Open Storey — navigation, mobile menu & SEO', () => {
     await expect(cta).toHaveText(/free 15-min call/i);
   });
 
+  test('top bar stays flush at 0px with no content peeking above it (scrolled)', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await page.evaluate(() => window.scrollTo({ top: 700, behavior: 'instant' }));
+    await page.waitForTimeout(150);
+    const probe = await page.evaluate(() => {
+      const nav = document.querySelector('nav');
+      const r = nav.getBoundingClientRect();
+      const el = document.elementFromPoint(Math.round(window.innerWidth / 2), 1);
+      return {
+        navTop: Math.round(r.top),
+        topPixelInNav: !!(el && (el === nav || nav.contains(el))),
+        navBg: getComputedStyle(nav).backgroundColor,
+      };
+    });
+    expect(probe.navTop).toBe(0); // bar starts at the very top
+    expect(probe.topPixelInNav).toBe(true); // topmost pixel is the bar, never page content
+    expect(probe.navBg).toBe('rgb(250, 248, 244)'); // cream (#FAF8F4)
+  });
+
   test('exposes SEO and social-share meta for campaign links', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
