@@ -52,8 +52,11 @@ module.exports = defineConfig({
   },
   projects,
   webServer: {
-    command: 'python3 -m http.server 4173 --bind 127.0.0.1',
-    url: 'http://127.0.0.1:4173/index.html',
+    // Serve the live static site exactly as it deploys (GitHub Pages), not the
+    // parked Vite/React WIP. See .migration-backup/README.md.
+    command: 'node .claude/static-server.cjs',
+    env: { PORT: '4173' },
+    url: 'http://127.0.0.1:4173/',
     reuseExistingServer: !process.env.CI,
     stdout: 'ignore',
     stderr: 'pipe',

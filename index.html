@@ -6,6 +6,84 @@
 <meta name="theme-color" content="#FAF8F4">
 <title>Open Storey — Swatika Upendran</title>
 <link rel="canonical" href="https://openstorey.design/">
+
+<!-- ─── SEO ─── -->
+<meta name="description" content="Open Storey is a San Francisco Bay Area interior design studio by Swatika Upendran — residential, retail and hospitality interiors where South Indian craft meets contemporary California calm. Book a free 15-minute call.">
+<meta name="keywords" content="interior design, Bay Area interior designer, San Francisco interior design, residential interior design, hospitality interior design, retail interior design, Vastu consultation, space planning, Swatika Upendran, Open Storey">
+<meta name="author" content="Swatika Upendran — Open Storey (OpenStorey LLC)">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="geo.region" content="US-CA">
+<meta name="geo.placename" content="San Francisco Bay Area">
+
+<!-- ─── Open Graph (Facebook, LinkedIn, WhatsApp, iMessage) ─── -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Open Storey">
+<meta property="og:title" content="Open Storey — Interior Design Studio by Swatika Upendran">
+<meta property="og:description" content="San Francisco Bay Area interior design — residential, retail and hospitality spaces where South Indian craft meets California calm. Book a free 15-minute call.">
+<meta property="og:url" content="https://openstorey.design/">
+<meta property="og:image" content="https://openstorey.design/assets/images/og-image.jpg">
+<meta property="og:image:secure_url" content="https://openstorey.design/assets/images/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="An Open Storey interior — a warmly layered Bay Area living room.">
+<meta property="og:locale" content="en_US">
+
+<!-- ─── Twitter / X ─── -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Open Storey — Interior Design Studio by Swatika Upendran">
+<meta name="twitter:description" content="Bay Area interior design where South Indian craft meets California calm. Book a free 15-minute call.">
+<meta name="twitter:image" content="https://openstorey.design/assets/images/og-image.jpg">
+<meta name="twitter:image:alt" content="An Open Storey interior — a warmly layered Bay Area living room.">
+
+<!-- ─── Structured data (Google rich results) ─── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://openstorey.design/#studio",
+      "name": "Open Storey",
+      "legalName": "OpenStorey LLC",
+      "description": "Interior design studio in the San Francisco Bay Area led by Swatika Upendran. Residential, retail and hospitality interiors where South Indian craft meets contemporary California calm.",
+      "url": "https://openstorey.design/",
+      "image": "https://openstorey.design/assets/images/og-image.jpg",
+      "logo": "https://openstorey.design/assets/images/og-image.jpg",
+      "priceRange": "$$$",
+      "areaServed": [
+        { "@type": "Place", "name": "San Francisco Bay Area" },
+        { "@type": "AdministrativeArea", "name": "California" }
+      ],
+      "address": { "@type": "PostalAddress", "addressRegion": "CA", "addressCountry": "US" },
+      "knowsAbout": ["Interior design", "Residential interiors", "Hospitality design", "Retail interiors", "Space planning", "Material curation", "Vastu consultation"],
+      "founder": { "@id": "https://openstorey.design/#swatika" },
+      "makesOffer": {
+        "@type": "Offer",
+        "name": "Free 15-minute design consultation call",
+        "price": "0",
+        "priceCurrency": "USD",
+        "url": "https://calendly.com/openstorey-design/30min"
+      },
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "name": "Schedule a free 15-min call",
+        "target": "https://calendly.com/openstorey-design/30min"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://openstorey.design/#swatika",
+      "name": "Swatika Upendran",
+      "jobTitle": "Interior Designer & Founder",
+      "worksFor": { "@id": "https://openstorey.design/#studio" },
+      "knowsAbout": ["Interior design", "Spatial design", "Retail design", "Interaction design"],
+      "url": "https://openstorey.design/"
+    }
+  ]
+}
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Karla:wght@300;400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -39,6 +117,7 @@ nav.scrolled{background:rgba(250,248,244,.95);backdrop-filter:blur(16px);box-sha
 .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--terra);transition:width .4s;}
 .nav-links a:hover::after{width:100%;}
 .nav-private a{color:var(--terra) !important;}
+.nav-cta-mobile{display:none;}
 
 /* PAGE SYSTEM */
 .page{display:none;}
@@ -415,6 +494,7 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
     min-height: 100dvh;
     height: 100dvh;
     overflow: hidden;
+    align-items: flex-start;   /* pin logo + ✕ to the top, not vertically centered */
   }
   nav .nav-logo { color: var(--ink); }
   nav .nav-links a { color: var(--ink); }
@@ -424,23 +504,31 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
     display: flex;
     flex-direction: column;
     gap: 0;
-    position: absolute;
+    position: absolute;                /* nav has a transform, so fixed≠viewport here */
     left: 0;
     right: 0;
     top: var(--mobile-nav-offset);
     bottom: 0;
-    background: var(--warm);
-    padding: .4rem 1.6rem calc(2rem + var(--safe-bottom));
+    background: var(--warm);            /* solid, fully opaque cream panel */
+    padding: 1.1rem 1.6rem calc(2.4rem + var(--safe-bottom));
     z-index: 1;
-    align-items: flex-start;
+    align-items: stretch;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
   .nav-links.open li { width: 100%; border-bottom: 1px solid var(--mist); }
   .nav-links.open li:first-child { border-top: 1px solid var(--mist); }
   .nav-links.open a {
-    display: block; padding: 1.2rem 0; font-size: .85rem;
+    display: block; padding: 1.2rem .1rem; font-size: .85rem;
     letter-spacing: .18em; color: var(--ink);
+  }
+  /* Free-call CTA pinned inside the mobile menu (Calendly badge is hidden while open) */
+  .nav-links.open .nav-cta-mobile { display: block; border: none !important; margin-top: 1.6rem; }
+  .nav-links.open .nav-cta-mobile a {
+    display: block; text-align: center; padding: 1.15rem 1.5rem;
+    background: var(--terra); color: var(--warm);
+    font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+    border-radius: 2px;
   }
   .nav-hamburger {
     display: flex; flex-direction: column; gap: 5px;
@@ -954,10 +1042,10 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
     <li><a href="#" onclick="showPage('home');return false;">Home</a></li>
     <li><a href="#" onclick="showPage('home','about');return false;">About</a></li>
     <li><a href="#" onclick="showPage('home','portfolio');return false;">Portfolio</a></li>
-    <li><a href="swatika-ux.html">UX Portfolio</a></li>
     <li><a href="#" onclick="showPage('finds');return false;">Curated Finds</a></li>
     <li><a href="#" onclick="showPage('home','contact');return false;">Contact</a></li>
     <li class="nav-private"><a href="#" onclick="showPage('confidential');return false;">Private &#128274;</a></li>
+    <li class="nav-cta-mobile"><a href="#" onclick="openCalendly();return false;">Schedule a free 15-min call</a></li>
   </ul>
 </nav>
 
@@ -1103,6 +1191,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
           </li>
         </ul>
       </div>
+      <a href="swatika-ux.html" class="btn-text reveal rd3" style="margin-top:2.5rem;display:inline-block;">Explore the Product &amp; UX design portfolio →</a>
     </div>
   </section>
 
@@ -1402,6 +1491,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
     <div class="footer-social">
       <a href="#">Instagram</a>
       <a href="#">Pinterest</a>
+      <a href="disclosure.html">Disclosure</a>
     </div>
   </footer>
 </div>
@@ -1425,7 +1515,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
   <footer>
     <span class="footer-logo">Open Storey</span>
     <span class="footer-copy">© 2026 OpenStorey · Swatika Upendran. All rights reserved.</span>
-    <div class="footer-social"><a href="#">Instagram</a><a href="#">Pinterest</a></div>
+    <div class="footer-social"><a href="#">Instagram</a><a href="#">Pinterest</a><a href="disclosure.html">Disclosure</a></div>
   </footer>
 </div>
 
@@ -1576,6 +1666,16 @@ function toggleMenu(){
   var menu=document.getElementById('mainNavLinks');
   if(!menu) return;
   setMenuState(!menu.classList.contains('open'));
+}
+// Open the Calendly "free 15-min call" popup (used by the in-menu CTA)
+var CALENDLY_URL='https://calendly.com/openstorey-design/30min?text_color=f5f0e8&primary_color=c4724a';
+function openCalendly(){
+  try{ setMenuState(false); }catch(e){}
+  if(window.Calendly&&Calendly.initPopupWidget){
+    Calendly.initPopupWidget({url:CALENDLY_URL});
+  }else{
+    window.open(CALENDLY_URL,'_blank','noopener');
+  }
 }
 // Close menu on nav link click
 document.addEventListener('DOMContentLoaded',function(){

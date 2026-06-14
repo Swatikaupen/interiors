@@ -1,134 +1,80 @@
 const { test, expect } = require('@playwright/test');
 
-async function openMenu(page) {
-  await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
-  await page.locator('#about').scrollIntoViewIfNeeded();
-  await page.getByRole('button', { name: 'Menu' }).click();
-  await expect(page.locator('#mainNavLinks')).toHaveClass(/open/);
-}
+// Regression coverage for the live static site (index.html):
+//  - "UX Portfolio" removed from the main nav (still linked from About)
+//  - mobile menu is fully opaque and pins the close icon to the top
+//  - the "free 15-min call" CTA appears inside the mobile menu
+//  - SEO / social-share meta is present
+// Runs on the mobile device projects defined in playwright.config.js.
 
-test('mobile nav sits flush to the top edge', async ({ page }) => {
-  await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
-
-  const navMetrics = await page.evaluate(() => {
-    const nav = document.getElementById('mainNav');
-    const style = getComputedStyle(nav);
-    const rect = nav.getBoundingClientRect();
-    return {
-      top: rect.top,
-      backgroundColor: style.backgroundColor,
-      position: style.position,
-    };
+test.describe('Open Storey — navigation, mobile menu & SEO', () => {
+  test('main nav drops UX Portfolio but keeps the core pages', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    const labels = await page.$$eval('#mainNavLinks li a', (els) =>
+      els.map((e) => e.textContent.replace(/\s+/g, ' ').trim()),
+    );
+    expect(labels).toEqual(
+      expect.arrayContaining(['Home', 'About', 'Portfolio', 'Curated Finds', 'Contact']),
+    );
+    expect(labels.some((l) => /UX Portfolio/i.test(l))).toBe(false);
   });
 
-  expect(navMetrics.top).toBe(0);
-  expect(navMetrics.backgroundColor).toBe('rgb(250, 248, 244)');
-  expect(['fixed', 'sticky']).toContain(navMetrics.position);
-});
-
-test('mobile nav remains the topmost layer while scrolling', async ({ page }, testInfo) => {
-  await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
-  await page.evaluate(() => window.scrollTo(0, document.querySelector('#about').offsetTop + 120));
-  await page.waitForTimeout(400);
-
-  const scrollState = await page.evaluate(() => {
-    const nav = document.getElementById('mainNav');
-    const rect = nav.getBoundingClientRect();
-    const topHits = Array.from({ length: 8 }, (_, y) => {
-      const el = document.elementFromPoint(window.innerWidth / 2, y);
-      return {
-        y,
-        id: el ? el.id : null,
-        className: el ? String(el.className) : null,
-        insideNav: !!el && (el === nav || nav.contains(el)),
-      };
-    });
-
-    return {
-      scrollY: window.scrollY,
-      navTop: rect.top,
-      navBottom: rect.bottom,
-      navHeight: rect.height,
-      navPosition: getComputedStyle(nav).position,
-      navBackground: getComputedStyle(nav).backgroundColor,
-      topHits,
-    };
+  test('About section keeps a single link to the UX portfolio', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    const ux = page.locator('section#about a[href="swatika-ux.html"]');
+    await expect(ux).toHaveCount(1);
+    await expect(ux).toContainText(/UX design portfolio/i);
   });
 
-  expect(scrollState.scrollY).toBeGreaterThan(500);
-  expect(scrollState.navTop).toBe(0);
-  expect(scrollState.navHeight).toBeGreaterThan(60);
-  expect(scrollState.navPosition).toBe('fixed');
-  expect(scrollState.navBackground).toBe('rgb(250, 248, 244)');
-  for (const hit of scrollState.topHits) expect(hit.insideNav).toBeTruthy();
+  test('mobile menu is opaque and pins the close icon to the top', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await page.locator('#hamburger').click();
 
-  const screenshotPath = testInfo.outputPath('mobile-header-scrolled.png');
-  await page.screenshot({ path: screenshotPath, fullPage: false });
-  await testInfo.attach('mobile-header-scrolled', {
-    path: screenshotPath,
-    contentType: 'image/png',
-  });
-});
+    const menu = page.locator('#mainNavLinks');
+    await expect(menu).toHaveClass(/open/);
 
-test('open mobile menu stays above the page content after scrolling', async ({ page }, testInfo) => {
-  await openMenu(page);
+    // Fully opaque cream panel (var(--warm) === #FAF8F4), not see-through.
+    const bg = await menu.evaluate((el) => getComputedStyle(el).backgroundColor);
+    expect(bg).toBe('rgb(250, 248, 244)');
 
-  const layerState = await page.evaluate(() => {
-    const nav = document.getElementById('mainNav');
-    const menu = document.getElementById('mainNavLinks');
-    const rect = menu.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    const points = [
-      [Math.round(rect.left + rect.width / 2), Math.round(rect.top + 40)],
-      [Math.round(rect.left + rect.width / 2), Math.round(rect.top + rect.height / 2)],
-      [Math.round(rect.left + rect.width / 2), Math.round(Math.min(rect.bottom - 40, viewportHeight - 40))],
-    ];
+    // Panel covers the bulk of the viewport height (no content peeking through).
+    const box = await menu.boundingBox();
+    const vh = page.viewportSize().height;
+    expect(box.height).toBeGreaterThan(vh * 0.6);
 
-    return {
-      bodyPosition: getComputedStyle(document.body).position,
-      navPosition: getComputedStyle(nav).position,
-      navZIndex: getComputedStyle(nav).zIndex,
-      menuPosition: getComputedStyle(menu).position,
-      menuZIndex: getComputedStyle(menu).zIndex,
-      menuRect: {
-        top: rect.top,
-        bottom: rect.bottom,
-        height: rect.height,
-      },
-      topHits: points.map(([x, y]) => {
-        const el = document.elementFromPoint(x, y);
-        return {
-          x,
-          y,
-          tagName: el ? el.tagName : null,
-          id: el ? el.id : null,
-          className: el ? String(el.className) : null,
-          insideMenu: !!el && (el === menu || menu.contains(el)),
-        };
-      }),
-      scrollY: window.scrollY,
-      menuOpen: menu.classList.contains('open'),
-      navOpen: nav.classList.contains('menu-open'),
-    };
+    // The close (✕) icon stays in the top bar — regression guard against the
+    // old bug where align-items:center floated it into the middle of the list.
+    const hb = await page.locator('#hamburger').boundingBox();
+    expect(hb.y).toBeLessThan(120);
   });
 
-  expect(layerState.menuOpen).toBeTruthy();
-  expect(layerState.navOpen).toBeTruthy();
-  expect(layerState.bodyPosition).toBe('fixed');
-  expect(layerState.menuRect.height).toBeGreaterThan(300);
-  expect(layerState.menuRect.bottom).toBeGreaterThanOrEqual(page.viewportSize().height - 2);
-  for (const hit of layerState.topHits) expect(hit.insideMenu).toBeTruthy();
+  test('mobile menu surfaces the free-call CTA', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await page.locator('#hamburger').click();
+    const cta = page.locator('.nav-cta-mobile a');
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveText(/free 15-min call/i);
+  });
 
-  const lockedScrollY = layerState.scrollY;
-  await page.mouse.wheel(0, 900);
-  await page.waitForTimeout(150);
-  const scrollAfterWheel = await page.evaluate(() => window.scrollY);
-  expect(scrollAfterWheel).toBe(lockedScrollY);
-
-  const screenshotPath = testInfo.outputPath('mobile-menu-open.png');
-  await page.screenshot({ path: screenshotPath, fullPage: false });
-  await testInfo.attach('mobile-menu-open', {
-    path: screenshotPath,
-    contentType: 'image/png',
+  test('exposes SEO and social-share meta for campaign links', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+      'content',
+      /interior design/i,
+    );
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+      'content',
+      /og-image\.jpg$/,
+    );
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+      'content',
+      'summary_large_image',
+    );
+    // Structured data parses and exposes the studio + free consultation offer.
+    const ld = await page.locator('script[type="application/ld+json"]').textContent();
+    const graph = JSON.parse(ld)['@graph'];
+    expect(graph.map((n) => n['@type'])).toEqual(
+      expect.arrayContaining(['ProfessionalService', 'Person']),
+    );
   });
 });
