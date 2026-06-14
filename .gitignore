@@ -4,3 +4,6 @@ playwright-report/
 test-results/
 .DS_Store
 .github/
+# Source image originals (HEIC/RAW) — keep optimized web versions only
+*.heic
+*.HEIC
