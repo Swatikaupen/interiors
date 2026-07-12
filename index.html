@@ -110,7 +110,8 @@ body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:260;padding:1.7rem 4.5rem;display:flex;justify-content:space-between;align-items:center;transition:background .45s,box-shadow .45s;isolation:isolate;} .nav-hamburger{display:none;}
 nav.scrolled{background:rgba(250,248,244,.95);backdrop-filter:blur(16px);box-shadow:0 1px 0 rgba(26,23,20,.07);}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.18em;color:var(--ivory);text-decoration:none;text-transform:uppercase;line-height:1.3;transition:color .4s;}
+.nav-logo{display:flex;align-items:center;width:8.5rem;height:4.1rem;text-decoration:none;transition:opacity .4s;overflow:hidden;}
+.nav-logo img{display:block;width:100%;height:auto;}
 .nav-sub{display:block;font-size:.47rem;letter-spacing:.32em;color:rgba(245,240,232,.6);text-transform:uppercase;}
 .nav-links{display:flex;gap:2.8rem;list-style:none;align-items:center;}
 .nav-links a{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ivory);text-decoration:none;position:relative;transition:color .3s;}
@@ -499,6 +500,7 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
     align-items: flex-start;   /* pin logo + ✕ to the top, not vertically centered */
   }
   nav .nav-logo { color: var(--ink); }
+  nav .nav-logo { width: 6.8rem; height: 3.9rem; }
   nav .nav-links a { color: var(--ink); }
   .nav-sub { display: none; }
   .nav-links { display: none; }
@@ -1036,9 +1038,8 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
   <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
-  <a href="#" class="nav-logo" onclick="showPage('home');return false;">
-    Open Storey
-    <span class="nav-sub">Swatika Upendran</span>
+  <a href="#" class="nav-logo" aria-label="Open Storey home" onclick="showPage('home');return false;">
+    <img src="assets/logo/OpenStoreyLogoAlt.png" alt="Open Storey">
   </a>
   <ul class="nav-links" id="mainNavLinks">
     <li><a href="#" onclick="showPage('home');return false;">Home</a></li>
