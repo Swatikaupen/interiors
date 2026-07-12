@@ -32,15 +32,3 @@ button,
 a {
   -webkit-tap-highlight-color: transparent;
 }
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.nav-logo img {
-  display: block;
-  height: auto;
-  max-width: 100%;
-}
