@@ -50,7 +50,7 @@ Bay Area interior design studio by Swatika Upendran. Interiors where South India
 ---
 
 ## 3. LinkedIn  *(commercial / B2B leads — Cisco-type work)*
-Two things: your **personal profile** + a **Company Page**.
+An existing public personal profile is linked from `swatikaupendran.com`: `https://www.linkedin.com/in/swatika-upendaran/`. Confirm that URL after signing in before changing it or linking it from Open Storey. Then use the profile for founder-led distribution; create a separate **Company Page** only after the personal profile is aligned.
 
 **Personal headline:**
 ```
