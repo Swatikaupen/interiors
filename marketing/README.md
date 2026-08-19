@@ -34,7 +34,7 @@ Calendly booking  →  free 15-min intro call  →  proposal / project
 
 ## What I already shipped on the website (live-ready, in your working tree)
 
-These are code changes against the **live static site** (`index.html`). Review them with `git diff`.
+These are code changes against the **live static site** (`index.html`). They are published through the `Swatikaupen/interiors` GitHub Pages repository.
 
 - ✅ **Removed "UX Portfolio" from the main menu** (your request) — it's now linked tastefully from the **About** section instead, so it stays discoverable without cluttering the nav.
 - ✅ **Fixed the mobile menu.** The real bug wasn't transparency — the close (✕) icon was floating into the middle of the list. It's now pinned to the top bar, the panel is fully opaque, and I added a **"Schedule a free 15‑min call"** button inside the mobile menu (the floating Calendly badge is hidden while the menu is open, so this recovers the CTA).
@@ -42,9 +42,11 @@ These are code changes against the **live static site** (`index.html`). Review t
 - ✅ **Generated a 1200×630 share image** (`assets/images/og-image.jpg`) — the correct size for social cards.
 - ✅ **FTC affiliate disclosure page** (`disclosure.html`), linked from the footer and added to `sitemap.xml` — required before you run any affiliate link.
 - ✅ **Regression tests** rewritten to cover all of the above (`tests/mobile-nav.spec.js`) — green on iPhone 13 + Pixel 7 (`npm run test:mobile`).
+- ✅ **Bay Area discovery pass** — service copy, Service schema, descriptive portfolio alts, Bay Area page/share titles, UTM-aware Calendly links, and a Search Console verification tag are live.
+- ✅ **Google Search Console** — property verified, `/sitemap.xml` submitted successfully (3 pages), and the homepage placed in Google's priority crawl queue.
 
-### One thing for you to confirm
-The floating badge says **"Schedule a free 15 min call"** but currently books your Calendly **/30min** event. To honor the 15‑minute promise, create a **15‑minute event type** in Calendly and tell me the link (or I'll point it at whatever slug you choose). It works fine today either way — this is just truth-in-labeling.
+### Booking status
+The live Calendly **/30min** page currently displays **Free 15 min Consultation** and returns a working booking page. Keep that event at 15 minutes if you edit it.
 
 ---
 
@@ -52,13 +54,11 @@ The floating badge says **"Schedule a free 15 min call"** but currently books yo
 
 Do these in order; each unlocks the next.
 
-1. **Calendly:** confirm/create the free 15‑min event (see note above).
-2. **Google Business Profile** — *highest-ROI single action for a local designer.* Free, and it makes you show up for "interior designer near me / Bay Area." → [seo-and-tracking.md](seo-and-tracking.md)
-3. **Google Search Console + GA4** — so you can see traffic and which campaigns drive calls. → [seo-and-tracking.md](seo-and-tracking.md)
-4. **Create the social profiles** (Instagram → Pinterest → LinkedIn → Houzz). → [social-setup.md](social-setup.md)
-5. **Send me your real profile URLs** so I can wire them into the site footer.
-6. **Run Campaign 1 (Launch)** the day your Instagram has ≥3 posts up. → [campaigns.md](campaigns.md)
-7. **Affiliates:** join the networks in Phase 1 now; Amazon after Curated Finds has real picks; LTK once Instagram passes ~5k. → [affiliate-setup.md](affiliate-setup.md)
+1. **Google Business Profile** — finish the staged service-area listing, accept Google's terms, and complete any owner verification. → [seo-and-tracking.md](seo-and-tracking.md)
+2. **GA4 (optional):** add a Measurement ID if you want analytics beyond Search Console and Calendly's UTM reporting. → [seo-and-tracking.md](seo-and-tracking.md)
+3. **Create the social profiles** (Instagram → Pinterest → LinkedIn → Houzz). → [social-setup.md](social-setup.md)
+4. **Send me your real profile URLs** so I can wire them into the site footer.
+5. **Run Campaign 1 (Launch)** the day your Instagram has ≥3 posts up. → [campaigns.md](campaigns.md)
 
 ---
 

@@ -1,24 +1,25 @@
 # SEO & Tracking
 
-## ✅ Already done on the site (by me, in your working tree)
+## ✅ Already live
 - **Meta description, keywords, author, robots, geo** tags — the site had none.
 - **Open Graph + Twitter/X cards** + a correctly-sized **1200×630 share image** (`assets/images/og-image.jpg`) → links now preview properly on IG, LinkedIn, WhatsApp, iMessage, X.
-- **JSON-LD structured data** (`ProfessionalService` + `Person` + a free-consultation `Offer` + `ReserveAction` → Calendly) so Google can show rich results.
+- **JSON-LD structured data** (`ProfessionalService` + `Person` + `Service` nodes + a free-consultation `Offer` + `ReserveAction` → Calendly) so Google can show rich results.
+- **Services section and Bay Area titles** for residential, space planning, retail/hospitality, and Vastu-intent searches.
+- **Descriptive portfolio alt text** for image search and accessibility.
 - **`sitemap.xml`** updated (home, UX portfolio, disclosure) — `robots.txt` already points to it.
 - **Canonical** tag was already present and is correct.
 
-### Quick win to add later
-Your portfolio `<img>` tags use short `alt` text. When you next refresh, make alts descriptive ("emerald fish-scale tile bathroom, San Francisco" not "bathroom") — it helps image SEO and accessibility.
+- **Search Console verification** is live; the sitemap is accepted with 3 discovered pages and the homepage has been submitted for a priority recrawl.
 
 ---
 
 ## Your setup tasks (need your Google login)
 
-### 1. Google Business Profile — do this first
-For "Bay Area interior designer" searches this matters more than anything else, and it's free. Create at business.google.com → category **Interior Designer** → service-area business (Bay Area) → add photos (use your project images) → link `openstorey.design`. Verify. Ask happy clients for reviews here.
+### 1. Google Business Profile — finish the owner step
+The listing is staged as **Open Storey**, category **Interior designer**, service area **San Francisco Bay Area**, website `openstorey.design`. Finish Google's terms/creation step, add a public phone only if you want one shown, upload project photos, and complete the required owner verification. Ask happy clients for reviews here.
 
 ### 2. Google Search Console
-search.google.com/search-console → add property `openstorey.design` (verify via DNS or the existing Google Analytics) → **submit `https://openstorey.design/sitemap.xml`**. This is how you see what you rank for and catch any indexing issues. (Optional: same for Bing Webmaster Tools.)
+The URL-prefix property `https://openstorey.design/` is verified and `https://openstorey.design/sitemap.xml` is submitted successfully. Google reports the homepage as indexed and a recrawl has been requested. (Optional: repeat for Bing Webmaster Tools after signing in.)
 
 ### 3. Google Analytics 4 (so campaigns are measurable)
 Create a GA4 property → copy your Measurement ID (`G-XXXXXXX`) → paste this in `index.html` just before `</head>`, then send me the ID (or I'll add it):
@@ -73,7 +74,7 @@ Niche/differentiated (less competition, high fit): **Vastu interior designer Bay
 
 <a id="footer-social-links"></a>
 ## When you send me your real profile URLs — the footer edit
-The footer currently has placeholder social links. Once you have handles, I'll replace the footer `.footer-social` blocks in `index.html` with the real ones, e.g.:
+The footer currently uses working booking/email links rather than invented social profiles. Once you have real handles, replace the footer `.footer-social` blocks in `index.html`, e.g.:
 ```html
 <div class="footer-social">
   <a href="https://instagram.com/openstorey.design" target="_blank" rel="noopener">Instagram</a>
