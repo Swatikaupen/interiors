@@ -115,4 +115,11 @@ test.describe('Open Storey — navigation, mobile menu & SEO', () => {
     await expect(cta).toContainText(/book a free 15-min call/i);
     await expect(cta).toHaveAttribute('onclick', /openCalendly/);
   });
+
+  test('hero exposes a direct booking CTA', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    const cta = page.locator('.hero-cta a[href="https://calendly.com/openstorey-design/30min"]');
+    await expect(cta).toContainText(/book a free 15-min call/i);
+    await expect(cta).toHaveAttribute('onclick', /openCalendly/);
+  });
 });
