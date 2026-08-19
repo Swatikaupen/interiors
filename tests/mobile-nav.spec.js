@@ -95,6 +95,9 @@ test.describe('Open Storey — navigation, mobile menu & SEO', () => {
     expect(graph.map((n) => n['@type'])).toEqual(
       expect.arrayContaining(['ProfessionalService', 'Person']),
     );
+    const studio = graph.find((n) => n['@type'] === 'ProfessionalService');
+    expect(studio.email).toBe('openstorey.design@gmail.com');
+    expect(studio.openingHoursSpecification[0].dayOfWeek).toHaveLength(5);
   });
 
   test('preserves campaign attribution when opening Calendly', async ({ page }) => {
