@@ -1221,7 +1221,7 @@ window.onload = function() { Calendly.initBadgeWidget({ url: openStoreyCalendlyU
         </article>
       </div>
       <div class="services-cta">
-        <a href="https://calendly.com/openstorey-design/30min" class="btn-primary" target="_blank" rel="noopener">Schedule a free 15-min call</a>
+        <a href="https://calendly.com/openstorey-design/30min" class="btn-primary" onclick="openCalendly();return false;">Schedule a free 15-min call</a>
         <span class="btn-text">Serving the Bay Area · remote and international enquiries welcome</span>
       </div>
     </div>
@@ -1571,7 +1571,7 @@ window.onload = function() { Calendly.initBadgeWidget({ url: openStoreyCalendlyU
         <select id="cf-type" name="project_type"><option value="" disabled selected>Select a category</option><option>Residential – Full Design</option><option>Residential – Single Room</option><option>Boutique Commercial</option><option>Consultation Only</option><option>International Project</option></select>
       </div>
       <div class="form-field"><label>Tell me about your space</label><textarea id="cf-msg" name="message" placeholder="Location, size, timeline, and what you're hoping for…"></textarea></div>
-      <div class="form-submit"><button class="btn-submit" id="contactSubmitBtn" type="button" onclick="sendEnquiry()">Send Enquiry</button><span class="form-note" id="form-status">Response within 2 business days</span></div>
+      <div class="form-submit"><button class="btn-submit" id="contactSubmitBtn" type="button" onclick="sendEnquiry()">Send Enquiry</button><a href="https://calendly.com/openstorey-design/30min" class="btn-primary" onclick="openCalendly();return false;">Book a free 15-min call</a><span class="form-note" id="form-status">Response within 2 business days</span></div>
     </div>
   </section>
 
@@ -1582,7 +1582,7 @@ window.onload = function() { Calendly.initBadgeWidget({ url: openStoreyCalendlyU
     <span class="footer-logo"><img src="assets/logo/OpenStoreyLogoAlt.png" alt="Open Storey"></span>
     <span class="footer-copy">© 2026 OpenStorey · Swatika Upendran. All rights reserved.</span>
     <div class="footer-social">
-      <a href="https://calendly.com/openstorey-design/30min" target="_blank" rel="noopener">Book a free call</a>
+      <a href="https://calendly.com/openstorey-design/30min" onclick="openCalendly();return false;">Book a free call</a>
       <a href="mailto:openstorey.design@gmail.com">Email the studio</a>
       <a href="disclosure.html">Disclosure</a>
     </div>
@@ -1608,7 +1608,7 @@ window.onload = function() { Calendly.initBadgeWidget({ url: openStoreyCalendlyU
   <footer>
     <span class="footer-logo"><img src="assets/logo/OpenStoreyLogoAlt.png" alt="Open Storey"></span>
     <span class="footer-copy">© 2026 OpenStorey · Swatika Upendran. All rights reserved.</span>
-    <div class="footer-social"><a href="https://calendly.com/openstorey-design/30min" target="_blank" rel="noopener">Book a free call</a><a href="mailto:openstorey.design@gmail.com">Email the studio</a><a href="disclosure.html">Disclosure</a></div>
+    <div class="footer-social"><a href="https://calendly.com/openstorey-design/30min" onclick="openCalendly();return false;">Book a free call</a><a href="mailto:openstorey.design@gmail.com">Email the studio</a><a href="disclosure.html">Disclosure</a></div>
   </footer>
 </div>
 

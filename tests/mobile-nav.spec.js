@@ -106,4 +106,13 @@ test.describe('Open Storey — navigation, mobile menu & SEO', () => {
     expect(calendlyUrl).toContain('utm_medium=reel');
     expect(calendlyUrl).toContain('utm_campaign=launch');
   });
+
+  test('contact section offers a direct tracked booking CTA', async ({ page }) => {
+    await page.goto('/?utm_source=linkedin&utm_medium=post&utm_campaign=launch', {
+      waitUntil: 'domcontentloaded',
+    });
+    const cta = page.locator('#contact a[href="https://calendly.com/openstorey-design/30min"]');
+    await expect(cta).toContainText(/book a free 15-min call/i);
+    await expect(cta).toHaveAttribute('onclick', /openCalendly/);
+  });
 });
