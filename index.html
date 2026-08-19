@@ -79,6 +79,24 @@
       "worksFor": { "@id": "https://openstorey.design/#studio" },
       "knowsAbout": ["Interior design", "Spatial design", "Retail design", "Interaction design"],
       "url": "https://openstorey.design/"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://openstorey.design/#residential-interior-design",
+      "name": "Residential interior design",
+      "serviceType": "Residential interior design",
+      "provider": { "@id": "https://openstorey.design/#studio" },
+      "areaServed": { "@type": "Place", "name": "San Francisco Bay Area" },
+      "url": "https://openstorey.design/#services"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://openstorey.design/#commercial-interior-design",
+      "name": "Retail, hospitality and commercial interiors",
+      "serviceType": "Retail, hospitality and commercial interior design",
+      "provider": { "@id": "https://openstorey.design/#studio" },
+      "areaServed": { "@type": "Place", "name": "Worldwide" },
+      "url": "https://openstorey.design/#services"
     }
   ]
 }
@@ -176,6 +194,18 @@ h2 em{font-style:italic;color:var(--terra);}
 .phil-card .num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--mist);line-height:1;margin-bottom:1rem;}
 .phil-card h3{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--charcoal);font-weight:400;margin-bottom:.8rem;}
 .phil-card p{font-size:.9rem;color:var(--deep-earth);line-height:1.65;}
+
+/* ══ SERVICES ══ */
+.services{padding:5rem 5rem;background:var(--ivory);}
+.services-inner{max-width:1440px;margin:0 auto;}
+.services-header{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:end;margin-bottom:3rem;}
+.services-lede{font-size:.94rem;line-height:1.95;color:var(--deep-earth);max-width:520px;}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--mist);}
+.service-card{background:var(--ivory);padding:2rem;min-height:220px;}
+.service-card .num{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--mist);line-height:1;margin-bottom:1.2rem;}
+.service-card h3{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;color:var(--ink);line-height:1.15;margin-bottom:.8rem;}
+.service-card p{font-size:.86rem;line-height:1.8;color:var(--stone);}
+.services-cta{margin-top:2.5rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
 
 /* ══ ABOUT ══ */
 .about{padding:5rem 5rem 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;max-width:1440px;margin:0 auto;}
@@ -582,7 +612,13 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
   .about-accent-box p { font-size: .95rem; }
   .about-stats { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
   .stat-num { font-size: 2.4rem; }
-  #philosophy, #about, #portfolio, #process, #contact { scroll-margin-top: calc(var(--mobile-nav-offset) + 1rem); }
+  #philosophy, #services, #about, #portfolio, #process, #contact { scroll-margin-top: calc(var(--mobile-nav-offset) + 1rem); }
+
+  /* Services */
+  .services { padding: 4rem 1.6rem; }
+  .services-header { grid-template-columns: 1fr; gap: 2rem; margin-bottom: 2rem; }
+  .services-grid { grid-template-columns: 1fr; }
+  .service-card { min-height: 0; padding: 1.6rem; }
 
   /* Section label + h2 padding */
   .portfolio { padding: 2rem 1.6rem 4rem; }
@@ -1012,7 +1048,20 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
 <!-- Calendly badge widget begin -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-<script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/openstorey-design/30min?text_color=f5f0e8&primary_color=c4724a', text: 'Schedule a free 15 min call', color: '#c4724a', textColor: '#f5f0e8', branding: false }); }</script>
+<script type="text/javascript">
+function openStoreyCalendlyUrl(){
+  var url=new URL('https://calendly.com/openstorey-design/30min');
+  url.searchParams.set('text_color','f5f0e8');
+  url.searchParams.set('primary_color','c4724a');
+  var params=new URLSearchParams(window.location.search);
+  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(key){
+    var value=params.get(key);
+    if(value) url.searchParams.set(key,value);
+  });
+  return url.toString();
+}
+window.onload = function() { Calendly.initBadgeWidget({ url: openStoreyCalendlyUrl(), text: 'Schedule a free 15 min call', color: '#c4724a', textColor: '#f5f0e8', branding: false }); }
+</script>
 <!-- Calendly badge widget end -->
 </head>
 <body>
@@ -1044,6 +1093,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
   <ul class="nav-links" id="mainNavLinks">
     <li><a href="#" onclick="showPage('home');return false;">Home</a></li>
     <li><a href="#" onclick="showPage('home','about');return false;">About</a></li>
+    <li><a href="#" onclick="showPage('home','services');return false;">Services</a></li>
     <li><a href="#" onclick="showPage('home','portfolio');return false;">Portfolio</a></li>
     <li><a href="#" onclick="showPage('finds');return false;">Curated Finds</a></li>
     <li><a href="#" onclick="showPage('home','contact');return false;">Contact</a></li>
@@ -1057,7 +1107,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
 
   <!-- Hero -->
   <section class="hero">
-    <img class="hero-img" src="" data-k="iLR" alt="Open Storey interior — living room">
+    <img class="hero-img" src="" data-k="iLR" alt="San Francisco Bay Area interior design — living room by Open Storey">
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <p class="hero-eyebrow">Interior Design Studio · San Francisco Bay Area</p>
@@ -1133,6 +1183,45 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         <div class="num">04</div>
         <h3>Refine</h3>
         <p>Perfection is in the details. We adjust until every sightline, texture, and transition feels right.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services and service area -->
+  <section class="services" id="services">
+    <div class="services-inner">
+      <div class="services-header">
+        <div>
+          <p class="section-label">How We Can Help</p>
+          <h2>Interior design<br>with <em>intention</em></h2>
+        </div>
+        <p class="services-lede">Open Storey is a San Francisco Bay Area interior design studio for homes, hospitality, retail, and thoughtful commercial spaces. Based in California and open to conversations with clients anywhere in the world, every engagement begins with a clear brief and a free 15-minute call.</p>
+      </div>
+      <div class="services-grid">
+        <article class="service-card">
+          <div class="num">01</div>
+          <h3>Residential interiors</h3>
+          <p>Whole-home and single-room design for spaces that feel personal, layered, and easy to live in — from San Francisco and the Bay Area outward.</p>
+        </article>
+        <article class="service-card">
+          <div class="num">02</div>
+          <h3>Space planning</h3>
+          <p>Clearer layouts, better flow, and decisions that make a room work as beautifully as it looks, whether you are renovating or starting fresh.</p>
+        </article>
+        <article class="service-card">
+          <div class="num">03</div>
+          <h3>Retail &amp; hospitality</h3>
+          <p>Material-rich commercial interiors shaped around how people discover, gather, pause, and remember a place.</p>
+        </article>
+        <article class="service-card">
+          <div class="num">04</div>
+          <h3>Vastu consultation</h3>
+          <p>A thoughtful, practical conversation about orientation, balance, and the way your floor plan supports everyday life.</p>
+        </article>
+      </div>
+      <div class="services-cta">
+        <a href="https://calendly.com/openstorey-design/30min" class="btn-primary" target="_blank" rel="noopener">Schedule a free 15-min call</a>
+        <span class="btn-text">Serving the Bay Area · remote and international enquiries welcome</span>
       </div>
     </div>
   </section>
@@ -1234,7 +1323,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
 
     <div class="portfolio-grid" id="projGrid">
       <div class="project-card reveal" data-cat="residential">
-        <img src="" data-k="iLV1" alt="Family Residence">
+        <img src="" data-k="iLV1" alt="Open Storey residential interior — family residence">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Residential</div>
@@ -1242,7 +1331,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="dining">
-        <img src="" data-k="iDBIR" alt="Crane Mural Dining Room">
+        <img src="" data-k="iDBIR" alt="Open Storey dining interior — crane mural dining room">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Dining</div>
@@ -1250,7 +1339,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="bathroom">
-        <img src="" data-k="iPBLU" alt="Chinoiserie Powder Room">
+        <img src="" data-k="iPBLU" alt="Open Storey bathroom interior — chinoiserie powder room">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Bathroom</div>
@@ -1258,7 +1347,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="residential">
-        <img src="" data-k="iFOYR" alt="Entry Foyer">
+        <img src="" data-k="iFOYR" alt="Open Storey residential interior — entry foyer">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Residential</div>
@@ -1266,7 +1355,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="residential">
-        <img src="" data-k="iNURS" alt="Botanical Nursery">
+        <img src="" data-k="iNURS" alt="Open Storey residential interior — botanical nursery">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Residential</div>
@@ -1274,7 +1363,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="dining">
-        <img src="" data-k="iDRM" alt="Botanical Dining">
+        <img src="" data-k="iDRM" alt="Open Storey dining interior — botanical dining room">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Dining</div>
@@ -1282,7 +1371,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="kitchen">
-        <img src="" data-k="iKITC" alt="Burgundy Kitchen">
+        <img src="" data-k="iKITC" alt="Open Storey kitchen interior — burgundy kitchen">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Kitchen</div>
@@ -1290,7 +1379,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="residential">
-        <img src="" data-k="iDDPL" alt="Living Room">
+        <img src="" data-k="iDDPL" alt="Open Storey residential interior — living room">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Residential</div>
@@ -1298,7 +1387,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="bathroom">
-        <img src="" data-k="iFISH" alt="Emerald Fish-Scale Bathroom">
+        <img src="" data-k="iFISH" alt="Open Storey bathroom interior — emerald fish-scale tile">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Bathroom</div>
@@ -1306,7 +1395,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="dining">
-        <img src="" data-k="iEDIN" alt="Formal Dining Room">
+        <img src="" data-k="iEDIN" alt="Open Storey dining interior — formal dining room">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Dining</div>
@@ -1314,7 +1403,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="dining">
-        <img src="" data-k="iCEIL" alt="Brass &amp; Oak Dining">
+        <img src="" data-k="iCEIL" alt="Open Storey dining interior — brass and oak dining room">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Dining</div>
@@ -1322,7 +1411,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="residential">
-        <img src="" data-k="iLVDN" alt="Living &amp; Dining">
+        <img src="" data-k="iLVDN" alt="Open Storey residential interior — living and dining room">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Residential</div>
@@ -1330,7 +1419,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="bathroom">
-        <img src="" data-k="iKOHL" alt="Dark Marble Bathroom">
+        <img src="" data-k="iKOHL" alt="Open Storey bathroom interior — dark marble bathroom">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Bathroom</div>
@@ -1338,7 +1427,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="dining">
-        <img src="" data-k="iDBLK" alt="Dark Dining Room">
+        <img src="" data-k="iDBLK" alt="Open Storey dining interior — dark dining room">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Dining</div>
@@ -1346,7 +1435,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="residential">
-        <img src="" data-k="iPRLR" alt="Parlour">
+        <img src="" data-k="iPRLR" alt="Open Storey residential interior — parlour">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Residential</div>
@@ -1354,7 +1443,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="bathroom">
-        <img src="" data-k="iWBBT" alt="Silver &amp; Blue Bathroom">
+        <img src="" data-k="iWBBT" alt="Open Storey bathroom interior — silver and blue bathroom">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Bathroom</div>
@@ -1362,7 +1451,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="dining">
-        <img src="" data-k="iDCAJ" alt="Tropical Dining">
+        <img src="" data-k="iDCAJ" alt="Open Storey dining interior — tropical dining room">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Dining</div>
@@ -1370,7 +1459,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="residential">
-        <img src="" data-k="iIFLB" alt="Informal Living">
+        <img src="" data-k="iIFLB" alt="Open Storey residential interior — informal living room">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Residential</div>
@@ -1378,7 +1467,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="bathroom">
-        <img src="" data-k="iPRM2" alt="Marble Penny-Tile Bathroom">
+        <img src="" data-k="iPRM2" alt="Open Storey bathroom interior — marble penny tile">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Bathroom</div>
@@ -1386,7 +1475,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="dining">
-        <img src="" data-k="iDDPD" alt="Formal Dining">
+        <img src="" data-k="iDDPD" alt="Open Storey dining interior — formal dining room detail">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Dining</div>
@@ -1394,7 +1483,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="residential">
-        <img src="" data-k="iLV2" alt="Private Residence">
+        <img src="" data-k="iLV2" alt="Open Storey residential interior — private residence">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Residential</div>
@@ -1402,7 +1491,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="dining">
-        <img src="" data-k="iDROT" alt="Grand Dining Room">
+        <img src="" data-k="iDROT" alt="Open Storey dining interior — grand dining room">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Dining</div>
@@ -1410,7 +1499,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="dining">
-        <img src="" data-k="iDPCH" alt="Dining with Perch Light">
+        <img src="" data-k="iDPCH" alt="Open Storey dining interior — dining room with perch light">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Dining</div>
@@ -1418,7 +1507,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
         </div>
       </div>
       <div class="project-card reveal" data-cat="residential">
-        <img src="" data-k="iFMIR" alt="Entry Foyer with Mirror">
+        <img src="" data-k="iFMIR" alt="Open Storey residential interior — entry foyer with mirror">
         <div class="card-overlay"></div>
         <div class="card-info">
           <div class="card-tag">Residential</div>
@@ -1492,8 +1581,8 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
     <span class="footer-logo"><img src="assets/logo/OpenStoreyLogoAlt.png" alt="Open Storey"></span>
     <span class="footer-copy">© 2026 OpenStorey · Swatika Upendran. All rights reserved.</span>
     <div class="footer-social">
-      <a href="#">Instagram</a>
-      <a href="#">Pinterest</a>
+      <a href="https://calendly.com/openstorey-design/30min" target="_blank" rel="noopener">Book a free call</a>
+      <a href="mailto:openstorey.design@gmail.com">Email the studio</a>
       <a href="disclosure.html">Disclosure</a>
     </div>
   </footer>
@@ -1518,7 +1607,7 @@ nav.scrolled .nav-hamburger span { background: var(--ink); }
   <footer>
     <span class="footer-logo"><img src="assets/logo/OpenStoreyLogoAlt.png" alt="Open Storey"></span>
     <span class="footer-copy">© 2026 OpenStorey · Swatika Upendran. All rights reserved.</span>
-    <div class="footer-social"><a href="#">Instagram</a><a href="#">Pinterest</a><a href="disclosure.html">Disclosure</a></div>
+    <div class="footer-social"><a href="https://calendly.com/openstorey-design/30min" target="_blank" rel="noopener">Book a free call</a><a href="mailto:openstorey.design@gmail.com">Email the studio</a><a href="disclosure.html">Disclosure</a></div>
   </footer>
 </div>
 
@@ -1671,13 +1760,13 @@ function toggleMenu(){
   setMenuState(!menu.classList.contains('open'));
 }
 // Open the Calendly "free 15-min call" popup (used by the in-menu CTA)
-var CALENDLY_URL='https://calendly.com/openstorey-design/30min?text_color=f5f0e8&primary_color=c4724a';
 function openCalendly(){
+  var calendlyUrl=openStoreyCalendlyUrl();
   try{ setMenuState(false); }catch(e){}
   if(window.Calendly&&Calendly.initPopupWidget){
-    Calendly.initPopupWidget({url:CALENDLY_URL});
+    Calendly.initPopupWidget({url:calendlyUrl});
   }else{
-    window.open(CALENDLY_URL,'_blank','noopener');
+    window.open(calendlyUrl,'_blank','noopener');
   }
 }
 // Close menu on nav link click

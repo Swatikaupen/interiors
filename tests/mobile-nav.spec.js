@@ -96,4 +96,14 @@ test.describe('Open Storey — navigation, mobile menu & SEO', () => {
       expect.arrayContaining(['ProfessionalService', 'Person']),
     );
   });
+
+  test('preserves campaign attribution when opening Calendly', async ({ page }) => {
+    await page.goto('/?utm_source=instagram&utm_medium=reel&utm_campaign=launch', {
+      waitUntil: 'domcontentloaded',
+    });
+    const calendlyUrl = await page.evaluate(() => window.openStoreyCalendlyUrl());
+    expect(calendlyUrl).toContain('utm_source=instagram');
+    expect(calendlyUrl).toContain('utm_medium=reel');
+    expect(calendlyUrl).toContain('utm_campaign=launch');
+  });
 });
