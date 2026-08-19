@@ -6,6 +6,9 @@
 - **JSON-LD structured data** (`ProfessionalService` + `Person` + `Service` nodes + a free-consultation `Offer` + `ReserveAction` → Calendly) so Google can show rich results.
 - **Services section and Bay Area titles** for residential, space planning, retail/hospitality, and Vastu-intent searches.
 - **Descriptive portfolio alt text** for image search and accessibility.
+- **FAQ content and FAQPage structured data** for Bay Area, remote/international, service, and free-call questions.
+- **Crawlable portfolio images** with static `src` fallbacks, lazy decoding, and a prioritized hero image.
+- **Public studio email and weekday hours** in the ProfessionalService structured data.
 - **`sitemap.xml`** updated (home, UX portfolio, disclosure) — `robots.txt` already points to it.
 - **Canonical** tag was already present and is correct.
 

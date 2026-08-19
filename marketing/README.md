@@ -43,6 +43,8 @@ These are code changes against the **live static site** (`index.html`). They are
 - ✅ **FTC affiliate disclosure page** (`disclosure.html`), linked from the footer and added to `sitemap.xml` — required before you run any affiliate link.
 - ✅ **Regression tests** rewritten to cover all of the above (`tests/mobile-nav.spec.js`) — green on iPhone 13 + Pixel 7 (`npm run test:mobile`).
 - ✅ **Bay Area discovery pass** — service copy, Service schema, descriptive portfolio alts, Bay Area page/share titles, UTM-aware Calendly links, and a Search Console verification tag are live.
+- ✅ **Conversion and content pass** — direct booking CTAs appear in the hero, services, FAQ, contact, and footer; the FAQ answers Bay Area, remote/international, service, and first-call questions.
+- ✅ **Crawl/performance pass** — visible portfolio images have static sources with lazy decoding, and the studio email/hours are present in ProfessionalService schema.
 - ✅ **Google Search Console** — property verified, `/sitemap.xml` submitted successfully (3 pages), and the homepage placed in Google's priority crawl queue.
 
 ### Booking status
