@@ -256,6 +256,19 @@ h2 em{font-style:italic;color:var(--terra);}
 .step::after{content:'';position:absolute;top:2.5rem;right:0;width:1px;height:60px;background:linear-gradient(to bottom,var(--mist),transparent);}
 .step:last-child::after{display:none;}
 
+/* ══ FAQ ══ */
+.faq{padding:5rem 5rem;background:var(--warm);}
+.faq-inner{max-width:920px;margin:0 auto;}
+.faq-intro{max-width:620px;margin-top:1.5rem;font-size:.95rem;line-height:1.9;color:var(--stone);}
+.faq-list{margin-top:2.5rem;border-top:1px solid var(--mist);}
+.faq-item{border-bottom:1px solid var(--mist);}
+.faq-item summary{list-style:none;cursor:pointer;padding:1.5rem 3rem 1.5rem 0;font-family:'Cormorant Garamond',serif;font-size:1.45rem;color:var(--ink);position:relative;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{content:'+';position:absolute;right:.2rem;top:1.35rem;font-family:'Karla',sans-serif;font-size:1.25rem;font-weight:300;color:var(--terra);}
+.faq-item[open] summary::after{content:'−';}
+.faq-answer{max-width:700px;padding:0 3rem 1.5rem 0;font-size:.9rem;line-height:1.9;color:var(--stone);}
+.faq-cta{margin-top:2.5rem;}
+
 /* ══ TESTIMONIAL ══ */
 .testimonial-section{padding:8rem 5rem;max-width:920px;margin:0 auto;text-align:center;}
 .quote-mark{font-family:'Cormorant Garamond',serif;font-size:9rem;line-height:.4;color:var(--mist);display:block;margin-bottom:2rem;}
@@ -613,7 +626,7 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
   .about-accent-box p { font-size: .95rem; }
   .about-stats { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
   .stat-num { font-size: 2.4rem; }
-  #philosophy, #services, #about, #portfolio, #process, #contact { scroll-margin-top: calc(var(--mobile-nav-offset) + 1rem); }
+  #philosophy, #services, #about, #portfolio, #process, #faq, #contact { scroll-margin-top: calc(var(--mobile-nav-offset) + 1rem); }
 
   /* Services */
   .services { padding: 4rem 1.6rem; }
@@ -623,6 +636,8 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
 
   /* Section label + h2 padding */
   .portfolio { padding: 2rem 1.6rem 4rem; }
+  .faq { padding: 4rem 1.6rem; }
+  .faq-item summary { font-size: 1.3rem; }
   .process { padding: 4rem 1.6rem; }
   .portfolio-header { flex-direction: column; align-items: flex-start; gap: 1rem; margin-bottom: 2rem; }
 
@@ -1546,6 +1561,34 @@ window.onload = function() { Calendly.initBadgeWidget({ url: openStoreyCalendlyU
           <p class="step-text">Careful project management through installation, with your involvement at every meaningful decision point and a final walk-through that is never rushed.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="faq-inner">
+      <p class="section-label">Before We Begin</p>
+      <h2>Questions, answered<br>with <em>care</em></h2>
+      <p class="faq-intro">A few practical answers before the first conversation. If your project sits between categories or across borders, the free 15-minute call is the easiest place to begin.</p>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Do you work with clients outside the Bay Area?</summary>
+          <p class="faq-answer">Yes. Open Storey is based in California and welcomes remote and international enquiries. The first call helps clarify scope, location, timing, and whether the right working model is local, remote, or blended.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What kinds of spaces do you design?</summary>
+          <p class="faq-answer">Residential interiors, single-room projects, space planning, boutique retail and hospitality, thoughtful commercial spaces, material curation, and Vastu consultation.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What happens in the free 15-minute call?</summary>
+          <p class="faq-answer">We talk through your space, what you want it to do and feel, your location, and your rough timeline. It is a short, no-pressure way to see whether Open Storey is a good fit.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How do I get started?</summary>
+          <p class="faq-answer">Book a free 15-minute consultation, or send an enquiry if you would rather share the details in writing first. Every project begins with a clear brief and an honest conversation.</p>
+        </details>
+      </div>
+      <div class="faq-cta"><a href="https://calendly.com/openstorey-design/30min" class="btn-primary" onclick="openCalendly();return false;">Book a free 15-min call</a></div>
     </div>
   </section>
 

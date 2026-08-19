@@ -122,4 +122,11 @@ test.describe('Open Storey — navigation, mobile menu & SEO', () => {
     await expect(cta).toContainText(/book a free 15-min call/i);
     await expect(cta).toHaveAttribute('onclick', /openCalendly/);
   });
+
+  test('FAQ answers Bay Area, remote, and booking questions', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#faq details')).toHaveCount(4);
+    await expect(page.locator('#faq')).toContainText(/outside the Bay Area/i);
+    await expect(page.locator('#faq')).toContainText(/free 15-minute call/i);
+  });
 });
