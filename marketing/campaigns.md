@@ -30,7 +30,7 @@ Copy is ready to paste. Swap in your own photos. Use the UTM links from [seo-and
 **LinkedIn post:**
 > After a decade designing across residences, hospitality, retail, and corporate interiors for teams like Cisco, Target, and Intuit — I've started my own studio: **Open Storey**.
 > My work lives between two worlds: the materiality and craft of South India, and the restraint of contemporary California design.
-> I'm taking on a small number of new projects this year. If you're planning a space — home or commercial — I'm offering free 15‑minute intro calls. Details: openstorey.design
+> I'm taking on a small number of new projects this year. If you're planning a space — home or commercial — I'm offering free 15‑minute intro calls. Details: https://openstorey.design/?utm_source=linkedin&utm_medium=post&utm_campaign=launch
 
 ---
 
