@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Standalone Open Storey founder profile', () => {
   test('presents Swatika exclusively as an interior designer and founder', async ({ page }) => {
-    await page.goto('/swatika-ux.html', { waitUntil: 'domcontentloaded' });
+    await page.goto('/swatika.html', { waitUntil: 'domcontentloaded' });
 
     await expect(page).toHaveTitle(/Bay Area Interior Designer/i);
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Swatika Upendran');
@@ -14,12 +14,12 @@ test.describe('Standalone Open Storey founder profile', () => {
   });
 
   test('is indexable but has no internal route back into the public site', async ({ page }) => {
-    await page.goto('/swatika-ux.html', { waitUntil: 'domcontentloaded' });
+    await page.goto('/swatika.html', { waitUntil: 'domcontentloaded' });
 
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /index, follow/i);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
-      'https://openstorey.design/swatika-ux.html',
+      'https://openstorey.design/swatika.html',
     );
 
     const hrefs = await page.locator('a[href]').evaluateAll((links) =>
@@ -38,16 +38,16 @@ test.describe('Standalone Open Storey founder profile', () => {
   });
 
   test('uses the real consultation and studio email destinations', async ({ page }) => {
-    await page.goto('/swatika-ux.html', { waitUntil: 'domcontentloaded' });
+    await page.goto('/swatika.html', { waitUntil: 'domcontentloaded' });
 
     const bookingLinks = page.locator('a[href="https://calendly.com/openstorey-design/30min"]');
     await expect(bookingLinks).toHaveCount(3);
     await expect(bookingLinks.first()).toContainText(/15-min call/i);
-    await expect(page.locator('a[href="mailto:openstorey.design@gmail.com"]')).toHaveCount(3);
+    await expect(page.locator('a[href="mailto:Swatika@openstorey.design"]')).toHaveCount(3);
   });
 
   test('covers the studio story, services, experience and global availability', async ({ page }) => {
-    await page.goto('/swatika-ux.html', { waitUntil: 'domcontentloaded' });
+    await page.goto('/swatika.html', { waitUntil: 'domcontentloaded' });
 
     await expect(page.locator('.journey')).toContainText('Chennai');
     await expect(page.locator('.journey')).toContainText('Barcelona');
@@ -60,7 +60,7 @@ test.describe('Standalone Open Storey founder profile', () => {
   });
 
   test('fits the small viewport without horizontal overflow', async ({ page }) => {
-    await page.goto('/swatika-ux.html', { waitUntil: 'domcontentloaded' });
+    await page.goto('/swatika.html', { waitUntil: 'domcontentloaded' });
 
     const horizontalScroll = await page.evaluate(async () => {
       window.scrollTo(9999, 0);

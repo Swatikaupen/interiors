@@ -3,7 +3,7 @@
 const { Resend } = require('resend');
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const DEFAULT_TO = 'openstorey.design@gmail.com';
+const DEFAULT_TO = 'hello@openstorey.design';
 const DEFAULT_FROM = 'Open Storey <onboarding@resend.dev>';
 
 function setCorsHeaders(res) {

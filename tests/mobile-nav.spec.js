@@ -21,10 +21,10 @@ test.describe('Open Storey — navigation, mobile menu & SEO', () => {
 
   test('does not expose the standalone founder page from the public site', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('a[href*="swatika-ux.html"]')).toHaveCount(0);
+    await expect(page.locator('a[href*="swatika.html"], a[href*="swatika-ux.html"]')).toHaveCount(0);
 
     await page.goto('/disclosure.html', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('a[href*="swatika-ux.html"]')).toHaveCount(0);
+    await expect(page.locator('a[href*="swatika.html"], a[href*="swatika-ux.html"]')).toHaveCount(0);
   });
 
   test('mobile menu is opaque and pins the close icon to the top', async ({ page }) => {
@@ -112,7 +112,7 @@ test.describe('Open Storey — navigation, mobile menu & SEO', () => {
       expect.arrayContaining(['ProfessionalService', 'Person']),
     );
     const studio = graph.find((n) => n['@type'] === 'ProfessionalService');
-    expect(studio.email).toBe('openstorey.design@gmail.com');
+    expect(studio.email).toBe('hello@openstorey.design');
     expect(studio.openingHoursSpecification[0].dayOfWeek).toHaveLength(5);
     const faq = graph.find((n) => n['@type'] === 'FAQPage');
     expect(faq.mainEntity).toHaveLength(4);
