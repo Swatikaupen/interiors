@@ -1,50 +1,73 @@
 const { test, expect } = require('@playwright/test');
 
-test.describe('Swatika Product / UX portfolio prototype', () => {
-  test('mode switch updates the portfolio thesis', async ({ page }) => {
+test.describe('Standalone Open Storey founder profile', () => {
+  test('presents Swatika exclusively as an interior designer and founder', async ({ page }) => {
     await page.goto('/swatika-ux.html', { waitUntil: 'domcontentloaded' });
 
-    await expect(page.getByRole('heading', { name: /I design the app/i })).toBeVisible();
-    await page.locator('[data-mode-target="space"]').click();
+    await expect(page).toHaveTitle(/Bay Area Interior Designer/i);
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Swatika Upendran');
+    await expect(page.locator('main')).toContainText(/founder of Open Storey/i);
+    await expect(page.locator('main')).toContainText(/San Francisco Bay Area/i);
 
-    await expect(page.locator('body')).toHaveAttribute('data-mode', 'space');
-    await expect(page.locator('#modeTitle')).toContainText('Spatial design is a UX credential');
+    const publicCopy = await page.locator('body').innerText();
+    expect(publicCopy).not.toMatch(/\b(product design|UX|apps?|mobile apps?|dashboards?|AI product|hiring managers?|prototypes?)\b/i);
   });
 
-  test('studio navigator opens project-specific hiring-manager framing', async ({ page }) => {
+  test('is indexable but has no internal route back into the public site', async ({ page }) => {
     await page.goto('/swatika-ux.html', { waitUntil: 'domcontentloaded' });
 
-    await page.locator('[data-case="nourish"]').click();
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /index, follow/i);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://openstorey.design/swatika-ux.html',
+    );
 
-    await expect(page.locator('#caseKicker')).toContainText('AI Product Design');
-    await expect(page.locator('#caseTitle')).toContainText('Nourish care companion');
-    await expect(page.locator('#caseDetails')).toContainText('Swatika understands AI as an interaction model');
+    const hrefs = await page.locator('a[href]').evaluateAll((links) =>
+      links.map((link) => link.getAttribute('href')),
+    );
+    expect(hrefs.every((href) =>
+      href.startsWith('#') ||
+      href.startsWith('mailto:') ||
+      href.startsWith('https://calendly.com/') ||
+      (
+        href.startsWith('https://') &&
+        !href.startsWith('https://openstorey.design')
+      )
+    )).toBe(true);
+    expect(hrefs.some((href) => /index\.html|openstorey\.design\/$/i.test(href))).toBe(false);
   });
 
-  test('companion and mobile menu are interactive', async ({ page }) => {
+  test('uses the real consultation and studio email destinations', async ({ page }) => {
     await page.goto('/swatika-ux.html', { waitUntil: 'domcontentloaded' });
 
-    await page.getByRole('button', { name: 'Open portfolio menu' }).click();
-    await expect(page.locator('#portfolioNavLinks')).toHaveClass(/open/);
-    await expect(page.locator('#portfolioNavLinks a[href="#impact"]')).toBeVisible();
-
-    await page.getByRole('link', { name: 'Companion' }).click();
-    await expect(page.locator('#portfolioNavLinks')).not.toHaveClass(/open/);
-
-    await page.locator('[data-question="How does spatial design transfer to UX?"]').click();
-    await expect(page.locator('#chatOutput')).toContainText('Spatial to UX');
+    const bookingLinks = page.locator('a[href="https://calendly.com/openstorey-design/30min"]');
+    await expect(bookingLinks).toHaveCount(3);
+    await expect(bookingLinks.first()).toContainText(/15-min call/i);
+    await expect(page.locator('a[href="mailto:openstorey.design@gmail.com"]')).toHaveCount(3);
   });
 
-  test('milestone two workbench and evidence filters are interactive', async ({ page }) => {
+  test('covers the studio story, services, experience and global availability', async ({ page }) => {
     await page.goto('/swatika-ux.html', { waitUntil: 'domcontentloaded' });
 
-    await page.locator('[data-detail-case="openstorey"]').click();
-    await expect(page.locator('#detailStatus')).toContainText('Verified locally');
-    await expect(page.locator('#detailCaseTitle')).toContainText('Open Storey service and brand system');
-    await expect(page.locator('#detailCaseBody')).toContainText('Private portfolio password flow');
+    await expect(page.locator('.journey')).toContainText('Chennai');
+    await expect(page.locator('.journey')).toContainText('Barcelona');
+    await expect(page.locator('.journey')).toContainText('San Francisco');
+    await expect(page.locator('.services')).toContainText('Residential Interiors');
+    await expect(page.locator('.services')).toContainText('Retail & Hospitality');
+    await expect(page.locator('.services')).toContainText('Vastu Consultation');
+    await expect(page.locator('.experience')).toContainText('Keha Casa Flagship Store');
+    await expect(page.locator('main')).toContainText(/internationally|beyond/i);
+  });
 
-    await page.locator('[data-evidence-filter="needs-source"]').click();
-    await expect(page.locator('[data-evidence-type="verified"]').first()).toBeHidden();
-    await expect(page.locator('[data-evidence-type="needs-source"]').first()).toBeVisible();
+  test('fits the small viewport without horizontal overflow', async ({ page }) => {
+    await page.goto('/swatika-ux.html', { waitUntil: 'domcontentloaded' });
+
+    const dimensions = await page.evaluate(() => ({
+      scrollWidth: document.documentElement.scrollWidth,
+      clientWidth: document.documentElement.clientWidth,
+    }));
+    expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
+    await expect(page.locator('.studio-header .book-link')).toBeVisible();
+    await expect(page.locator('.hero-portrait')).toBeVisible();
   });
 });

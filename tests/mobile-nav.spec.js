@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 // Regression coverage for the live static site (index.html):
-//  - "UX Portfolio" removed from the main nav (still linked from About)
+//  - the standalone founder page is never linked from the public site
 //  - mobile menu is fully opaque and pins the close icon to the top
 //  - the "free 15-min call" CTA appears inside the mobile menu
 //  - SEO / social-share meta is present
@@ -19,11 +19,12 @@ test.describe('Open Storey — navigation, mobile menu & SEO', () => {
     expect(labels.some((l) => /UX Portfolio/i.test(l))).toBe(false);
   });
 
-  test('About section keeps a single link to the UX portfolio', async ({ page }) => {
+  test('does not expose the standalone founder page from the public site', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    const ux = page.locator('section#about a[href="swatika-ux.html"]');
-    await expect(ux).toHaveCount(1);
-    await expect(ux).toContainText(/UX design portfolio/i);
+    await expect(page.locator('a[href*="swatika-ux.html"]')).toHaveCount(0);
+
+    await page.goto('/disclosure.html', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('a[href*="swatika-ux.html"]')).toHaveCount(0);
   });
 
   test('mobile menu is opaque and pins the close icon to the top', async ({ page }) => {
@@ -73,6 +74,33 @@ test.describe('Open Storey — navigation, mobile menu & SEO', () => {
     expect(probe.navTop).toBe(0); // bar starts at the very top
     expect(probe.topPixelInNav).toBe(true); // topmost pixel is the bar, never page content
     expect(probe.navBg).toBe('rgb(250, 248, 244)'); // cream (#FAF8F4)
+  });
+
+  test('mobile cream backing extends above the visual viewport and through the nav', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    const probe = await page.evaluate(() => {
+      const backing = document.querySelector('.mobile-nav-backdrop');
+      const nav = document.querySelector('nav');
+      const b = backing.getBoundingClientRect();
+      const n = nav.getBoundingClientRect();
+      return {
+        display: getComputedStyle(backing).display,
+        background: getComputedStyle(backing).backgroundColor,
+        top: b.top,
+        bottom: b.bottom,
+        navBottom: n.bottom,
+      };
+    });
+    expect(probe.display).toBe('block');
+    expect(probe.background).toBe('rgb(250, 248, 244)');
+    expect(probe.top).toBeLessThan(-100);
+    expect(probe.bottom).toBeGreaterThanOrEqual(probe.navBottom);
+  });
+
+  test('footer uses text and links without the white logo tile', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('footer .footer-logo')).toHaveCount(0);
+    await expect(page.locator('#page-home footer .footer-copy')).toBeVisible();
   });
 
   test('exposes SEO and social-share meta for campaign links', async ({ page }) => {

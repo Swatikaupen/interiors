@@ -6,6 +6,7 @@ test-results/
 .github/
 # Local-only internal playbooks, WIP files, and tooling
 marketing/
+.superdesign/
 .migration-backup/
 .claude/
 # Source image originals (HEIC/RAW) — keep optimized web versions only
