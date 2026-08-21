@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#FAF8F4">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Open Storey — Bay Area Interior Design by Swatika Upendran</title>
@@ -165,7 +165,6 @@ body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:260;padding:1.7rem 4.5rem;display:flex;justify-content:space-between;align-items:center;transition:background .45s,box-shadow .45s;isolation:isolate;} .nav-hamburger{display:none;}
-.mobile-nav-backdrop{display:none;}
 nav.scrolled{background:rgba(250,248,244,.95);backdrop-filter:blur(16px);box-shadow:0 1px 0 rgba(26,23,20,.07);}
 .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.18em;color:var(--ivory);text-decoration:none;text-transform:uppercase;line-height:1.3;transition:color .4s;}
 .nav-sub{display:block;font-size:.47rem;letter-spacing:.32em;color:rgba(245,240,232,.6);text-transform:uppercase;}
@@ -516,25 +515,13 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
 /* ── Mobile (≤768px) ── */
 @media (max-width: 768px) {
   :root { --mobile-nav-offset: calc(5rem + var(--safe-top)); }
-  /* Disable custom cursor */
-  .cursor, .cursor-ring { display: none; }
+  /* Disable desktop-only effects */
+  .cursor, .cursor-ring, body::before { display: none; }
   html, body { overscroll-behavior-y: none; }
   body { cursor: auto; }
   a, button { cursor: pointer; }
   body.menu-open { overflow: hidden; }
   body.menu-open .calendly-badge-widget { opacity: 0; pointer-events: none; }
-  .mobile-nav-backdrop {
-    display: block;
-    position: fixed;
-    top: -100vh;
-    left: 0;
-    right: 0;
-    height: calc(100vh + var(--mobile-nav-offset) + 1px);
-    background: var(--warm);
-    z-index: 1099;
-    pointer-events: none;
-  }
-
   /* Nav — hamburger */
   nav {
     position: fixed;
@@ -552,7 +539,8 @@ footer{background:var(--deep);padding:2.8rem 5rem;display:flex;justify-content:s
     /* Deliberately NO transform / will-change here: a transform on a
        position:fixed element makes iOS Safari anchor it to the document instead
        of the screen, so it drifts during scroll-bounce and lets page content
-       show above the bar. Plain fixed + the cream backings below keep it flush. */
+       show above the bar. Plain fixed lets Safari extend the nav color into
+       browser chrome. */
     align-items: center;
     overflow: visible;
   }
@@ -1124,7 +1112,6 @@ window.onload = function() { Calendly.initBadgeWidget({ url: openStoreyCalendlyU
 <div class="cursor-ring" id="cursorRing"></div>
 
 <!-- NAV -->
-<div class="mobile-nav-backdrop" aria-hidden="true"></div>
 <nav id="mainNav">
   <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>

@@ -76,25 +76,13 @@ test.describe('Open Storey — navigation, mobile menu & SEO', () => {
     expect(probe.navBg).toBe('rgb(250, 248, 244)'); // cream (#FAF8F4)
   });
 
-  test('mobile cream backing extends above the visual viewport and through the nav', async ({ page }) => {
+  test('keeps page content out of the iOS status area', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    const probe = await page.evaluate(() => {
-      const backing = document.querySelector('.mobile-nav-backdrop');
-      const nav = document.querySelector('nav');
-      const b = backing.getBoundingClientRect();
-      const n = nav.getBoundingClientRect();
-      return {
-        display: getComputedStyle(backing).display,
-        background: getComputedStyle(backing).backgroundColor,
-        top: b.top,
-        bottom: b.bottom,
-        navBottom: n.bottom,
-      };
-    });
-    expect(probe.display).toBe('block');
-    expect(probe.background).toBe('rgb(250, 248, 244)');
-    expect(probe.top).toBeLessThan(-100);
-    expect(probe.bottom).toBeGreaterThanOrEqual(probe.navBottom);
+    await expect(page.locator('meta[name="viewport"]')).toHaveAttribute(
+      'content',
+      'width=device-width, initial-scale=1.0',
+    );
+    expect(await page.evaluate(() => getComputedStyle(document.body, '::before').display)).toBe('none');
   });
 
   test('footer uses text and links without the white logo tile', async ({ page }) => {
