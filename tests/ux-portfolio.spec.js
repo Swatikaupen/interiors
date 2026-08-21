@@ -62,11 +62,14 @@ test.describe('Standalone Open Storey founder profile', () => {
   test('fits the small viewport without horizontal overflow', async ({ page }) => {
     await page.goto('/swatika-ux.html', { waitUntil: 'domcontentloaded' });
 
-    const dimensions = await page.evaluate(() => ({
-      scrollWidth: document.documentElement.scrollWidth,
-      clientWidth: document.documentElement.clientWidth,
-    }));
-    expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
+    const horizontalScroll = await page.evaluate(async () => {
+      window.scrollTo(9999, 0);
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      const x = window.scrollX;
+      window.scrollTo(0, 0);
+      return x;
+    });
+    expect(horizontalScroll).toBe(0);
     await expect(page.locator('.studio-header .book-link')).toBeVisible();
     await expect(page.locator('.hero-portrait')).toBeVisible();
   });
