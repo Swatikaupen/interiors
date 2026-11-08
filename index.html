@@ -69,13 +69,22 @@
       "address": { "@type": "PostalAddress", "addressRegion": "CA", "addressCountry": "US" },
       "knowsAbout": ["Interior design", "Residential interiors", "Hospitality design", "Retail interiors", "Space planning", "Material curation", "Vastu consultation"],
       "founder": { "@id": "https://openstorey.design/#swatika" },
-      "makesOffer": {
-        "@type": "Offer",
-        "name": "Free 15-minute design consultation call",
-        "price": "0",
-        "priceCurrency": "USD",
-        "url": "https://calendly.com/openstorey-design/30min"
-      },
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "name": "Free 15-minute design consultation call",
+          "price": "0",
+          "priceCurrency": "USD",
+          "url": "https://calendly.com/openstorey-design/30min"
+        },
+        {
+          "@type": "Offer",
+          "name": "1-hour design consultation",
+          "price": "200",
+          "priceCurrency": "USD",
+          "url": "https://buy.stripe.com/aFa7sK64Ec4d1xEaD45Vu00"
+        }
+      ],
       "potentialAction": {
         "@type": "ReserveAction",
         "name": "Schedule a free 15-min call",
@@ -132,7 +141,7 @@
         {
           "@type": "Question",
           "name": "How do I get started?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Book a free 15-minute consultation or send an enquiry with your project details." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Book a free 15-minute consultation or send an enquiry with your project details. A 1-hour paid follow-up consultation is available for $200." }
         }
       ]
     }
@@ -1251,6 +1260,7 @@ window.onload = function() { Calendly.initBadgeWidget({ url: openStoreyCalendlyU
       </div>
       <div class="services-cta">
         <a href="https://calendly.com/openstorey-design/30min" class="btn-primary" onclick="openCalendly();return false;">Schedule a free 15-min call</a>
+        <a href="https://buy.stripe.com/aFa7sK64Ec4d1xEaD45Vu00" class="btn-text" target="_blank" rel="noopener">Book a 1-hour consultation — $200</a>
         <span class="btn-text">Serving the Bay Area · remote and international enquiries welcome</span>
       </div>
     </div>
@@ -1598,10 +1608,10 @@ window.onload = function() { Calendly.initBadgeWidget({ url: openStoreyCalendlyU
         </details>
         <details class="faq-item">
           <summary>How do I get started?</summary>
-          <p class="faq-answer">Book a free 15-minute consultation, or send an enquiry if you would rather share the details in writing first. Every project begins with a clear brief and an honest conversation.</p>
+          <p class="faq-answer">Book a free 15-minute consultation, or send an enquiry if you would rather share the details in writing first. Every project begins with a clear brief and an honest conversation. After the free call, you can book a 1-hour paid follow-up consultation for $200.</p>
         </details>
       </div>
-      <div class="faq-cta"><a href="https://calendly.com/openstorey-design/30min" class="btn-primary" onclick="openCalendly();return false;">Book a free 15-min call</a></div>
+      <div class="faq-cta"><a href="https://calendly.com/openstorey-design/30min" class="btn-primary" onclick="openCalendly();return false;">Book a free 15-min call</a> <a href="https://buy.stripe.com/aFa7sK64Ec4d1xEaD45Vu00" class="btn-text" target="_blank" rel="noopener">Book a 1-hour consultation — $200</a></div>
     </div>
   </section>
 
@@ -1612,7 +1622,7 @@ window.onload = function() { Calendly.initBadgeWidget({ url: openStoreyCalendlyU
     <div class="contact-left">
       <p class="section-label reveal">Get in Touch</p>
       <h2 class="reveal rd1">Let's begin<br>your <em>project</em></h2>
-      <p class="contact-desc reveal rd2">Open Storey takes on a limited number of new projects each year. If you're considering a redesign — residential or boutique commercial — an initial conversation is always a good place to start.</p>
+      <p class="contact-desc reveal rd2">Open Storey takes on a limited number of new projects each year. If you're considering a redesign — residential or boutique commercial — an initial conversation is always a good place to start. Begin with a free 15-minute call, then book a 1-hour paid follow-up consultation for $200 if you'd like to go deeper.</p>
       <div class="contact-details reveal rd3">
         <div class="contact-item"><span class="contact-label">Studio</span><span class="contact-value">San Francisco Bay Area<br>California</span></div>
         <div class="contact-item"><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:hello@openstorey.design">hello@openstorey.design</a></span></div>
@@ -1627,7 +1637,7 @@ window.onload = function() { Calendly.initBadgeWidget({ url: openStoreyCalendlyU
         <select id="cf-type" name="project_type"><option value="" disabled selected>Select a category</option><option>Residential – Full Design</option><option>Residential – Single Room</option><option>Boutique Commercial</option><option>Consultation Only</option><option>International Project</option></select>
       </div>
       <div class="form-field"><label>Tell me about your space</label><textarea id="cf-msg" name="message" placeholder="Location, size, timeline, and what you're hoping for…"></textarea></div>
-      <div class="form-submit"><button class="btn-submit" id="contactSubmitBtn" type="button" onclick="sendEnquiry()">Send Enquiry</button><a href="https://calendly.com/openstorey-design/30min" class="btn-primary" onclick="openCalendly();return false;">Book a free 15-min call</a><span class="form-note" id="form-status">Response within 2 business days</span></div>
+      <div class="form-submit"><button class="btn-submit" id="contactSubmitBtn" type="button" onclick="sendEnquiry()">Send Enquiry</button><a href="https://calendly.com/openstorey-design/30min" class="btn-primary" onclick="openCalendly();return false;">Book a free 15-min call</a><a href="https://buy.stripe.com/aFa7sK64Ec4d1xEaD45Vu00" class="btn-text" target="_blank" rel="noopener">Book a 1-hour consultation — $200</a><span class="form-note" id="form-status">Response within 2 business days</span></div>
     </div>
   </section>
 
