@@ -348,6 +348,7 @@ blockquote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:cl
 .btn-submit{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);background:var(--ivory);border:none;padding:1rem 2.2rem;cursor:none;transition:background .3s,color .3s;white-space:nowrap;flex:0 0 auto;}
 .btn-submit:hover{background:var(--terra);color:var(--ivory);}
 .form-note{font-size:.62rem;color:rgba(245,240,232,.36);line-height:1.5;flex:1 1 12rem;min-height:1.5rem;}
+.form-note a,.cs-note a{color:inherit;text-decoration:underline;text-underline-offset:2px;}
 
 /* ══ CURATED FINDS ══ */
 .finds-hero{height:45vh;position:relative;overflow:hidden;}
@@ -2452,6 +2453,10 @@ function sendEnquiry() {
     if (status) { status.textContent = 'Please fill in your name and email.'; status.style.color = 'var(--terra)'; }
     return;
   }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (status) { status.textContent = 'Please check your email address.'; status.style.color = 'var(--terra)'; }
+    return;
+  }
 
   submitInbox({
     name: name,
@@ -2471,6 +2476,9 @@ function sendEnquiry() {
     statusNode: status,
     pendingMessage: 'Sending your enquiry…',
     successMessage: 'Enquiry sent. I will review it and reply within 2 business days.',
+    errorMessage: 'Sorry, your enquiry could not be sent just now. Nothing you typed has been lost.',
+    fallbackSubject: 'Open Storey enquiry — ' + name,
+    fallbackBody: 'Name: ' + name + '\nEmail: ' + email + '\nProject type: ' + (type || 'Not specified') + '\n\n' + (msg || ''),
     reset: function(){
       document.getElementById('cf-name').value='';
       document.getElementById('cf-email').value='';
@@ -2485,9 +2493,37 @@ function sendEnquiry() {
   });
 }
 
+var STUDIO_EMAIL='hello@openstorey.design';
+
+function escapeHtml(text){
+  return String(text == null ? '' : text).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+// FormSubmit answers HTTP 200 even when it has not delivered the message
+// (for example while the form still waits for activation), so success is
+// only shown when its own JSON says success is true.
+function formSubmitDelivered(data){
+  if (!data) return false;
+  return data.success === true || String(data.success).toLowerCase() === 'true';
+}
+
+function showFormFallback(statusNode, options){
+  if (!statusNode) return;
+  var subject = options.fallbackSubject || 'Open Storey enquiry';
+  var body = options.fallbackBody || '';
+  var href = 'mailto:' + STUDIO_EMAIL + '?subject=' + encodeURIComponent(subject);
+  if (body) href += '&body=' + encodeURIComponent(body.slice(0, 1500));
+  var lead = options.errorMessage || 'Sorry, this could not be sent just now.';
+  statusNode.innerHTML = escapeHtml(lead) + ' Please email <a class="form-fallback" href="' + href + '">' + STUDIO_EMAIL + '</a> instead.';
+  statusNode.style.color = 'var(--terra)';
+}
+
 function submitInbox(payload, options){
-  var button = options && options.button;
-  var statusNode = options && options.statusNode;
+  options = options || {};
+  var button = options.button;
+  var statusNode = options.statusNode;
 
   if (button) {
     button.disabled = true;
@@ -2498,23 +2534,29 @@ function submitInbox(payload, options){
     statusNode.style.color = 'var(--gold)';
   }
 
+  var controller = (typeof AbortController === 'function') ? new AbortController() : null;
+  var timer = controller ? window.setTimeout(function(){ controller.abort(); }, 20000) : null;
+
   return fetch(FORM_ENDPOINT, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
+    signal: controller ? controller.signal : undefined
   })
     .then(function(response){
-      return response.json().catch(function(){ return {}; }).then(function(data){
-        if (!response.ok) {
-          throw new Error(data.message || 'Request failed.');
+      return response.json().catch(function(){ return null; }).then(function(data){
+        if (!response.ok || !formSubmitDelivered(data)) {
+          var reason = (data && data.message) ? data.message : ('HTTP ' + response.status);
+          throw new Error('Form service did not confirm delivery: ' + reason);
         }
         return data;
       });
     })
     .then(function(){
+      if (timer) window.clearTimeout(timer);
       if (button) {
         button.textContent = options.successButtonText || options.defaultButtonText || 'Sent';
       }
@@ -2526,14 +2568,13 @@ function submitInbox(payload, options){
       if (typeof options.onSuccess === 'function') options.onSuccess();
     })
     .catch(function(error){
+      if (timer) window.clearTimeout(timer);
+      if (window.console && console.warn) console.warn('[Open Storey form]', error && error.message ? error.message : error);
       if (button) {
         button.disabled = false;
         button.textContent = options.defaultButtonText || 'Send';
       }
-      if (statusNode) {
-        statusNode.textContent = error && error.message ? error.message : 'Could not send right now. Please email hello@openstorey.design directly.';
-        statusNode.style.color = 'var(--terra)';
-      }
+      showFormFallback(statusNode, options);
     });
 }
 
@@ -2568,6 +2609,9 @@ function sendCuratedNotify(){
     statusNode: status,
     pendingMessage: 'Adding you to the notify list…',
     successMessage: 'Thanks. Your notify request has been sent.',
+    errorMessage: 'Sorry, we could not add you just now.',
+    fallbackSubject: 'Curated Finds notify request',
+    fallbackBody: 'Please add ' + email + ' to the Curated Finds notify list.',
     reset: function(){
       emailInput.value='';
     },
